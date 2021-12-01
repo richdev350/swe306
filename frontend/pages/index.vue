@@ -1,7 +1,5 @@
 <template>
-  <Tutorial/>
+  <div>
+    hahahasdasdas
+  </div>
 </template>
-
-<script>
-export default {}
-</script>
