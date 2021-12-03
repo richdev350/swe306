@@ -31,9 +31,6 @@ public class LoginTest extends HttpServlet {
         // https://www.liaoxuefeng.com/wiki/1252599548343744/1320418650619938
         // https://www.runoob.com/w3cnote/fastjson-intro.html
         JSONObject respObj = new JSONObject();
-
-        System.out.println(name + "\n");
-        respObj.put("abc", name);
         resp.setContentType("application/json");
 
         // Hello
