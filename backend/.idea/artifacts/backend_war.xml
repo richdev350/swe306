@@ -1,9 +1,9 @@
 <component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="backend:war">
+  <artifact type="war" name="backend:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <module>SWE306-FinalProejct-Backend</module>
+        <module>backend</module>
         <packaging>war</packaging>
       </options>
     </properties>

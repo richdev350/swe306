@@ -23,7 +23,7 @@ public class LoginTest extends HttpServlet {
 
         // Hello
         PrintWriter out = response.getWriter();
-        out.println("abcdef");
+        out.println(message);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
