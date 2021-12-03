@@ -1,12 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="backend:war">
+  <artifact type="war" build-on-make="true" name="backend:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <exploded>false</exploded>
-        <module>backend</module>
+        <module>SWE306-FinalProejct-Backend</module>
         <packaging>war</packaging>
-        <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
     <root id="archive" name="SWE306-FinalProejct-Backend-1.0-SNAPSHOT.war">
