@@ -12,6 +12,8 @@ module.exports = {
   plugins: [],
   // add your custom rules here
   rules: {
-    'no-console': 'warn',
+    // TODO temporary supress warning
+    // 'no-console': 'warn',
+    'no-console': 'off',
   },
 };
