@@ -24,7 +24,7 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/element-ui'],
+  plugins: ['@/plugins/element-ui', '@/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,15 +37,23 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    'cookie-universal-nuxt',
+    '@nuxtjs/proxy'
+  ],
   axios: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
-    retry: {
-      retries: 3
-    }
+    // use $api
+    baseURL: process.env.BASE_URL || 'http://localhost:3000'
   },
   proxy: {
-    '/api/': 'http://localhost:8080'
+    '/api': {
+      target: 'http://localhost:8080/SWE306_FinalProejct_Backend_war_exploded',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
   },
   env: {
     BASE_URL: process.env.BASE_URL,

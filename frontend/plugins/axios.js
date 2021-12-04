@@ -1,21 +1,26 @@
 import http from 'http';
 import https from 'https';
+import Element from 'element-ui';
 
 export default function({ $axios }, inject) {
   // Create a custom axios instance
-  const api = $axios.create({
+  const config = {
+    // baseURL: 'http://localhost:8080/SWE306_FinalProejct_Backend_war_exploded',
+    proxy: true,
+    baseURL: '/api',
     headers: {
       common: {
         Accept: 'text/plain, */*'
       },
       'X-Requested-With': 'XMLHttpRequest',
-      'X-Agent': 'swe301/Web'
+      'X-Agent': 'swe301/Web',
     },
-    timeout: 10000,
+    timeout: 5000,
     // cors with credentials
     withCredentials: true,
-    responseType: 'json',
+    // responseType: 'json',
     // xsrf
+    // this is useless
     xsrfCookieName: 'XSRF-TOKEN',
     xsrfHeaderName: 'X-XSRF-TOKEN',
     // nodejs
@@ -24,16 +29,29 @@ export default function({ $axios }, inject) {
     }),
     httpsAgent: new https.Agent({
       keepAlive: true
-    })
+    }),
+    retry: {
+      retries: 3
+    }
+  };
 
+  const api = $axios.create(config);
+
+  // request handler
+  api.onRequest(config => {
+    // Element.Loading.service({
+    //   lock: true,
+    //   text: 'Loading',
+    //   background: 'rgba(0, 0, 0, 0.7)'
+    // });
+    console.log('requesting...');
   });
 
-  // Set baseURL to something different
-  api.setBaseURL('https://localhost:8080');
-
-  // error handler
+  // error interceptor
   api.onError(error => {
     console.log(error);
+    const code = parseInt(error.response && error.response.status);
+    Element.Message.error(`Error Message: ${ error.response.data.message }, Error Code:${ code }`);
     return Promise.resolve(false);
     // return Promise.reject(error);
   });
