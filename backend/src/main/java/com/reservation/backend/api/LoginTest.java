@@ -3,6 +3,7 @@ package com.reservation.backend.api;
 import com.alibaba.fastjson.JSONObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,14 +22,6 @@ public class LoginTest extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
-
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println(message);
-    }
-
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // an json example
         // https://www.liaoxuefeng.com/wiki/1252599548343744/1320418650619938
         // https://www.runoob.com/w3cnote/fastjson-intro.html
 //        JSONObject respObj = new JSONObject();
@@ -43,6 +36,14 @@ public class LoginTest extends HttpServlet {
         DBConnection Con = new DBConnection();
         Con.Query("");
 
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter out = resp.getWriter();
+        Cookie[] cookies = req.getCookies();
+        for (Cookie cookie : cookies
+        ) {
+            out.println(cookie.getName() + ": " + cookie.getValue());
+        }
+        resp.setContentType("application/json");
     }
 
     public void destroy() {
