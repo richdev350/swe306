@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.reservation.backend.service.DBConnection;
 
 
 import java.io.*;
@@ -30,15 +31,17 @@ public class LoginTest extends HttpServlet {
         // an json example
         // https://www.liaoxuefeng.com/wiki/1252599548343744/1320418650619938
         // https://www.runoob.com/w3cnote/fastjson-intro.html
-        JSONObject respObj = new JSONObject();
-
-        respObj.put("abc", "cba");
-
-        resp.setContentType("application/json");
-
-        // Hello
-        PrintWriter out = resp.getWriter();
-        out.println(respObj);
+//        JSONObject respObj = new JSONObject();
+//
+//        respObj.put("abc", "cba");
+//
+//        resp.setContentType("application/json");
+//
+//        // Hello
+//        PrintWriter out = resp.getWriter();
+//        out.println(respObj);
+        DBConnection Con = new DBConnection();
+        Con.Query("");
 
     }
 
