@@ -7,6 +7,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.reservation.backend.service.DBConnection;
 
 
 import java.io.*;
@@ -23,12 +24,17 @@ public class LoginTest extends HttpServlet {
         response.setContentType("application/json");
         // https://www.liaoxuefeng.com/wiki/1252599548343744/1320418650619938
         // https://www.runoob.com/w3cnote/fastjson-intro.html
-        JSONObject respObj = new JSONObject();
-        // Hello
-        PrintWriter out = response.getWriter();
-        // Hello
-        out.println(respObj);
-    }
+//        JSONObject respObj = new JSONObject();
+//
+//        respObj.put("abc", "cba");
+//
+//        resp.setContentType("application/json");
+//
+//        // Hello
+//        PrintWriter out = resp.getWriter();
+//        out.println(respObj);
+        DBConnection Con = new DBConnection();
+        Con.Query("");
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
