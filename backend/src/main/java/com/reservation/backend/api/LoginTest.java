@@ -35,6 +35,7 @@ public class LoginTest extends HttpServlet {
 //        out.println(respObj);
         DBConnection Con = new DBConnection();
         Con.Query("");
+    }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();

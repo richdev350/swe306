@@ -6,7 +6,6 @@
         <exploded>true</exploded>
         <module>SWE306-FinalProejct-Backend</module>
         <packaging>war</packaging>
-        <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
     <root id="root">
