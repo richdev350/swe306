@@ -19,6 +19,28 @@ $ yarn generate
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
+## Mock.js `addEventListener is not a function` workaround
+
+In `mockjs/dist/mock.js`
+
+```
+                            // 触发 MockXMLHttpRequest 上的同名事件
+                            that.dispatchEvent(new Event(event.type /*, false, false, that*/));
+                        }
+
++                         MockXMLHttpRequest.prototype.upload = createNativeXMLHttpRequest().upload;
+
+
+                        // 如果未找到匹配的数据模板，则采用原生 XHR 发送请求。
+                        if (!item) {
+                            // 创建原生 XHR 对象，调用原生 open()，监听所有原生事件
+
+```
+
+
+
+
+
 ## Special Directories
 
 You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
@@ -67,3 +89,4 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
