@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PE Final Backend.iml" filepath="$PROJECT_DIR$/PE Final Backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peg6backend.iml" filepath="$PROJECT_DIR$/peg6backend.iml" />
     </modules>
   </component>
 </project>
