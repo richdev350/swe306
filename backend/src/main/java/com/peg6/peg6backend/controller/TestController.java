@@ -4,6 +4,7 @@ import com.peg6.peg6backend.entity.Reservation;
 import com.peg6.peg6backend.entity.User;
 import com.peg6.peg6backend.mapper.ReservationMapper;
 import com.peg6.peg6backend.mapper.UserMapper;
+import com.peg6.peg6backend.resp.CommonResp;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,5 +40,13 @@ public class TestController {
     @GetMapping("/test/lists")
     public List<Reservation> lists(){
         return reservationMapper.lists();
+    }
+
+    @GetMapping("/test/resp")
+    public CommonResp list1(){
+        CommonResp<List<Reservation>> resp = new CommonResp<>();
+        List<Reservation> list = reservationMapper.lists();
+        resp.setContent(list);
+        return resp;
     }
 }
