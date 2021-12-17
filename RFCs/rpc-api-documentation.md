@@ -23,12 +23,16 @@ const req =
 }
 const resp = 
 {
-  "user": {
-    "username": "",
-    "studentName": "",
-    "role": "",  
-  },
-  "token": "",
+    "success": true,
+    "message": “”,
+    "content": {
+        "userId": "",
+        "firstName": "",
+        "lastName": "",
+        "phoneNum": ,
+        "isAdmin": 0,
+        "token": "XMUMG6"
+    }
 }
 ```
 
