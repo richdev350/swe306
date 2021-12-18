@@ -11,7 +11,7 @@ All request after logged in with credentials.
 
 ## Authentication
 
-### Login
+### login
 
 ```javascript
 // method: POST
@@ -35,7 +35,7 @@ const resp =
     }
 }
 ```
-### sign out
+### ?(Sign Out)
 ```javascript
 // method: POST
 // url: 
@@ -48,12 +48,13 @@ const resp =
         
         }
     }
+```
 
 ## Get data
 
-### GetRoomList
+### getRoomList
 
-Get RoomList with 
+Get RoomList
 
 ```javascript
 // method: GET
@@ -72,14 +73,17 @@ const req=
 
 ```
 
-### GetMyReservation
+### getReservationByUserId
 
 Get Reservations registered under current user
 
 ```javascript
 // method: GET
-// url: ${API_URL}/getMyReservation
+// url: ${API_URL}/getReservationByUserId
+const req = 
+{
 
+}
 const resp =
 {
 
