@@ -24,17 +24,30 @@ const req =
 const resp = 
 {
     "success": true,
-    "message": “”,
+    "message“: “  ”,
     "content": {
-        "userId": "",
-        "firstName": "",
-        "lastName": "",
-        "phoneNum": ,
-        "isAdmin": 0,
+        "userId": "Admin001",
+        "firstName": "Admin",
+        "lastName": "1",
+        "phoneNum":12345674 ,
+        "isAdmin": 1,
         "token": "XMUMG6"
     }
 }
 ```
+### sign out
+```javascript
+// method: POST
+// url: 
+const req =
+    {
+      
+    }
+const resp =
+    {
+        
+        }
+    }
 
 ## Get data
 
@@ -45,6 +58,16 @@ Get RoomList with
 ```javascript
 // method: GET
 // url: ${API_URL}/getRoomList
+const req=
+    {
+        
+    }
+  const resp =
+      {
+         "content": 
+          
+      }    
+    
 
 
 ```
@@ -84,3 +107,45 @@ const resp =
   "message": "",
 }
 ```
+## Delete my reservation
+```javascript
+// method: Delete
+// url: 
+const req = 
+{
+
+}
+const resp =
+{
+  
+}
+```
+## get Reservation information list
+```javascript
+// method: Get
+// url:
+const req = 
+{
+
+}
+const resp =
+{
+  
+}
+```
+## Modify my Reservation
+```javascript
+// method: Post
+// url:
+const req = 
+{
+
+}
+const resp =
+{
+  
+}
+```
+
+
+
