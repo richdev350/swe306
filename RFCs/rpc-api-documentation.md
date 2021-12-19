@@ -110,6 +110,7 @@ const resp =
   "success": int,
   "message": "",
 }
+
 ```
 ## Delete my reservation
 ```javascript
@@ -123,6 +124,7 @@ const resp =
 {
   
 }
+
 ```
 ## get Reservation information list
 ```javascript
@@ -151,5 +153,10 @@ const resp =
 }
 ```
 
+## Reservation Status
+```
+status 0: The reservation was made successfully, but the room was not used.
+status 1: The reservation was made successfully, and the room was used.
+```
 
 
