@@ -1,10 +1,8 @@
 package com.peg6.peg6backend.req;
 
-import java.util.List;
-
-public class MakeReservationReq {
+public class ReservationReq {
     private String userId, Token, roomId, startTime, endTime;
-    private List<String> memberList;
+    private String memberList;
 
     public String getUserId() {
         return userId;
@@ -46,11 +44,11 @@ public class MakeReservationReq {
         this.endTime = endTime;
     }
 
-    public List<String> getMemberList() {
+    public String getMemberList() {
         return memberList;
     }
 
-    public void setMemberList(List<String> memberList) {
+    public void setMemberList(String memberList) {
         this.memberList = memberList;
     }
 }

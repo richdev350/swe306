@@ -3,7 +3,7 @@ package com.peg6.peg6backend.entity;
 public class Reservation {
     private String userId, roomId;
     private String memberList, startTime, endTime;
-    private Integer reserveId, memberNum, status;
+    private Integer reserveIdAI, memberNum, status;
 
     public String getUserId() {
         return userId;
@@ -45,12 +45,12 @@ public class Reservation {
         this.endTime = endTime;
     }
 
-    public Integer getReserveId() {
-        return reserveId;
+    public Integer getreserveIdAI() {
+        return reserveIdAI;
     }
 
-    public void setReserveId(Integer reserveId) {
-        this.reserveId = reserveId;
+    public void setreserveIdAI(Integer reserveIdAI) {
+        this.reserveIdAI = reserveIdAI;
     }
 
     public Integer getMemberNum() {

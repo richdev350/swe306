@@ -6,4 +6,16 @@
     <select id="getReservationByUserId" resultType="com.peg6.peg6backend.entity.Reservation">
         select * from reservation where userId=#{userId}
     </select>
+    <select id="getAllReservation" resultType="com.peg6.peg6backend.entity.Reservation">
+        select * from reservation
+    </select>
+    <insert id="makeReservationByUserId">
+        insert into reservation (userId, roomId, memberNum, memberList, startTime, endTime) values (#{userId}, #{roomId}, #{memberNum}, #{memberList}, #{startTime}, #{endTime})
+    </insert>
+    <update id="updateReservationByUserId">
+        UPDATE reservation set userId=#{userId}, roomId=#{roomId}, memberNum=#{memberNum}, memberList=#{memberList}, startTime=#{startTime}, endTime=#{endTime} where reserveIdAI=#{reserveIdAI}
+    </update>
+    <delete id="deleteReservationByreserveIdAI">
+        delete from reservation where reserveIdAI=#{reserveIdAI}
+    </delete>
 </mapper>
