@@ -1,11 +1,12 @@
 package com.peg6.peg6backend.controller;
 
 import com.peg6.peg6backend.entity.Reservation;
-import com.peg6.peg6backend.entity.User;
-import com.peg6.peg6backend.mapper.ReservationMapper;
-import com.peg6.peg6backend.mapper.UserMapper;
+import com.peg6.peg6backend.req.MakeReservationReq;
 import com.peg6.peg6backend.resp.CommonResp;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.peg6.peg6backend.resp.LoginUserResp;
+import com.peg6.peg6backend.service.AuthenticateServer;
+import com.peg6.peg6backend.service.LoginServer;
+import com.peg6.peg6backend.service.ReservationServer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,37 +17,63 @@ import java.util.List;
 public class TestController {
 
     @Resource
-    private UserMapper userMapper;
+    private LoginServer loginServer;
     @Resource
-    private ReservationMapper reservationMapper;
+    private AuthenticateServer authenticateServer;
+    @Resource
+    private ReservationServer reservationServer;
 
-    @GetMapping("/hello")
-    public String hello()
-    {
-        return "Hello World test";
-    }
-
-    @PostMapping("/hello/post")
-    public String helloPost(String name)
-    {
-        return "Hello World Post, " + name;
-    }
-
-    @GetMapping("/test/list")
-    public List<User> list(){
-        return userMapper.list();
-    }
-
-    @GetMapping("/test/lists")
-    public List<Reservation> lists(){
-        return reservationMapper.lists();
-    }
-
-    @GetMapping("/test/resp")
-    public CommonResp list1(){
-        CommonResp<List<Reservation>> resp = new CommonResp<>();
-        List<Reservation> list = reservationMapper.lists();
-        resp.setContent(list);
+    @PostMapping("/api/login")
+    public CommonResp login(String username, String password){
+        CommonResp<LoginUserResp> resp = new CommonResp<>();
+        LoginUserResp userResp = loginServer.getUserByUsernameAndPassword(username, password);
+        if(userResp == null)
+        {
+            resp.setSuccess(false);
+            resp.setMessage("Username or Password is Wrong!");
+        }
+        else{
+            resp.setContent(userResp);
+        }
         return resp;
     }
+
+    @PostMapping("/api/getReservationByUserId")
+    public CommonResp getReservationByUserId(String Token, String userId)
+    {
+        CommonResp<List<Reservation>> resp = new CommonResp();
+        if(authenticateServer.authenticateToken(Token)){
+            List<Reservation> context = reservationServer.getReservationByUserId(userId);
+            resp.setContent(context);
+        }
+        else{
+            resp.setSuccess(false);
+            resp.setMessage("Token Wrong Or No Token");
+        }
+        return resp;
+
+    }
+
+    public CommonResp makeReservation(MakeReservationReq req){
+        CommonResp<String> resp = new CommonResp();
+
+        return resp;
+    }
+    //TODO
+//    @PostMapping("/api/getRoomList")
+//    public CommonResp getRoomList(String Token){
+//        CommonResp<LoginUserResp> resp = new CommonResp();
+//        if(authenticateServer.authenticateToken(Token)){
+//
+//        }
+//        else {
+//
+//        }
+//
+//        return resp;
+//    }
+
+
+
+
 }

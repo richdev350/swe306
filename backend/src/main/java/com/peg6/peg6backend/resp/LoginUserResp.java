@@ -1,15 +1,18 @@
-package com.peg6.peg6backend.entity;
+package com.peg6.peg6backend.resp;
+import com.peg6.peg6backend.entity.TokenEntity;
 
-public class User {
-    private String userId, firstName, lastName, password;
+public class LoginUserResp {
+    TokenEntity tokenEntity = new TokenEntity();
+    private String userId, firstName, lastName;
     private Integer phoneNum, isAdmin;
+    private String Token = tokenEntity.token;
 
-    public String getPassword() {
-        return password;
+    public String getToken() {
+        return Token;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setToken(String token) {
+        Token = token;
     }
 
     public String getUserId() {
