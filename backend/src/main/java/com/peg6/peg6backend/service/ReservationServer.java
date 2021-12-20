@@ -17,7 +17,7 @@ public class ReservationServer {
     @Resource
     private ReservationMapper reservationMapper;
 
-    public List<Reservation> getReservationByUserId(String userId){
+    public List<Reservation> getReservationByUserId(Integer userId){
         return reservationMapper.getReservationByUserId(userId);
     }
 
@@ -42,11 +42,11 @@ public class ReservationServer {
         }
     }
 
-    public boolean updateReservationByUserId(ReservationReq req, String reserveIdAI) {
+    public boolean updateReservationByUserId(ReservationReq req, String reserveId) {
         try{
             //TODO
             int memberNum = 0;
-            reservationMapper.updateReservationByUserId(req.getUserId(), req.getRoomId(), memberNum, req.getMemberList(), req.getStartTime(), req.getEndTime(), reserveIdAI);
+            reservationMapper.updateReservationByUserId(req.getUserId(), req.getRoomId(), memberNum, req.getMemberList(), req.getStartTime(), req.getEndTime(), reserveId);
             return true;
         }catch (Exception e)
         {
@@ -56,9 +56,9 @@ public class ReservationServer {
 
     }
 
-    public boolean deleteReservationByreserveIdAI(int reserveIdAI){
+    public boolean deleteReservationByReserveId(int reserveId){
         try{
-            reservationMapper.deleteReservationByreserveIdAI(reserveIdAI);
+            reservationMapper.deleteReservationByReserveId(reserveId);
             return true;
         }catch (Exception e)
         {

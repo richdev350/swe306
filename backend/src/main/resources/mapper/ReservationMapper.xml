@@ -13,9 +13,9 @@
         insert into reservation (userId, roomId, memberNum, memberList, startTime, endTime) values (#{userId}, #{roomId}, #{memberNum}, #{memberList}, #{startTime}, #{endTime})
     </insert>
     <update id="updateReservationByUserId">
-        UPDATE reservation set userId=#{userId}, roomId=#{roomId}, memberNum=#{memberNum}, memberList=#{memberList}, startTime=#{startTime}, endTime=#{endTime} where reserveIdAI=#{reserveIdAI}
+        UPDATE reservation set userId=#{userId}, roomId=#{roomId}, memberNum=#{memberNum}, memberList=#{memberList}, startTime=#{startTime}, endTime=#{endTime} where reserveId=#{reserveId}
     </update>
-    <delete id="deleteReservationByreserveIdAI">
-        delete from reservation where reserveIdAI=#{reserveIdAI}
+    <delete id="deleteReservationByReserveId">
+        delete from reservation where reserveId=#{reserveId}
     </delete>
 </mapper>

@@ -1,16 +1,9 @@
 package com.peg6.peg6backend.req;
 
 public class ReservationReq {
-    private String userId, Token, roomId, startTime, endTime;
+    private String Token, startTime, endTime;
     private String memberList;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    private Integer userId, roomId;
 
     public String getToken() {
         return Token;
@@ -18,14 +11,6 @@ public class ReservationReq {
 
     public void setToken(String token) {
         Token = token;
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
     }
 
     public String getStartTime() {
@@ -50,5 +35,21 @@ public class ReservationReq {
 
     public void setMemberList(String memberList) {
         this.memberList = memberList;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 }

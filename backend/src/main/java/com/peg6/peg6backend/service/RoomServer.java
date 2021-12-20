@@ -17,14 +17,13 @@ public class RoomServer {
         return roomMapper.getRoomList();
     }
 
-    public Room getRoom(String roomId){
-        Room room = roomMapper.getRoom(roomId);
-        return room;
+    public Room getRoom(Integer roomId){
+        return roomMapper.getRoom(roomId);
     }
 
     public boolean addRoom(RoomReq req){
         try{
-
+            roomMapper.addRoom(req.getRoomNo(), req.getLocation(), req.getStatus(), req.getRoomName(), req.getCapacityMin(), req.getCapacityMax());
             return true;
         }catch (Exception e)
         {
@@ -35,7 +34,7 @@ public class RoomServer {
 
     public boolean updateRoom(RoomReq req){
         try{
-
+            roomMapper.updateRoom(req.getRoomId(), req.getRoomNo(), req.getLocation(), req.getStatus(), req.getRoomName(), req.getCapacityMin(), req.getCapacityMax());
             return true;
         }catch (Exception e)
         {
@@ -44,9 +43,9 @@ public class RoomServer {
         }
     }
 
-    public boolean deleteRoom(String roomId){
+    public boolean deleteRoom(Integer roomId){
         try{
-
+            roomMapper.deleteRoom(roomId);
             return true;
         }catch (Exception e)
         {

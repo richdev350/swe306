@@ -11,10 +11,10 @@
     </select>
 
     <insert id="addRoom">
-        insert into room (roomId, location, status, roomName, capacityMin, capacityMax) values ()
+        insert into room (roomNo, location, status, roomName, capacityMin, capacityMax) values (#{roomNo}, #{location}, #{status}, #{roomName}, #{capacityMin}, #{capacityMax})
     </insert>
     <update id="updateRoom">
-        UPDATE room set roomId
+        UPDATE room set roomNo=#{roomNo}, location=#{location}, status=#{status}, roomName=#{roomName}, capacityMin=#{capacityMin}, capacityMax=#{capacityMax} where roomId=#{roomId}
     </update>
     <delete id="deleteRoom">
         delete from room where roomId=#{roomId}

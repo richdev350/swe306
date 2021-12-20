@@ -1,15 +1,15 @@
 package com.peg6.peg6backend.entity;
 
 public class Room {
-    private String roomId, location, roomName;
-    private Integer status, capacityMin, capacityMax;
+    private String roomNo, location, roomName;
+    private Integer roomId, status, capacityMin, capacityMax;
 
-    public String getRoomId() {
-        return roomId;
+    public String getRoomNo() {
+        return roomNo;
     }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    public void setRoomNo(String roomNo) {
+        this.roomNo = roomNo;
     }
 
     public String getLocation() {
@@ -26,6 +26,14 @@ public class Room {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
     public Integer getStatus() {

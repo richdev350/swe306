@@ -1,8 +1,16 @@
-package com.peg6.peg6backend.entity;
+package com.peg6.peg6backend.req;
 
-public class User {
-    private String username, firstName, lastName, password, phoneNum;
+public class UserReq {
+    private String username, firstName, lastName, password, phoneNum, Token;
     private Integer userId, isAdmin;
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String token) {
+        Token = token;
+    }
 
     public String getUsername() {
         return username;

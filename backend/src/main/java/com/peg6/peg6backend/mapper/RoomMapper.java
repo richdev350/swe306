@@ -8,13 +8,15 @@ import java.util.List;
 public interface RoomMapper {
     public List<Room> getRoomList();
 
-    public Room getRoom(@Param("roomId") String roomId);
+    public Room getRoom(@Param("roomId") Integer roomId);
 
-    public void addRoom(@Param("roomId") String roomId, @Param("location") String location, @Param("status") int status,
+    public void addRoom(@Param("roomNo") String roomNo, @Param("location") String location, @Param("status") int status,
                         @Param("roomName") String roomName, @Param("capacityMin") int capacityMin,
                         @Param("capacityMax") int capacityMax);
 
-    public void updateRoom();
+    public void updateRoom(@Param("roomId") Integer roomId, @Param("roomNo") String roomNo, @Param("location") String location, @Param("status") int status,
+                           @Param("roomName") String roomName, @Param("capacityMin") int capacityMin,
+                           @Param("capacityMax") int capacityMax);
 
-    public void deleteRoom(@Param("roomId") String roomId);
+    public void deleteRoom(@Param("roomId") Integer roomId);
 }

@@ -6,5 +6,19 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface UserMapper {
-    public User getUserByUsernameAndPassword(@Param("userId") String userId, @Param("password") String password);
+    public User getUserByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    public List<User> getUserList();
+
+    public User getUserByUserId(@Param("userId")Integer userId);
+
+    public void addUser(@Param("username")String username, @Param("password")String password,
+                        @Param("firstName") String firstName, @Param("lastName")String lastName,
+                        @Param("phoneNum")String phoneNum, @Param("isAdmin")Integer isAdmin);
+
+    public void updateUser(@Param("userId")Integer userId, @Param("username")String username, @Param("password")String password,
+                           @Param("firstName") String firstName, @Param("lastName")String lastName,
+                           @Param("phoneNum")String phoneNum, @Param("isAdmin")Integer isAdmin);
+
+    public void deleteUser(@Param("userId")Integer userId);
 }

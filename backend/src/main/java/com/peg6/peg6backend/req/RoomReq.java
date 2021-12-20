@@ -1,23 +1,15 @@
 package com.peg6.peg6backend.req;
 
 public class RoomReq {
-    private String roomId, location, roomName, Token;
-    private Integer status, capacityMin, capacityMax;
+    private String roomNo, location, roomName, Token;
+    private Integer roomId, status, capacityMin, capacityMax;
 
-    public String getToken() {
-        return Token;
+    public String getRoomNo() {
+        return roomNo;
     }
 
-    public void setToken(String token) {
-        Token = token;
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    public void setRoomNo(String roomNo) {
+        this.roomNo = roomNo;
     }
 
     public String getLocation() {
@@ -34,6 +26,22 @@ public class RoomReq {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String token) {
+        Token = token;
+    }
+
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
     public Integer getStatus() {
