@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.peg6.peg6backend.entity.Reservation;
 import com.peg6.peg6backend.entity.Room;
 import com.peg6.peg6backend.entity.User;
+import com.peg6.peg6backend.req.LoginReq;
 import com.peg6.peg6backend.req.ReservationReq;
 import com.peg6.peg6backend.req.RoomReq;
 import com.peg6.peg6backend.req.UserReq;
@@ -33,11 +34,9 @@ public class Controller {
     private UserServer userServer;
 
     @PostMapping("/api/login")
-    public CommonResp login(@RequestBody JSONObject jsonParam, @RequestHeader("Token") String Token) {
-        String username = jsonParam.getString("username");
-        String password = jsonParam.getString("password");
+    public CommonResp login(@RequestBody LoginReq req) {
         CommonResp<LoginUserResp> resp = new CommonResp<>();
-        LoginUserResp loginUserResp = loginServer.getUserByUsernameAndPassword(username, password);
+        LoginUserResp loginUserResp = loginServer.getUserByUsernameAndPassword(req.getUsername(), req.getPassword());
         if (loginUserResp == null) {
             resp.setSuccess(false);
             resp.setMessage("Username or Password is Wrong!");
@@ -48,13 +47,13 @@ public class Controller {
     }
 
     @PostMapping("/api/getReservation")
-    public CommonResp getReservation(String Token, Integer userId) {
+    public CommonResp getReservation(@RequestHeader("Cookie")String Token, @RequestBody JSONObject jsonParam) {
+        Integer userId = Integer.parseInt(jsonParam.getString("userId"));
         CommonResp<List<Reservation>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
-            List<Reservation> context = reservationServer.getReservationByUserId(userId);
-            //TODO: 验证学生ID的有效性
-            if (context != null) {
-                resp.setContent(context);
+            List<Reservation> content = reservationServer.getReservationByUserId(userId);
+            if (content != null) {
+                resp.setContent(content);
             } else {
                 resp.setMessage("No Reservation");
             }
@@ -65,13 +64,12 @@ public class Controller {
         return resp;
     }
 
-    //TODO: 学生清单格式
     @PostMapping("/api/getReservationAll")
-    public CommonResp getReservationAll(String Token) {
+    public CommonResp getReservationAll(@RequestHeader("Cookie")String Token) {
         CommonResp<List<Reservation>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
-            List<Reservation> context = reservationServer.getAllReservation();
-            resp.setContent(context);
+            List<Reservation> content = reservationServer.getAllReservation();
+            resp.setContent(content);
         } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
@@ -79,17 +77,26 @@ public class Controller {
         return resp;
     }
 
-    //TODO:学生清单格式， 学生人数
+    /*
+    @param result:
+        = 0 --> Make Reservation Success
+        > 0 --> Student #{result} have time conflict
+        = -1 --> Make Reservation Failed
+     */
     @PostMapping("/api/addReservation")
-    public CommonResp addReservation(ReservationReq req) {
-        CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
-            boolean result = reservationServer.makeReservationByUserId(req);
-            if (result) {
+    public CommonResp addReservation(@RequestHeader("Cookie")String Token, @RequestBody ReservationReq req) {
+        CommonResp<Integer> resp = new CommonResp();
+        if (authenticateServer.authenticateToken(Token)) {
+            int result = reservationServer.makeReservationByUserId(req);
+            if (result == 0) {
                 resp.setMessage("Make Reservation Success");
-            } else {
+            } else if(result < 0){
                 resp.setSuccess(false);
                 resp.setMessage("Make Reservation Failed");
+            }else {
+                resp.setSuccess(false);
+                resp.setMessage("Student " + result + " have time conflict!");
+                resp.setContent(result);
             }
         } else {
             resp.setSuccess(false);
@@ -99,10 +106,10 @@ public class Controller {
     }
 
     @PostMapping("/api/updateReservation")
-    public CommonResp updateReservation(ReservationReq req, String reserveId) {
+    public CommonResp updateReservation(@RequestHeader("Cookie")String Token, @RequestBody ReservationReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
-            boolean result = reservationServer.updateReservationByUserId(req, reserveId);
+        if (authenticateServer.authenticateToken(Token)) {
+            boolean result = reservationServer.updateReservationByUserId(req, req.getReserveId().toString());
             if (result) {
                 resp.setMessage("Update Reservation Success");
             } else {
@@ -118,11 +125,11 @@ public class Controller {
 
 
     @PostMapping("/api/deleteReservation")
-    public CommonResp deleteReservation(String Token, String reserveId) {
+    public CommonResp deleteReservation(@RequestHeader("Cookie")String Token,@RequestBody JSONObject jsonParam) {
+        Integer reserveId = Integer.parseInt(jsonParam.getString("reserveId"));
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
-            int reserve = Integer.parseInt(reserveId);
-            boolean result = reservationServer.deleteReservationByReserveId(reserve);
+            boolean result = reservationServer.deleteReservationByReserveId(reserveId);
             if (result) {
                 resp.setMessage("Delete Reservation Success");
             } else {
@@ -302,5 +309,6 @@ public class Controller {
         }
         return resp;
     }
+    //TODO:按学号查学生
 
 }

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ReservationMapper {
-    public List<Reservation> getReservationByUserId(@Param("userId") Integer userId);
+    public List<Reservation> getReservationByUserId(@Param("userId") Integer userId, @Param("userIdString")String userIdString);
 
     public List<Reservation> getAllReservation();
 
