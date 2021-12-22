@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'SearchRooms'
+  name: '_roomID'
 };
 </script>
 

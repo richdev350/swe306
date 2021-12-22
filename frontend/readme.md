@@ -21,13 +21,14 @@ For detailed explanation on how things work, check out the [documentation](https
 
 ## Mock.js `addEventListener is not a function` workaround
 
-In `mockjs/dist/mock.js`
+In `node_modules/mockjs/dist/mock.js`, line `8420`.
 
-```
+```diff
                             // 触发 MockXMLHttpRequest 上的同名事件
                             that.dispatchEvent(new Event(event.type /*, false, false, that*/));
                         }
 
++                         // FIX workaround: request.upload.addEventListener is not a function
 +                         MockXMLHttpRequest.prototype.upload = createNativeXMLHttpRequest().upload;
 
 

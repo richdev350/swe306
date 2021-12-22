@@ -22,6 +22,8 @@
         <el-button @click='mockTest'>
           mock
         </el-button>
+
+        <el-button @click='login'>login</el-button>
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
@@ -32,12 +34,12 @@
 
 export default {
   name: 'Test',
+  middleware: ['auth'],
   data() {
     return {
       ip: ''
     };
   },
-
   methods: {
     async sendReq() {
       // const ipAddr = 'http://icanhazip.com';
@@ -65,8 +67,14 @@ export default {
         .then((res) => {
           console.log(res);
         });
-    }
+    },
 
+    login() {
+      this.$store.dispatch('login', {
+        username: 'John Doe',
+        password: '123456'
+      });
+    }
   }
 };
 </script>
