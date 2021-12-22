@@ -21,7 +21,7 @@ For detailed explanation on how things work, check out the [documentation](https
 
 ## Mock.js `addEventListener is not a function` workaround
 
-In `mockjs/dist/mock.js`
+In `node_modules/mockjs/dist/mock.js`
 
 ```diff
                             // 触发 MockXMLHttpRequest 上的同名事件
