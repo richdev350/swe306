@@ -1,13 +1,15 @@
 <template>
   <div>
+    <h3>XMUM Room Reservation</h3>
     <Room v-for="room in rooms" :id="room.id"
-    :key="room.id"  :room="room.room" />
+    :key="room.id"  :room="room.rooms" />
   </div>
 </template>
 
 <script>
-import axios from "../../plugins/axios";
-import Room from './index';
+
+import axios from '../../plugins/axios';
+import Room from './roomDisplay';
 
 export default {
   components:{
@@ -15,7 +17,10 @@ export default {
   },
   data(){
     return{
-      rooms:[]
+      rooms:{
+        roomNo: '111',
+        location: 'xmum',
+      }
     };
   },
   head(){

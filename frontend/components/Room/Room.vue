@@ -1,17 +1,28 @@
 <template>
-  <nuxt-link to="reservations">
+  <nuxt-link to="/reservations">
     <div class='room'>
-      <p>{{ room }}</p>
+      <table>
+        <thead>
+        <tr>
+          <th>RoomNo</th>
+          <th>Location</th>
+          <th>Room Name</th>
+          <th>Min Capacity</th>
+          <th>Max Capacity</th>
+        </tr>
+        </thead>
+
+      </table>
+      <p>{{ room}}</p>
     </div>
   </nuxt-link>
 </template>
 
 <script>
-/*import reservations from '../../pages/my/reservations';*/
-
 export default {
   name: 'Room',
   props:["room",'id']
+
 };
 </script>
 
