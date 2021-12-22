@@ -9,9 +9,9 @@ public class AuthenticateServer {
     TokenEntity tokenEntity = new TokenEntity();
 
     public boolean authenticateToken(String Token){
-        if(Token.equals(tokenEntity.token)){
-            return true;
-        }
-        else return false;
+        if(Token==null) return false;
+        String[] tokens = Token.split("=");
+        String token = tokens[tokens.length-1];
+        return token.equals(tokenEntity.token);
     }
 }

@@ -22,6 +22,10 @@ public class UserServer {
         return userMapper.getUserByUserId(userId);
     }
 
+    public User getUserByUsername(String username){
+        return userMapper.getUserByUsername(username);
+    }
+
     public boolean addUser(UserReq req){
         try{
             userMapper.addUser(req.getUsername(), req.getPassword(), req.getFirstName(), req.getLastName(), req.getPhoneNum(), req.getIsAdmin());

@@ -17,7 +17,6 @@ public class LoginServer {
     public LoginUserResp getUserByUsernameAndPassword(String username, String password) {
         User user = userMapper.getUserByUsernameAndPassword(username, password);
         LoginUserResp loginUserResp = null;
-//         userResp = null;
         if (user != null) {
             loginUserResp = new LoginUserResp();
             UserResp userResp = new UserResp();

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.peg6.peg6backend.mapper.ReservationMapper">
     <select id="getReservationByUserId" resultType="com.peg6.peg6backend.entity.Reservation">
-        select * from reservation where userId=#{userId}
+        select * from reservation where userId=#{userId} or memberList like #{userIdString}
     </select>
     <select id="getAllReservation" resultType="com.peg6.peg6backend.entity.Reservation">
         select * from reservation

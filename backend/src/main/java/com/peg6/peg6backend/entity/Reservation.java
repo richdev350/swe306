@@ -68,4 +68,18 @@ public class Reservation {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "userId='" + userId + '\'' +
+                ", roomId='" + roomId + '\'' +
+                ", memberList='" + memberList + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", reserveId=" + reserveId +
+                ", memberNum=" + memberNum +
+                ", status=" + status +
+                '}';
+    }
 }
