@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Login</h2>
     <el-input v-model='user.username' prefix-icon='el-icon-user-solid' placeholder='Username'></el-input>
     <el-input v-model='user.password' prefix-icon='el-icon-lock' placeholder='Password'></el-input>
     <el-button
