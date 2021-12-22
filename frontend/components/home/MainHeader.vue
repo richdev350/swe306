@@ -32,10 +32,6 @@ export default {
   data() {
     return {
       logo: 'assets/images/logo.png',
-      auth: {
-        username: '',
-        password: ''
-      },
       menu: {
         activeIndex: '1'
       }
