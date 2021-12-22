@@ -4,15 +4,13 @@
     <div class='main-body'>
       <Nuxt />
     </div>
-    <MainFooter />
+    <HomeMainFooter />
   </div>
 </template>
 
 <script>
-import MainFooter from '@/components/home/MainFooter';
 
 export default {
-  components: { MainFooter },
   async asyncData({ store, route }) {
     // await store.dispatch('FETCH_HOME_PAGE_DATA');
   },

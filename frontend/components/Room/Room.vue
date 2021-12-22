@@ -20,3 +20,4 @@ export default {
 .room
   padding: 1rem
   border: 1px dotted gray
+</style>
