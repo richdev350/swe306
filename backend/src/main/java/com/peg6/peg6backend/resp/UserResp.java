@@ -1,6 +1,7 @@
 package com.peg6.peg6backend.resp;
 
 public class UserResp {
+
     private String username, firstName, lastName, phoneNum;
     private Integer userId, isAdmin;
 

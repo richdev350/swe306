@@ -17,10 +17,10 @@ public class LoginServer {
     public LoginUserResp getUserByUsernameAndPassword(String username, String password) {
         User user = userMapper.getUserByUsernameAndPassword(username, password);
         LoginUserResp loginUserResp = null;
-        UserResp userResp = null;
+//         userResp = null;
         if (user != null) {
             loginUserResp = new LoginUserResp();
-            userResp = new UserResp();
+            UserResp userResp = new UserResp();
             BeanUtils.copyProperties(user, userResp);
             loginUserResp.setUserResp(userResp);
         }
