@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peg6.peg6backend.mapper.ReservationMapper">
+    <select id="lists" resultType="com.peg6.peg6backend.entity.Reservation">
+        select * from reservation
+    </select>
+</mapper>

@@ -11,7 +11,7 @@ All request after logged in with credentials.
 
 ## Authentication
 
-### Login
+### login
 
 ```javascript
 // method: POST
@@ -23,36 +23,67 @@ const req =
 }
 const resp = 
 {
-  "user": {
-    "username": "",
-    "studentName": "",
-    "role": "",  
-  },
-  "token": "",
+    "success": true,
+    "message“: “  ”,
+    "content": {
+        "userId": "Admin001",
+        "firstName": "Admin",
+        "lastName": "1",
+        "phoneNum":12345674 ,
+        "isAdmin": 1,
+        "token": "XMUMG6"
+    }
 }
+```
+### ?(Sign Out)
+```javascript
+// method: POST
+// url: 
+const req =
+    {
+      
+    }
+const resp =
+    {
+        
+        }
+    }
 ```
 
 ## Get data
 
-### GetRoomList
+### getRoomList
 
-Get RoomList with 
+Get RoomList
 
 ```javascript
 // method: GET
 // url: ${API_URL}/getRoomList
+const req=
+    {
+        
+    }
+  const resp =
+      {
+         "content": 
+          
+      }    
+    
 
 
 ```
 
-### GetMyReservation
+### getReservationByUserId
 
 Get Reservations registered under current user
 
 ```javascript
 // method: GET
-// url: ${API_URL}/getMyReservation
+// url: ${API_URL}/getReservationByUserId
+const req = 
+{
 
+}
 const resp =
 {
 
@@ -79,4 +110,53 @@ const resp =
   "success": int,
   "message": "",
 }
+
 ```
+## Delete my reservation
+```javascript
+// method: Delete
+// url: 
+const req = 
+{
+
+}
+const resp =
+{
+  
+}
+
+```
+## get Reservation information list
+```javascript
+// method: Get
+// url:
+const req = 
+{
+
+}
+const resp =
+{
+  
+}
+```
+## Modify my Reservation
+```javascript
+// method: Post
+// url:
+const req = 
+{
+
+}
+const resp =
+{
+  
+}
+```
+
+## Reservation Status
+```
+status 0: The reservation was made successfully, but the room was not used.
+status 1: The reservation was made successfully, and the room was used.
+```
+
+
