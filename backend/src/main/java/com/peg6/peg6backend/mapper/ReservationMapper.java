@@ -11,7 +11,7 @@ public interface ReservationMapper {
     public List<Reservation> getAllReservation();
 
     public void makeReservationByUserId(@Param("userId") Integer userId, @Param("roomId") Integer roomId,
-                                           @Param("memberNum") int memberNum, @Param("memberList") String memberList,
+                                           @Param("memberNum") Integer memberNum, @Param("memberList") String memberList,
                                            @Param("startTime") String startTime, @Param("endTime") String endTime);
 
     public void updateReservationByUserId(@Param("userId") Integer userId, @Param("roomId") Integer roomId,
