@@ -1,55 +1,44 @@
 <template>
   <div>
-    <h3>XMUM Room Reservation</h3>
-    <Room v-for="room in rooms" :id="room.id"
-    :key="room.id"  :room="room.rooms" />
+    <Room v-for='item in rooms'
+          :key='item.id' :room='item' />
   </div>
 </template>
 
 <script>
-
-import axios from '../../plugins/axios';
-import Room from './roomDisplay';
+import Room from '~/components/Room/Room';
 
 export default {
-  components:{
+  components: {
     Room
   },
-  data(){
-    return{
-      rooms:{
-        roomNo: '111',
-        location: 'xmum',
-      }
-    };
-  },
-  head(){
-    return{
-      title:"XMUM Room Reservation",
-      meta:[
+  data() {
+    return {
+      rooms: [
         {
-          hid: "description",
-          name:"description",
-          content:"Available rooms for reservation",
+          id: 1,
+          name: 'haha',
+        },
+        {
+          id: 2,
+          name: 'hahaha'
         }
       ]
-    }
-  },
-  async created() {
-    const config = {
-      headers:{
-        Accept:'?'
-      }
     };
-    try{
-      const res = await axios.get('?', config);
-
-      this.rooms = res.data.results;
-    }catch (e) {
-      console.log(e)
-    }
   },
-}
+  head() {
+    return {
+      title: 'XMUM Room Reservation',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Available rooms for reservation'
+        }
+      ]
+    };
+  },
+};
 </script>
 
 <style scoped lang='sass'>

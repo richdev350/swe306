@@ -25,16 +25,33 @@ export const actions = {
     commit('SET_AUTH_TOKEN', null);
     commit('SET_USER', null);
   },
-  login({ commit }, { username, password }) {
+  async login({ commit }, { username, password }) {
     // $post: get data of resp body
     // post: get resp body
-    return this.$api.$post('/login', { username, password })
-      .then((resp) => {
-        console.log(resp);
-        commit('SET_USER', { user: resp.user, role: resp.user.role });
-        commit('SET_AUTH_TOKEN', resp.token);
-        this.$cookies.set('authToken', resp.token);
-      });
+    const resp = await this.$api.$post('/login', { username, password });
+    if (resp.success) {
+      const user = resp.content.user;
+      const token = resp.content.token;
+      commit('SET_USER', user);
+      commit('SET_AUTH_TOKEN', token);
+      this.$cookies.set('authToken', token);
+      return resp;
+    } else {
+      this.$message.error(resp.message);
+    }
+    // return this.$api.$post('/login', { username, password })
+    //   .then((resp) => {
+    //     console.log(resp);
+    //     if (resp.success === false) {
+    //       this.$message.error(resp.message);
+    //     } else {
+    //       const user = resp.content.user;
+    //       const token = resp.content.token;
+    //       commit('SET_USER', user);
+    //       commit('SET_AUTH_TOKEN', token);
+    //       this.$cookies.set('authToken', token);
+    //     }
+    //   });
   }
 };
 

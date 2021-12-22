@@ -1,28 +1,18 @@
 <template>
-  <nuxt-link to="/reservations">
+  <nuxt-link to='reservations'>
     <div class='room'>
-      <table>
-        <thead>
-        <tr>
-          <th>RoomNo</th>
-          <th>Location</th>
-          <th>Room Name</th>
-          <th>Min Capacity</th>
-          <th>Max Capacity</th>
-        </tr>
-        </thead>
-
-      </table>
-      <p>{{ room}}</p>
+      <p>{{ room.id }}</p>
+      <p>{{ room.name }}</p>
+      <p>{{ room.something }}</p>
     </div>
   </nuxt-link>
 </template>
 
 <script>
+
 export default {
   name: 'Room',
-  props:["room",'id']
-
+  props: ['room']
 };
 </script>
 
@@ -30,5 +20,3 @@ export default {
 .room
   padding: 1rem
   border: 1px dotted gray
-  margin: 1rem 0
-</style>
