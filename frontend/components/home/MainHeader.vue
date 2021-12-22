@@ -1,13 +1,13 @@
 <template>
   <el-header class='nav' height='100px'>
     <el-menu
-      :default-active='activeIndex'
+      :default-active='menu.activeIndex'
       class='el-menu-demo'
       mode='horizontal'
       @select='handleSelect'>
-      <el-menu-item index='1'>信息列表</el-menu-item>
+      <el-menu-item index='1'>Reservation List</el-menu-item>
       <el-submenu index='2'>
-        <template slot='title'>我的预约</template>
+        <template slot='title'>My Reservation</template>
         <el-menu-item index='2-1'>选项1</el-menu-item>
         <el-menu-item index='2-2'>选项2</el-menu-item>
         <el-menu-item index='2-3'>选项3</el-menu-item>
@@ -20,14 +20,12 @@
       </el-submenu>
       <el-menu-item index='3' disabled>消息中心</el-menu-item>
       <el-menu-item index='4'><a href='https://www.ele.me' target='_blank'>订单管理</a></el-menu-item>
-      <div class='test'>aaa</div>
     </el-menu>
   </el-header>
 </template>
 
 
 <script>
-import { mapMutations } from 'vuex';
 
 export default {
   name: 'MainHeader',
@@ -37,23 +35,22 @@ export default {
       auth: {
         username: '',
         password: ''
+      },
+      menu: {
+        activeIndex: '1'
       }
     };
   },
   methods: {
-    login() {
-      console.log('username:', this.auth.username);
-      console.log('password:', this.auth.password);
-    },
-    async sendReq({ $axios }) {
-      const ip = await $axios.$get('http://icanhazip.com'); // http://tomcat/getRoom
-      // address
-      // datatype
-
-      // json: room list
-      return { ip };
-    },
-    ...mapMutations({})
+    // async sendReq({ $axios }) {
+    //   const ip = await $axios.$get('http://icanhazip.com'); // http://tomcat/getRoom
+    //   // address
+    //   // datatype
+    //
+    //   // json: room list
+    //   return { ip };
+    // },
+    // ...mapMutations({})
   }
 };
 </script>

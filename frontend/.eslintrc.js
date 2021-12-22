@@ -15,6 +15,7 @@ module.exports = {
     // TODO temporary supress warning
     // 'no-console': 'warn',
     'no-console': 'off',
-    'vue/require-prop-types': 'off'
+    'vue/require-prop-types': 'off',
+    'vue/component-definition-name-casing': 'off'
   },
 };

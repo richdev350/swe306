@@ -1,15 +1,25 @@
 <template>
   <div>
-    404
+    <el-alert
+      :title='error.statusCode'
+      type='error'
+      :description='error.message'
+      show-icon>
+    </el-alert>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Error'
+  name: 'Error',
+  layout: 'error',
+  props: ['error'],
+  data() {
+    return {};
+  }
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 
 </style>

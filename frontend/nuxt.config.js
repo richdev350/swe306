@@ -24,7 +24,11 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/element-ui', '@/plugins/axios'],
+  plugins: [
+    '@/plugins/element-ui',
+    '@/plugins/axios',
+    '@/plugins/mock'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -43,6 +47,36 @@ export default {
     'cookie-universal-nuxt',
     '@nuxtjs/proxy'
   ],
+  // globally auth routing
+  // router:{
+  //   middleware: ['auth']
+  // },
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: true,
+          global: true
+        },
+        user: {
+          property: 'user'
+        },
+        endpoints: {
+          login: { url: '/api/auth/signin', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: { url: '/api/auth/myInfo', method: 'get', propertyName: 'user' }
+        },
+        redirect: {
+          // TODO
+          // login: '/signin',
+          // logout: '/signin',
+          // callback: '/signin',
+          // home: '/'
+        }
+      }
+    }
+  }
+  ,
   axios: {
     // use $api
     baseURL: process.env.BASE_URL || 'http://localhost:3000'
