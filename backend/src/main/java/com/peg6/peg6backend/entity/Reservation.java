@@ -45,11 +45,11 @@ public class Reservation {
         this.endTime = endTime;
     }
 
-    public Integer getReserveId() {
+    public Integer getreserveId() {
         return reserveId;
     }
 
-    public void setReserveId(Integer reserveId) {
+    public void setreserveId(Integer reserveId) {
         this.reserveId = reserveId;
     }
 
