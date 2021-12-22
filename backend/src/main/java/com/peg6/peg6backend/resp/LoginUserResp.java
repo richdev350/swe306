@@ -1,8 +1,11 @@
-package com.peg6.peg6backend.entity;
+package com.peg6.peg6backend.resp;
+import com.peg6.peg6backend.entity.TokenEntity;
 
-public class User {
-    private String username, firstName, lastName, password, phoneNum;
-    private Integer userId, isAdmin;
+public class LoginUserResp {
+    TokenEntity tokenEntity = new TokenEntity();
+    private String username, firstName, lastName;
+    private Integer userId, phoneNum, isAdmin;
+    private String Token = tokenEntity.token;
 
     public String getUsername() {
         return username;
@@ -28,14 +31,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Integer getUserId() {
         return userId;
     }
@@ -44,11 +39,11 @@ public class User {
         this.userId = userId;
     }
 
-    public String getPhoneNum() {
+    public Integer getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(String phoneNum) {
+    public void setPhoneNum(Integer phoneNum) {
         this.phoneNum = phoneNum;
     }
 
@@ -58,5 +53,13 @@ public class User {
 
     public void setIsAdmin(Integer isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String token) {
+        Token = token;
     }
 }

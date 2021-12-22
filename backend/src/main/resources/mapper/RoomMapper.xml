@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peg6.peg6backend.mapper.RoomMapper">
+    <select id="getRoomList" resultType="com.peg6.peg6backend.entity.Room">
+        select * from room
+    </select>
+    <select id="getRoom" resultType="com.peg6.peg6backend.entity.Room">
+        select * from room where roomId = #{roomId}
+    </select>
+
+    <insert id="addRoom">
+        insert into room (roomNo, location, status, roomName, capacityMin, capacityMax) values (#{roomNo}, #{location}, #{status}, #{roomName}, #{capacityMin}, #{capacityMax})
+    </insert>
+    <update id="updateRoom">
+        UPDATE room set roomNo=#{roomNo}, location=#{location}, status=#{status}, roomName=#{roomName}, capacityMin=#{capacityMin}, capacityMax=#{capacityMax} where roomId=#{roomId}
+    </update>
+    <delete id="deleteRoom">
+        delete from room where roomId=#{roomId}
+    </delete>
+</mapper>
