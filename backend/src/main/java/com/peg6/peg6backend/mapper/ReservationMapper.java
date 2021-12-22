@@ -10,6 +10,8 @@ public interface ReservationMapper {
 
     public List<Reservation> getAllReservation();
 
+    public Reservation getReservationByReserveId(@Param("reserveId") Integer reserveId);
+
     public void makeReservationByUserId(@Param("userId") Integer userId, @Param("roomId") Integer roomId,
                                            @Param("memberNum") Integer memberNum, @Param("memberList") String memberList,
                                            @Param("startTime") String startTime, @Param("endTime") String endTime);
