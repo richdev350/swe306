@@ -2,7 +2,7 @@
   <nuxt-link to='reservations'>
     <div class='room'>
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
+        <div slot="header" class="clearfix" style='align-items: center'>
           <span><b>{{room.roomNo}}</b></span>
           <el-button style="float: right; padding: 3px 0" type="text">Click to make reservation</el-button>
         </div>
@@ -13,12 +13,11 @@
           <el-divider></el-divider>
           <p><b>Minimum Capacity: </b>{{room.capacityMin}}</p>
           <el-divider></el-divider>
-          <p><b>Maximum Capacity: </b> {{room.capacityMax}}</p>
+          <p><b>Maximum Capacity: </b>{{room.capacityMax}}</p>
           <el-divider></el-divider>
-          <p><b>Availability: </b> {{room.status}}</p>
+          <p><b>Availability: </b>{{room.status}}</p>
         </div>
       </el-card>
-
     </div>
   </nuxt-link>
 </template>
@@ -32,8 +31,9 @@ export default {
 </script>
 
 <style scoped lang='sass'>
+
 .text
-  font-size: 14px
+  font-size: 20px
 
   .item
     margin-bottom: 18px
