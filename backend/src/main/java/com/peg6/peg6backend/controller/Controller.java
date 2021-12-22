@@ -12,6 +12,7 @@ import com.peg6.peg6backend.resp.LoginUserResp;
 import com.peg6.peg6backend.service.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -32,8 +33,7 @@ public class Controller {
     private UserServer userServer;
 
     @PostMapping("/api/login")
-    public CommonResp login(@RequestBody JSONObject jsonParam) {
-        System.out.println(jsonParam);
+    public CommonResp login(@RequestBody JSONObject jsonParam, @RequestHeader("Token") String Token) {
         String username = jsonParam.getString("username");
         String password = jsonParam.getString("password");
         CommonResp<LoginUserResp> resp = new CommonResp<>();
