@@ -9,6 +9,9 @@
     <select id="getUserByUserId" resultType="com.peg6.peg6backend.entity.User">
         select * from user where userId=#{userId}
     </select>
+    <select id="getUserByUsername" resultType="com.peg6.peg6backend.entity.User">
+        select * from user where username=#{username}
+    </select>
     <select id="getUserList" resultType="com.peg6.peg6backend.entity.User">
         select * from user
     </select>

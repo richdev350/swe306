@@ -12,6 +12,8 @@ public interface UserMapper {
 
     public User getUserByUserId(@Param("userId")Integer userId);
 
+    public User getUserByUsername(@Param("username")String username);
+
     public void addUser(@Param("username")String username, @Param("password")String password,
                         @Param("firstName") String firstName, @Param("lastName")String lastName,
                         @Param("phoneNum")String phoneNum, @Param("isAdmin")Integer isAdmin);
