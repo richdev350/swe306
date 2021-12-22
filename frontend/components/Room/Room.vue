@@ -1,10 +1,14 @@
 <template>
-<div class='room'>
-  <p>{{ room }}</p>
-</div>
+  <nuxt-link to="reservations">
+    <div class='room'>
+      <p>{{ room }}</p>
+    </div>
+  </nuxt-link>
 </template>
 
 <script>
+/*import reservations from '../../pages/my/reservations';*/
+
 export default {
   name: 'Room',
   props:["room",'id']

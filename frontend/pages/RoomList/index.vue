@@ -7,7 +7,7 @@
 
 <script>
 import axios from "../../plugins/axios";
-import Room from '../../../components/Room/';
+import Room from './index';
 
 export default {
   components:{
@@ -50,4 +50,3 @@ export default {
 <style scoped lang='sass'>
 
 </style>
-
