@@ -1,5 +1,6 @@
 package com.peg6.peg6backend.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.peg6.peg6backend.entity.Reservation;
 import com.peg6.peg6backend.entity.Room;
 import com.peg6.peg6backend.entity.User;
@@ -10,6 +11,7 @@ import com.peg6.peg6backend.resp.CommonResp;
 import com.peg6.peg6backend.resp.LoginUserResp;
 import com.peg6.peg6backend.service.*;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -30,36 +32,33 @@ public class Controller {
     private UserServer userServer;
 
     @PostMapping("/api/login")
-    public CommonResp login(String username, String password){
+    public CommonResp login(@RequestBody JSONObject jsonParam) {
+        System.out.println(jsonParam);
+        String username = jsonParam.getString("username");
+        String password = jsonParam.getString("password");
         CommonResp<LoginUserResp> resp = new CommonResp<>();
-        LoginUserResp userResp = loginServer.getUserByUsernameAndPassword(username, password);
-        if(userResp == null)
-        {
+        LoginUserResp loginUserResp = loginServer.getUserByUsernameAndPassword(username, password);
+        if (loginUserResp == null) {
             resp.setSuccess(false);
             resp.setMessage("Username or Password is Wrong!");
-        }
-        else{
-            resp.setContent(userResp);
+        } else {
+            resp.setContent(loginUserResp);
         }
         return resp;
     }
 
     @PostMapping("/api/getReservation")
-    public CommonResp getReservation(String Token, Integer userId)
-    {
+    public CommonResp getReservation(String Token, Integer userId) {
         CommonResp<List<Reservation>> resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)){
+        if (authenticateServer.authenticateToken(Token)) {
             List<Reservation> context = reservationServer.getReservationByUserId(userId);
             //TODO: 验证学生ID的有效性
-            if(context!=null){
+            if (context != null) {
                 resp.setContent(context);
-            }
-            else
-            {
+            } else {
                 resp.setMessage("No Reservation");
             }
-        }
-        else{
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -68,14 +67,12 @@ public class Controller {
 
     //TODO: 学生清单格式
     @PostMapping("/api/getReservationAll")
-    public CommonResp getReservationAll(String Token)
-    {
+    public CommonResp getReservationAll(String Token) {
         CommonResp<List<Reservation>> resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)){
+        if (authenticateServer.authenticateToken(Token)) {
             List<Reservation> context = reservationServer.getAllReservation();
             resp.setContent(context);
-        }
-        else{
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -84,20 +81,17 @@ public class Controller {
 
     //TODO:学生清单格式， 学生人数
     @PostMapping("/api/addReservation")
-    public CommonResp addReservation(ReservationReq req){
+    public CommonResp addReservation(ReservationReq req) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(req.getToken())){
+        if (authenticateServer.authenticateToken(req.getToken())) {
             boolean result = reservationServer.makeReservationByUserId(req);
-            if(result){
+            if (result) {
                 resp.setMessage("Make Reservation Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Make Reservation Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -105,20 +99,17 @@ public class Controller {
     }
 
     @PostMapping("/api/updateReservation")
-    public CommonResp updateReservation(ReservationReq req, String reserveId){
+    public CommonResp updateReservation(ReservationReq req, String reserveId) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(req.getToken())){
+        if (authenticateServer.authenticateToken(req.getToken())) {
             boolean result = reservationServer.updateReservationByUserId(req, reserveId);
-            if(result){
+            if (result) {
                 resp.setMessage("Update Reservation Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Update Reservation Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -127,21 +118,18 @@ public class Controller {
 
 
     @PostMapping("/api/deleteReservation")
-    public CommonResp deleteReservation(String Token, String reserveId){
+    public CommonResp deleteReservation(String Token, String reserveId) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)){
+        if (authenticateServer.authenticateToken(Token)) {
             int reserve = Integer.parseInt(reserveId);
             boolean result = reservationServer.deleteReservationByReserveId(reserve);
-            if(result){
+            if (result) {
                 resp.setMessage("Delete Reservation Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Delete Reservation Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -149,13 +137,12 @@ public class Controller {
     }
 
     @PostMapping("/api/getRoomAll")
-    public CommonResp getRoomAll(String Token){
+    public CommonResp getRoomAll(String Token) {
         CommonResp<List<Room>> resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)){
+        if (authenticateServer.authenticateToken(Token)) {
             List<Room> content = roomServer.getRoomList();
             resp.setContent(content);
-        }
-        else {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -163,37 +150,33 @@ public class Controller {
     }
 
     @PostMapping("/api/getRoom")
-    public CommonResp getRoom(String Token, String roomId){
+    public CommonResp getRoom(String Token, String roomId) {
         CommonResp<Room> resp = new CommonResp();
 
         //TODO: 验证是否有这个房间
-        if(authenticateServer.authenticateToken(Token)) {
+        if (authenticateServer.authenticateToken(Token)) {
             int roomID = Integer.parseInt(roomId);
             Room content = roomServer.getRoom(roomID);
             resp.setContent(content);
+        } else {
+            resp.setSuccess(false);
+            resp.setMessage("Token Wrong Or No Token");
         }
-        else {
-                resp.setSuccess(false);
-                resp.setMessage("Token Wrong Or No Token");
-            }
         return resp;
     }
 
     @PostMapping("/api/addRoom")
-    public CommonResp addRoom(RoomReq req){
+    public CommonResp addRoom(RoomReq req) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(req.getToken())){
+        if (authenticateServer.authenticateToken(req.getToken())) {
             boolean result = roomServer.addRoom(req);
-            if(result){
+            if (result) {
                 resp.setMessage("Add Room Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Add Room Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -201,20 +184,17 @@ public class Controller {
     }
 
     @PostMapping("/api/updateRoom")
-    public CommonResp updateRoom(RoomReq req){
+    public CommonResp updateRoom(RoomReq req) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(req.getToken())){
+        if (authenticateServer.authenticateToken(req.getToken())) {
             boolean result = roomServer.updateRoom(req);
-            if(result){
+            if (result) {
                 resp.setMessage("Update Room Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Update Room Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -222,21 +202,18 @@ public class Controller {
     }
 
     @PostMapping("/api/deleteRoom")
-    public CommonResp deleteRoom(String Token, String roomId){
+    public CommonResp deleteRoom(String Token, String roomId) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)){
+        if (authenticateServer.authenticateToken(Token)) {
             int roomID = Integer.parseInt(roomId);
             boolean result = roomServer.deleteRoom(roomID);
-            if(result){
+            if (result) {
                 resp.setMessage("Delete Room Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Delete Room Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -245,13 +222,12 @@ public class Controller {
 
     //TODO
     @PostMapping("/api/getUserAll")
-    public CommonResp getUserAll(String Token){
+    public CommonResp getUserAll(String Token) {
         CommonResp<List<User>> resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)){
+        if (authenticateServer.authenticateToken(Token)) {
             List<User> content = userServer.getUserList();
             resp.setContent(content);
-        }
-        else {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -259,14 +235,13 @@ public class Controller {
     }
 
     @PostMapping("/api/getUser")
-    public CommonResp getUser(String Token, String userId){
+    public CommonResp getUser(String Token, String userId) {
         CommonResp<User> resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)) {
+        if (authenticateServer.authenticateToken(Token)) {
             int userID = Integer.parseInt(userId);
             User content = userServer.getUserByUserId(userID);
             resp.setContent(content);
-        }
-        else {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -274,20 +249,17 @@ public class Controller {
     }
 
     @PostMapping("/api/addUser")
-    public CommonResp addUser(UserReq req){
+    public CommonResp addUser(UserReq req) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(req.getToken())){
+        if (authenticateServer.authenticateToken(req.getToken())) {
             boolean result = userServer.addUser(req);
-            if(result){
+            if (result) {
                 resp.setMessage("Add User Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Add User Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -295,20 +267,17 @@ public class Controller {
     }
 
     @PostMapping("/api/updateUser")
-    public CommonResp updateUser(UserReq req){
+    public CommonResp updateUser(UserReq req) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(req.getToken())){
+        if (authenticateServer.authenticateToken(req.getToken())) {
             boolean result = userServer.updateUser(req);
-            if(result){
+            if (result) {
                 resp.setMessage("Update User Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Update User Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }
@@ -316,21 +285,18 @@ public class Controller {
     }
 
     @PostMapping("/api/deleteUser")
-    public CommonResp deleteUser(String Token, String userId){
+    public CommonResp deleteUser(String Token, String userId) {
         CommonResp resp = new CommonResp();
-        if(authenticateServer.authenticateToken(Token)){
+        if (authenticateServer.authenticateToken(Token)) {
             int userID = Integer.parseInt(userId);
             boolean result = userServer.deleteUser(userID);
-            if(result){
+            if (result) {
                 resp.setMessage("Delete User Success");
-            }else
-            {
+            } else {
                 resp.setSuccess(false);
                 resp.setMessage("Delete User Failed");
             }
-        }
-        else
-        {
+        } else {
             resp.setSuccess(false);
             resp.setMessage("Token Wrong Or No Token");
         }

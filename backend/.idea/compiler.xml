@@ -7,7 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PE Final Backend" />
         <module name="peg6backend" />
       </profile>
     </annotationProcessing>
@@ -19,7 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="PE Final Backend" options="-parameters" />
-      <module name="peg6backend" options="-parameters" />
+      <module name="peg6backend" options="-parameters --add-modules java.base" />
     </option>
   </component>
 </project>

@@ -3,6 +3,7 @@ package com.peg6.peg6backend.service;
 import com.peg6.peg6backend.entity.User;
 import com.peg6.peg6backend.mapper.UserMapper;
 import com.peg6.peg6backend.resp.LoginUserResp;
+import com.peg6.peg6backend.resp.UserResp;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,16 @@ public class LoginServer {
     @Resource
     private UserMapper userMapper;
 
-    public LoginUserResp getUserByUsernameAndPassword(String username, String password){
+    public LoginUserResp getUserByUsernameAndPassword(String username, String password) {
         User user = userMapper.getUserByUsernameAndPassword(username, password);
-        LoginUserResp userResp = null;
-        if(user != null)
-        {
-            userResp = new LoginUserResp();
+        LoginUserResp loginUserResp = null;
+        UserResp userResp = null;
+        if (user != null) {
+            loginUserResp = new LoginUserResp();
+            userResp = new UserResp();
             BeanUtils.copyProperties(user, userResp);
+            loginUserResp.setUserResp(userResp);
         }
-        return userResp;
+        return loginUserResp;
     }
 }
