@@ -1,20 +1,21 @@
 <template>
   <div>
-    <el-input v-model='username' prefix-icon='el-icon-user-solid' placeholder='Username'></el-input>
-    <el-input v-model='password' prefix-icon='el-icon-lock' placeholder='Password'></el-input>
+    <el-input v-model='user.username' prefix-icon='el-icon-user-solid' placeholder='Username'></el-input>
+    <el-input v-model='user.password' prefix-icon='el-icon-lock' placeholder='Password'></el-input>
     <el-button
       type='primary'
-      @click='signin'
-      :loading='loading'>
+      :loading='loading'
+      @click='signin'>
       Sign in
     </el-button>
     <el-button
-      type='primary'
-      @click='signup'
-      :loading='loading'>
-      Sign up
+      @click='logout'>
+      Log out
     </el-button>
-    <el-button @click='myInfo'>MyInfo</el-button>
+    <el-button
+      @click='testReq'>
+      test
+    </el-button>
     <p>is authed: {{ isAuthenticated }}</p>
     <p>user: {{ loggedInUser }}</p>
   </div>
@@ -27,8 +28,10 @@ export default {
   name: 'signin',
   data() {
     return {
-      username: '',
-      password: '',
+      user: {
+        username: '',
+        password: ''
+      },
       loading: false
     };
   },
@@ -38,51 +41,59 @@ export default {
   methods: {
     async signin() {
       this.loading = true;
-      const { username, password } = this;
+      const { username, password } = this.user;
       try {
-        const resp = await this.$auth.loginWith('local', {
-          data: {
-            username,
-            password
-          }
-        });
-        console.log('signin resp:\n', resp);
+        const resp = await this.$store.dispatch('login', { username, password });
+        console.log('resp: \n', resp);
+        // this.$router.push('/');
       } catch (err) {
+        console.log(err);
         this.$message.error(err.message);
       } finally {
         this.loading = false;
       }
     },
-    async signup() {
-      this.loading = true;
-      const { username, password } = this;
-      try {
-        await this.$api.post('/api/signup', {
-          username,
-          password
-        });
-        const resp = await this.$auth.loginWith('local', {
-          data: {
-            username,
-            password
-          }
-        });
-        console.log(resp);
-      } catch (err) {
+    logout() {
+      this.$store.dispatch('logout');
+    },
+    testReq() {
+      this.$api.$get('/auth/user').then(resp => {
+        console.log('resp: \n', resp);
+      }).catch(err => {
+        console.log(err);
         this.$message.error(err.message);
-      } finally {
-        this.loading = false;
-      }
+      });
     }
-    ,
-    async myInfo() {
-      try {
-        const resp = await this.$api.get('/api/auth/myInfo');
-        console.log(resp);
-      } catch (err) {
-        this.$message.error(err.message);
-      }
-    }
+    // async signup() {
+    //   this.loading = true;
+    //   const { username, password } = this;
+    //   try {
+    //     await this.$api.post('/api/signup', {
+    //       username,
+    //       password
+    //     });
+    //     const resp = await this.$auth.loginWith('local', {
+    //       data: {
+    //         username,
+    //         password
+    //       }
+    //     });
+    //     console.log(resp);
+    //   } catch (err) {
+    //     this.$message.error(err.message);
+    //   } finally {
+    //     this.loading = false;
+    //   }
+    // }
+    // ,
+    // async myInfo() {
+    //   try {
+    //     const resp = await this.$api.get('/auth/user');
+    //     console.log(resp);
+    //   } catch (err) {
+    //     this.$message.error(err.message);
+    //   }
+    // }
   }
 };
 </script>

@@ -1,16 +1,16 @@
 const Mock = require('mockjs');
-const isMocking = true;
+const isMocking = false;
 if (isMocking) {
   Mock.mock(/api\/auth\/signin/, 'post', data => {
       console.log('signin', data);
       return {
-        message: 'haha',
-        user: {
-          username: 'admin',
-          fullname: 'James Bond',
-          role: 'admin'
-        },
-        token: '123456'
+        'status': 'success',
+        'token': '21345',
+        'user': {
+          'username': 'admin',
+          'fullname': 'joh doe',
+          'role': 'admin'
+        }
       };
     }
   );
@@ -19,10 +19,10 @@ if (isMocking) {
       console.log('my info');
       console.log(data);
       return {
-        user: {
-          username: 'admin',
-          fullname: 'James Bond',
-          role: 'admin'
+        'user': {
+          'username': 'admin',
+          'fullname': 'joh doe',
+          'role': 'admin'
         }
       };
     }
@@ -39,11 +39,9 @@ if (isMocking) {
 
 
   Mock.mock(/api\/test/, 'get', data => {
-      console.log(data);
+      console.log('mock:\n' + data);
       return {
-        'data': {
-          auth: true
-        }
+        message: 'haahahahah'
       };
     }
   );

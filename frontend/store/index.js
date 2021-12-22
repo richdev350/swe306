@@ -1,48 +1,48 @@
 export const state = () => ({
-  // authToken: false
-  // user: null // user object { username, role }
+  authToken: false,
+  user: null
 });
 
 export const mutations = {
-  // SET_AUTH_TOKEN(state, token) {
-  //   state.authToken = token;
-  // },
-  // SET_USER(state, user) {
-  //   state.user = user;
-  // }
+  SET_AUTH_TOKEN(state, token) {
+    state.authToken = token;
+  },
+  SET_USER(state, user) {
+    state.user = user;
+  }
 };
 
 export const actions = {
-  // what is this?
-  // nuxtServerInit({ commit }, { req }) {
-  //   if (req.session && req.session.authUser) {
-  //     commit('SET_AUTHENTICATED', true);
-  //   }
-  // },
-  logout({ commit, app }) {
-    app.$cookies.remove('token');
-  },
+  // get auth token from local storage
   // FIXME
-  fakeLogin({ commit, app }) {
-    commit('SET_USER', { username: 'admin', role: 'admin' });
-    commit('SET_AUTH_TOKEN', 'fake-token');
-    // app.$cookies.set('token', 'fake-token');
+  nuxtServerInit({ commit }, { req }) {
+    // if (req.session && req.session.authUser) {
+    //   commit('SET_AUTHENTICATED', true);
+    // }
   },
-  signin({ commit, app }, { username, password }) {
-    return this.$api.$post('/api/signin', { username, password })
-      .then(({ resp }) => {
-        commit('SET_USER', { username: resp.data.username, role: resp.data.role });
-        commit('SET_AUTH_TOKEN', resp.data.token);
-        this.$cookies.set('token', resp.data.token);
+  logout({ commit }) {
+    this.$cookies.remove('authToken');
+    commit('SET_AUTH_TOKEN', null);
+    commit('SET_USER', null);
+  },
+  login({ commit }, { username, password }) {
+    // $post: get data of resp body
+    // post: get resp body
+    return this.$api.$post('/login', { username, password })
+      .then((resp) => {
+        console.log(resp);
+        commit('SET_USER', { user: resp.user, role: resp.user.role });
+        commit('SET_AUTH_TOKEN', resp.token);
+        this.$cookies.set('authToken', resp.token);
       });
   }
 };
 
 export const getters = {
   isAuthenticated(state) {
-    return state.auth.loggedIn;
+    return state.authToken !== false;
   },
   loggedInUser(state) {
-    return state.auth.user;
+    return state.user;
   }
 };

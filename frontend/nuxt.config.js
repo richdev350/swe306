@@ -22,12 +22,17 @@ export default {
     whitelistPatterns: [/el-.+$/],
     whitelistPatternsChildren: [/el-.+$/]
   },
+  // vuex-persistedstate is not available on server side
+  mode: 'spa',
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/axios',
-    '@/plugins/mock'
+    '@/plugins/mock',
+    {
+      src: '@/plugins/localStorage', ssr: false
+    }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -43,7 +48,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
+    // '@nuxtjs/auth-next',
     'cookie-universal-nuxt',
     '@nuxtjs/proxy'
   ],
@@ -51,39 +56,39 @@ export default {
   // router:{
   //   middleware: ['auth']
   // },
-  auth: {
-    strategies: {
-      local: {
-        token: {
-          property: true,
-          global: true
-        },
-        user: {
-          property: 'user'
-        },
-        endpoints: {
-          login: { url: '/api/auth/signin', method: 'post', propertyName: 'token' },
-          logout: false,
-          user: { url: '/api/auth/myInfo', method: 'get', propertyName: 'user' }
-        },
-        redirect: {
-          // TODO
-          // login: '/signin',
-          // logout: '/signin',
-          // callback: '/signin',
-          // home: '/'
-        }
-      }
-    }
-  }
-  ,
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       token: {
+  //         property: true,
+  //         global: true
+  //       },
+  //       user: {
+  //         property: 'user'
+  //       },
+  //       endpoints: {
+  //         login: { url: '/api/auth/signin', method: 'post', propertyName: 'data.token' },
+  //         logout: false,
+  //         user: { url: '/api/auth/user', method: 'get', propertyName: 'data' }
+  //       },
+  //       redirect: {
+  //         // TODO
+  //         // login: '/signin',
+  //         // logout: '/signin',
+  //         // callback: '/signin',
+  //         // home: '/'
+  //       }
+  //     }
+  //   }
+  // },
   axios: {
     // use $api
     baseURL: process.env.BASE_URL || 'http://localhost:3000'
   },
   proxy: {
     '/api': {
-      target: 'http://localhost:8080/SWE306_FinalProejct_Backend_war_exploded',
+      target: 'http://localhost:8080/api',
+      // target: 'https://mock.apipost.cn/app/mock/project/8df26568-96f2-4109-b993-3bb858931190',
       pathRewrite: {
         '^/api': '/'
       }
