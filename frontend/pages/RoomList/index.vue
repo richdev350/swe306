@@ -3,7 +3,7 @@
     <CustomPageTitle>Room List</CustomPageTitle>
     <el-row>
       // FIXME dont use el-col
-      <el-col v-for='item in rooms' :span='8' :key='item.id' class='card_bottom'>
+      <el-col v-for='item in rooms' :key='item.id' :span='8' class='card_bottom'>
         <RoomCard :room='item' />
       </el-col>
     </el-row>
@@ -22,17 +22,7 @@ export default {
   },
   data() {
     return {
-      rooms: [],
-      testRooms: [
-        {
-          roomNo: 1,
-          location: 'hahadvjdiddddddijidjvidjvdjiovjdos',
-          roomName: 'dcdcd',
-          capacityMin: '3',
-          capacityMax: '9',
-          status: 'dvd'
-        }
-      ]
+      rooms: []
     };
   },
   head() {
