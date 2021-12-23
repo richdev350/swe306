@@ -1,8 +1,7 @@
 <template>
   <div>
-
     <Room v-for='item in rooms'
-          :key='item.id' :room='item' />
+          :key='item.id' :room='item'/>
   </div>
 </template>
 
