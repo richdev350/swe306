@@ -1,7 +1,7 @@
 <template>
   <el-header class='nav' height='100px'>
     <el-row type='flex' :gutter='10'>
-      <el-col class='logo-wrapper' :lg='5'>
+      <el-col class='logo-wrapper' :xs='0' :sm='1' :md='5'>
         <a href='/'>
           <el-image fit='scale-down' class='logo-image'
                     :src='logoSrc'></el-image>
@@ -36,7 +36,6 @@
         </el-menu>
       </el-col>
     </el-row>
-    {{ info }}
 
   </el-header>
 </template>
@@ -61,7 +60,7 @@ export default {
           status: true
         },
         {
-          index: '/about',
+          index: '/regulations',
           title: 'Regulations',
           status: true
         }
@@ -91,9 +90,10 @@ export default {
 .logo-wrapper {
   @apply flex;
   @apply justify-center;
+  padding-top: 15px;
 
   .logo-image {
-    padding: 10px;
+    height: 80%;
   }
 }
 
