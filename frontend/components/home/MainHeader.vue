@@ -1,26 +1,43 @@
 <template>
   <el-header class='nav' height='100px'>
-    <el-menu
-      :default-active='menu.activeIndex'
-      class='el-menu-demo'
-      mode='horizontal'
-      @select='handleSelect'>
-      <el-menu-item index='1'>Reservation List</el-menu-item>
-      <el-submenu index='2'>
-        <template slot='title'>My Reservation</template>
-        <el-menu-item index='2-1'>选项1</el-menu-item>
-        <el-menu-item index='2-2'>选项2</el-menu-item>
-        <el-menu-item index='2-3'>选项3</el-menu-item>
-        <el-submenu index='2-4'>
-          <template slot='title'>选项4</template>
-          <el-menu-item index='2-4-1'>选项1</el-menu-item>
-          <el-menu-item index='2-4-2'>选项2</el-menu-item>
-          <el-menu-item index='2-4-3'>选项3</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index='3' disabled>消息中心</el-menu-item>
-      <el-menu-item index='4'><a href='https://www.ele.me' target='_blank'>订单管理</a></el-menu-item>
-    </el-menu>
+    <el-row type='flex' :gutter='10'>
+      <el-col class='logo-wrapper' :lg='5'>
+        <a href='/'>
+          <el-image fit='scale-down' class='logo-image'
+                    :src='logoSrc'></el-image>
+        </a>
+      </el-col>
+      <el-col>
+        <el-menu
+          :default-active='routePath'
+          class='el-menu-demo'
+          mode='horizontal'
+          router
+        >
+          <template v-for='item in menuItems'>
+            <el-menu-item v-if='item.status' :key='item.index' :index='item.index'>
+              {{ item.title }}
+            </el-menu-item>
+          </template>
+          <el-submenu v-if='user' index='/my'>
+            <template slot='title'>
+              <span>{{ user.firstName + ' ' + user.lastName }}</span>
+            </template>
+            <el-menu-item index='/my'>
+              Profile
+            </el-menu-item>
+            <el-menu-item index='/my/signin' @click='logout'>
+              Logout
+            </el-menu-item>
+          </el-submenu>
+          <el-menu-item v-if='!user' index='/my/signin'>
+            Login
+          </el-menu-item>
+        </el-menu>
+      </el-col>
+    </el-row>
+    {{ info }}
+
   </el-header>
 </template>
 
@@ -31,38 +48,67 @@ export default {
   name: 'MainHeader',
   data() {
     return {
-      logo: 'assets/images/logo.png',
-      menu: {
-        activeIndex: '1'
-      }
+      logoSrc: 'https://s3.bmp.ovh/imgs/2021/12/74fbc09da57978e6.png',
+      menuItems: [
+        {
+          index: '/home',
+          title: 'Home',
+          status: true
+        },
+        {
+          index: '/RoomList',
+          title: 'Room List',
+          status: true
+        },
+        {
+          index: '/about',
+          title: 'Regulations',
+          status: true
+        }
+      ]
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    routePath() {
+      return this.$nuxt.$route.path;
+    }
+  },
   methods: {
-    // async sendReq({ $axios }) {
-    //   const ip = await $axios.$get('http://icanhazip.com'); // http://tomcat/getRoom
-    //   // address
-    //   // datatype
-    //
-    //   // json: room list
-    //   return { ip };
-    // },
-    // ...mapMutations({})
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.push('/');
+    }
   }
 };
 </script>
 
-<style scoped lang='sass'>
-$logo: url('assets/images/logo.png')
+<style scoped lang='scss'>
+//$logo: url('assets/images/logo.png')
 
-.logo
+.logo-wrapper {
+  @apply flex;
+  @apply justify-center;
 
-  .logo-image
-    height: auto
-    width: 100%
-    text-align: center
-    background-image: $logo
-    background-size: cover
-    filter: invert(100%)
+  .logo-image {
+    padding: 10px;
+  }
+}
+
+//.logo-image
+//  height: auto
+//  width: 100%
+//  text-align: center
+//  background-image: $logo
+//  background-size: cover
+//  filter: invert(100%)
 
 
+.nav {
+  $var: -20px;
+  margin-left: $var;
+  margin-right: $var;
+}
 </style>

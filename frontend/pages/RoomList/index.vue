@@ -1,5 +1,6 @@
 <template>
   <div>
+    <CustomPageTitle>Room List</CustomPageTitle>
 
     <Room v-for='item in rooms'
           :key='item.id' :room='item' />
@@ -7,56 +8,65 @@
 </template>
 
 <script>
-import Room from '~/components/Room/Room';
+import Room from '~/components/room/Room';
 
 export default {
   components: {
     Room
   },
+  middleware: ['auth'],
+  async asyncData({ store, route, app }) {
+    // await store.dispatch('room/getRoomList');
+    const list = await app.$api.$post('/getRoomAll');
+    return {
+      rooms: list.content
+    };
+  },
   data() {
     return {
-      rooms: [
+      testRooms: [
         {
           roomNo: 1,
           location: 'hahadvjdiddddddijidjvidjvdjiovjdos',
-          roomName:'dcdcd',
-          capacityMin:'3',
-          capacityMax:'9',
-          status:'dvd'
+          roomName: 'dcdcd',
+          capacityMin: '3',
+          capacityMax: '9',
+          status: 'dvd'
         },
         {
           roomNo: 2,
           location: 'haha',
-          roomName:'dcdcd',
-          capacityMin:'3',
-          capacityMax:'9',
-          status:'dvd'
+          roomName: 'dcdcd',
+          capacityMin: '3',
+          capacityMax: '9',
+          status: 'dvd'
         },
         {
           roomNo: 3,
           location: 'haha',
-          roomName:'dcdcd',
-          capacityMin:'3',
-          capacityMax:'9',
-          status:'dvd'
+          roomName: 'dcdcd',
+          capacityMin: '3',
+          capacityMax: '9',
+          status: 'dvd'
         },
         {
           roomNo: 4,
           location: 'haha',
-          roomName:'dcdcd',
-          capacityMin:'3',
-          capacityMax:'9',
-          status:'dvd'
+          roomName: 'dcdcd',
+          capacityMin: '3',
+          capacityMax: '9',
+          status: 'dvd'
         },
         {
           roomNo: 5,
           location: 'haha',
-          roomName:'dcdcd',
-          capacityMin:'3',
-          capacityMax:'9',
-          status:'dvd'
+          roomName: 'dcdcd',
+          capacityMin: '3',
+          capacityMax: '9',
+          status: 'dvd'
         }
-      ]
+      ],
+      rooms: []
     };
   },
   head() {
@@ -71,6 +81,9 @@ export default {
       ]
     };
   },
+
+  methods: {}
+
 };
 </script>
 

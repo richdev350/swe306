@@ -23,7 +23,7 @@
           mock
         </el-button>
 
-        <el-button @click='login'>login</el-button>
+        <el-button @click='logout'>logout</el-button>
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
@@ -74,6 +74,9 @@ export default {
         username: 'John Doe',
         password: '123456'
       });
+    },
+    logout() {
+      this.$store.dispatch('logout');
     }
   }
 };

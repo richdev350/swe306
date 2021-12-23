@@ -10,12 +10,14 @@ module.exports = {
   },
   extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'prettier'],
   plugins: [],
+  globals: {
+    $nuxt: true,
+    $api: true,
+  },
   // add your custom rules here
   rules: {
-    // TODO temporary supress warning
-    // 'no-console': 'warn',
-    'no-console': 'off',
+    'no-console': 'warn',
     'vue/require-prop-types': 'off',
-    'vue/component-definition-name-casing': 'off'
+    'vue/component-definition-name-casing': 'off',
   },
 };
