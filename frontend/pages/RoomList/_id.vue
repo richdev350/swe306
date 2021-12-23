@@ -1,12 +1,16 @@
 <template>
   <div>
-    Footer // TODO: Add footer
+    {{ id }}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'MainFooter'
+  data() {
+    return {
+      id: this.$route.params.id
+    };
+  }
 };
 </script>
 

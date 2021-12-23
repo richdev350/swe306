@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    <h2>My Reservation</h2>
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 
 </style>

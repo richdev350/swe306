@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Login</h2>
     <el-input v-model='user.username' prefix-icon='el-icon-user-solid' placeholder='Username'></el-input>
     <el-input v-model='user.password' prefix-icon='el-icon-lock' placeholder='Password'></el-input>
     <el-button
@@ -14,10 +15,11 @@
     </el-button>
     <el-button
       @click='testReq'>
-      test
+      secured req
     </el-button>
     <p>is authed: {{ isAuthenticated }}</p>
     <p>user: {{ loggedInUser }}</p>
+    <p>cookie: {{ $cookies.getAll() }}</p>
   </div>
 </template>
 
@@ -47,7 +49,6 @@ export default {
         console.log('resp: \n', resp);
         // this.$router.push('/');
       } catch (err) {
-        console.log(err);
         this.$message.error(err.message);
       } finally {
         this.loading = false;
