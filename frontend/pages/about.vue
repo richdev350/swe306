@@ -55,7 +55,7 @@
     </div>
     <el-divider></el-divider>
     <div class='text item'>
-      2. If you need to use HDMI to VGA convertor, please bring your campus card to the Discussion Room Counter to borrow it, please return in time after use.
+      2. If you need to use HDMI to VGA convertor, please bring your campus card to the Discussion Room Counter to borrow it, and return in time after use.
     </div>
   </el-card>
 
