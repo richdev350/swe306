@@ -9,22 +9,10 @@
       @click='signin'>
       Sign in
     </el-button>
-    <el-button
-      @click='logout'>
-      Log out
-    </el-button>
-    <el-button
-      @click='testReq'>
-      secured req
-    </el-button>
-    <p>is authed: {{ isAuthenticated }}</p>
-    <p>user: {{ loggedInUser }}</p>
-    <p>cookie: {{ $cookies.getAll() }}</p>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'signin',
@@ -43,65 +31,23 @@ export default {
       title: 'Login'
     };
   },
-  computed: {
-    ...mapGetters(['isAuthenticated', 'loggedInUser'])
-  },
   methods: {
     async signin() {
       this.loading = true;
       const { username, password } = this.user;
       try {
-        const isLoggedIn = await this.$store.dispatch('login', { username, password });
-        if (isLoggedIn) {
+        const resp = await this.$store.dispatch('login', { username, password });
+        if (resp.success) {
           await this.$router.push('/');
+        } else {
+          this.$message.error(resp.message);
         }
       } catch (err) {
         console.log(err);
       } finally {
         this.loading = false;
       }
-    },
-    logout() {
-      this.$store.dispatch('logout');
-    },
-    testReq() {
-      this.$api.$get('/auth/user').then(resp => {
-        console.log('resp: \n', resp);
-      }).catch(err => {
-        console.log(err);
-        this.$message.error(err.message);
-      });
     }
-    // async signup() {
-    //   this.loading = true;
-    //   const { username, password } = this;
-    //   try {
-    //     await this.$api.post('/api/signup', {
-    //       username,
-    //       password
-    //     });
-    //     const resp = await this.$auth.loginWith('local', {
-    //       data: {
-    //         username,
-    //         password
-    //       }
-    //     });
-    //     console.log(resp);
-    //   } catch (err) {
-    //     this.$message.error(err.message);
-    //   } finally {
-    //     this.loading = false;
-    //   }
-    // }
-    // ,
-    // async myInfo() {
-    //   try {
-    //     const resp = await this.$api.get('/auth/user');
-    //     console.log(resp);
-    //   } catch (err) {
-    //     this.$message.error(err.message);
-    //   }
-    // }
   }
 };
 </script>

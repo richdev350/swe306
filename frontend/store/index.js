@@ -36,30 +36,14 @@ export const actions = {
       commit('SET_USER', user);
       commit('SET_AUTH_TOKEN', token);
       this.$cookies.set('authToken', token);
-      return true;
-    } else {
-      console.log('failed ', resp);
-      return false;
     }
-    // return this.$api.$post('/login', { username, password })
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     if (resp.success === false) {
-    //       this.$message.error(resp.message);
-    //     } else {
-    //       const user = resp.content.user;
-    //       const token = resp.content.token;
-    //       commit('SET_USER', user);
-    //       commit('SET_AUTH_TOKEN', token);
-    //       this.$cookies.set('authToken', token);
-    //     }
-    //   });
+    return resp;
   },
 };
 
 export const getters = {
   isAuthenticated(state) {
-    return state.authToken !== false;
+    return state.authToken !== null;
   },
   loggedInUser(state) {
     return state.user;

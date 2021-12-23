@@ -5,13 +5,15 @@
       <NuxtLink to='test'>Test</NuxtLink>
     </el-button>
 
-    <el-button type='primary' @click='sendReq'>Send Req</el-button>
-
-    {{ msg }}
+    <p>is authed: {{ isAuthenticated }}</p>
+    <p>user: {{ loggedInUser }}</p>
+    <p>cookie: {{ $cookies.getAll() }}</p>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Home',
   data() {
@@ -19,12 +21,15 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     };
   },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
+  },
   methods: {
     sendReq() {
       this.$api.$get('/test').then(res => {
         this.msg = res;
       });
-    },
+    }
   }
 
 };
