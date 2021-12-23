@@ -30,6 +30,13 @@ public class Controller {
     @Resource
     private UserServer userServer;
 
+    @GetMapping("/api/connection")
+    public CommonResp connection(){
+        CommonResp resp = new CommonResp();
+        return resp;
+    }
+
+
     @PostMapping("/api/login")
     public CommonResp login(@RequestBody LoginReq req) {
         CommonResp<LoginUserResp> resp = new CommonResp<>();
