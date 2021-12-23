@@ -5,17 +5,20 @@
     <el-button>
       <NuxtLink to='/test'>Test</NuxtLink>
     </el-button>
-    <DragWeekTime />
 
     <p>is authed: {{ isAuthenticated }}</p>
     <p>user: {{ loggedInUser }}</p>
     <p>cookie: {{ $cookies.getAll() }}</p>
+
+    <el-divider></el-divider>
+    <el-button @click='getRoomList'>Get Room List</el-button>
+    <el-button @click='cleanRoomList'>Clean Room List</el-button>
+    {{ roomList }}
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Home',
@@ -26,14 +29,15 @@ export default {
   },
 
   computed: {
+    ...mapGetters('room', ['roomList']),
     ...mapGetters(['isAuthenticated', 'loggedInUser'])
   },
   methods: {
-    sendReq() {
-      this.$api.$get('/test').then(res => {
-        this.msg = res;
-      });
-    }
+    getRoomList() {
+      this.$store.dispatch('room/fetchRoomList');
+      console.log(this.roomList);
+    },
+    ...mapActions('room', ['cleanRoomList'])
   }
 
 };
