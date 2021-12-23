@@ -6,9 +6,11 @@ import com.peg6.peg6backend.req.ReservationReq;
 import com.peg6.peg6backend.entity.Reservation;
 import com.peg6.peg6backend.mapper.ReservationMapper;
 
+import com.peg6.peg6backend.resp.ReservationResp;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,17 +19,31 @@ public class ReservationServer {
     @Resource
     private ReservationMapper reservationMapper;
 
-    public List<Reservation> getReservationByUserId(Integer userId){
+    public List<ReservationResp> getReservationByUserId(Integer userId){
         String userIdString = "%,"+userId+",%";
-        return reservationMapper.getReservationByUserId(userId, userIdString);
+        List<Reservation> reservationList =  reservationMapper.getReservationByUserId(userId, userIdString);
+        List<ReservationResp> reservationRespList = new ArrayList<>();
+        ReservationResp reservationResp = null;
+        for(Reservation r:reservationList){
+            reservationResp = memberListTransToList(r);
+            reservationRespList.add(reservationResp);
+        }
+        return reservationRespList;
     }
 
-    public Reservation getReservationByReservationId(Integer reserveId){
-        return reservationMapper.getReservationByReserveId(reserveId);
+    public ReservationResp getReservationByReservationId(Integer reserveId){
+        return memberListTransToList(reservationMapper.getReservationByReserveId(reserveId));
     }
 
-    public List<Reservation> getAllReservation(){
-        return reservationMapper.getAllReservation();
+    public List<ReservationResp> getAllReservation(){
+        List<Reservation> reservationList =  reservationMapper.getAllReservation();
+        List<ReservationResp> reservationRespList = new ArrayList<>();
+        ReservationResp reservationResp = null;
+        for(Reservation r:reservationList){
+            reservationResp = memberListTransToList(r);
+            reservationRespList.add(reservationResp);
+        }
+        return reservationRespList;
     }
 
     public int makeReservationByUserId(ReservationReq req){
@@ -35,19 +51,18 @@ public class ReservationServer {
             if(!isAvailable(req.getUserId().toString(), req.getStartTime(), req.getEndTime())){
                 return req.getUserId();
             }
-            int memberNum = 0;
-            String[] memberList= req.getMemberList().split(",");
-
-            for(String s:memberList){
+            int memberNum = 1;
+            StringBuilder memberList = new StringBuilder(",");
+            for(String s:req.getMemberList()){
                 if(!s.equals("")){
                     if(!isAvailable(s, req.getStartTime(), req.getEndTime())){
                         return Integer.parseInt(s);
                     };
                 }
                 memberNum++;
+                memberList.append(s).append(",");
             }
-
-            reservationMapper.makeReservationByUserId(req.getUserId(), req.getRoomId(), memberNum, req.getMemberList(), req.getStartTime(), req.getEndTime());
+            reservationMapper.makeReservationByUserId(req.getUserId(), req.getRoomId(), memberNum, memberList.toString(), req.getStartTime(), req.getEndTime());
             return 0;
         }catch (Exception e)
         {
@@ -61,18 +76,20 @@ public class ReservationServer {
             if(!isAvailable(req.getUserId().toString(), req.getStartTime(), req.getEndTime())){
                 return req.getUserId();
             }
-            int memberNum = 0;
-            String[] memberList= req.getMemberList().split(",");
 
-            for(String s:memberList){
+            int memberNum = 1;
+            StringBuilder memberList = new StringBuilder(",");
+
+            for(String s:req.getMemberList()){
                 if(!s.equals("")){
                     if(!isAvailable(s, req.getStartTime(), req.getEndTime())){
                         return Integer.parseInt(s);
                     };
                 }
                 memberNum++;
+                memberList.append(s).append(",");
             }
-            reservationMapper.updateReservationByUserId(req.getUserId(), req.getRoomId(), memberNum, req.getMemberList(), req.getStartTime(), req.getEndTime(), reserveId);
+            reservationMapper.updateReservationByUserId(req.getUserId(), req.getRoomId(), memberNum, memberList.toString(), req.getStartTime(), req.getEndTime(), reserveId);
             return 0;
         }catch (Exception e)
         {
@@ -94,13 +111,35 @@ public class ReservationServer {
     }
 
     public boolean isAvailable(String userId, String startTime, String endTime){
-        List<Reservation> reservations = getReservationByUserId(Integer.parseInt(userId));
+        List<ReservationResp> reservations = getReservationByUserId(Integer.parseInt(userId));
+
         if(reservations == null) return true;
-        for(Reservation reservation:reservations){
+        for(ReservationResp reservation:reservations){
             if(!(startTime.compareToIgnoreCase(reservation.getEndTime())>=0 || endTime.compareToIgnoreCase(reservation.getStartTime())<=0)){
                 return false;
             }
         }
         return true;
+    }
+
+    public ReservationResp memberListTransToList(Reservation reservation){
+        String memberListString = reservation.getMemberList();
+        String[] memberLists= memberListString.split(",");
+        List<String> memberList = new ArrayList<>();
+        for(String s:memberLists){
+            memberList.add(s);
+        }
+        memberList.remove(0);
+        ReservationResp reservationResp = new ReservationResp();
+
+        reservationResp.setReserveId(reservation.getreserveId());
+        reservationResp.setUserId(Integer.parseInt(reservation.getUserId()));
+        reservationResp.setRoomId(Integer.parseInt(reservation.getRoomId()));
+        reservationResp.setMemberNum(reservation.getMemberNum());
+        reservationResp.setMemberList(memberList);
+        reservationResp.setStartTime(reservation.getStartTime());
+        reservationResp.setEndTime(reservation.getEndTime());
+        reservationResp.setStatus(reservation.getStatus());
+        return reservationResp;
     }
 }
