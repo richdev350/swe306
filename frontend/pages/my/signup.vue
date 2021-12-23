@@ -1,5 +1,6 @@
+<!-- FIXME: could be redundant code -->
 <template>
-
+  <div></div>
 </template>
 
 <script>
