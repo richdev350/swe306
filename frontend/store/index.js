@@ -37,7 +37,7 @@ export const actions = {
       this.$cookies.set('authToken', token);
       return resp;
     } else {
-      this.$message.error(resp.message);
+      console.log("failed ", resp);
     }
     // return this.$api.$post('/login', { username, password })
     //   .then((resp) => {
