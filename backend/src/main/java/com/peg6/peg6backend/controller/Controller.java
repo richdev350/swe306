@@ -10,6 +10,7 @@ import com.peg6.peg6backend.req.RoomReq;
 import com.peg6.peg6backend.req.UserReq;
 import com.peg6.peg6backend.resp.CommonResp;
 import com.peg6.peg6backend.resp.LoginUserResp;
+import com.peg6.peg6backend.resp.ReservationResp;
 import com.peg6.peg6backend.service.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,9 +54,9 @@ public class Controller {
     @PostMapping("/api/getReservation")
     public CommonResp getReservation(@RequestHeader("Cookie")String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
-        CommonResp<List<Reservation>> resp = new CommonResp();
+        CommonResp<List<ReservationResp>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
-            List<Reservation> content = reservationServer.getReservationByUserId(userId);
+            List<ReservationResp> content = reservationServer.getReservationByUserId(userId);
             if (content != null) {
                 resp.setContent(content);
             } else {
@@ -70,9 +71,9 @@ public class Controller {
 
     @GetMapping("/api/getReservationAll")
     public CommonResp getReservationAll(@RequestHeader("Cookie")String Token) {
-        CommonResp<List<Reservation>> resp = new CommonResp();
+        CommonResp<List<ReservationResp>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
-            List<Reservation> content = reservationServer.getAllReservation();
+            List<ReservationResp> content = reservationServer.getAllReservation();
             if(content != null){
                 resp.setContent(content);
             }else {
