@@ -1,9 +1,6 @@
 <template>
   <div>
     <CustomPageTitle>Home</CustomPageTitle>
-    <el-button @click='login'>
-      fake
-    </el-button>
     <el-button>
       <NuxtLink to='test'>Test</NuxtLink>
     </el-button>
@@ -28,9 +25,6 @@ export default {
         this.msg = res;
       });
     },
-    login() {
-      this.$store.dispatch('fakeLogin');
-    }
   }
 
 };

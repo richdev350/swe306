@@ -1,6 +1,6 @@
 export const state = () => ({
   authToken: false,
-  user: null
+  user: null,
 });
 
 export const mutations = {
@@ -9,7 +9,7 @@ export const mutations = {
   },
   SET_USER(state, user) {
     state.user = user;
-  }
+  },
 };
 
 export const actions = {
@@ -20,10 +20,11 @@ export const actions = {
     //   commit('SET_AUTHENTICATED', true);
     // }
   },
-  logout({ commit }) {
+  async logout({ commit }) {
     this.$cookies.remove('authToken');
     commit('SET_AUTH_TOKEN', null);
     commit('SET_USER', null);
+    await this.$router.push('/');
   },
   async login({ commit }, { username, password }) {
     // $post: get data of resp body
@@ -35,10 +36,10 @@ export const actions = {
       commit('SET_USER', user);
       commit('SET_AUTH_TOKEN', token);
       this.$cookies.set('authToken', token);
-      return resp;
+      return true;
     } else {
-      console.log("failed ", resp);
-      this.$message.error(resp.message);
+      console.log('failed ', resp);
+      return false;
     }
     // return this.$api.$post('/login', { username, password })
     //   .then((resp) => {
@@ -53,7 +54,7 @@ export const actions = {
     //       this.$cookies.set('authToken', token);
     //     }
     //   });
-  }
+  },
 };
 
 export const getters = {
@@ -62,5 +63,5 @@ export const getters = {
   },
   loggedInUser(state) {
     return state.user;
-  }
+  },
 };

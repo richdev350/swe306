@@ -28,7 +28,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'signin',
-  middleware:['auth'],
+  middleware: ['auth'],
   data() {
     return {
       user: {
@@ -36,6 +36,11 @@ export default {
         password: ''
       },
       loading: false
+    };
+  },
+  head() {
+    return {
+      title: 'Login'
     };
   },
   computed: {
@@ -46,11 +51,12 @@ export default {
       this.loading = true;
       const { username, password } = this.user;
       try {
-        const resp = await this.$store.dispatch('login', { username, password });
-        console.log('resp: \n', resp);
-        // this.$router.push('/');
+        const isLoggedIn = await this.$store.dispatch('login', { username, password });
+        if (isLoggedIn) {
+          await this.$router.push('/');
+        }
       } catch (err) {
-        this.$message.error(err.message);
+        console.log(err);
       } finally {
         this.loading = false;
       }

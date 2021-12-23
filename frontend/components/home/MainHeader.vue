@@ -2,8 +2,10 @@
   <el-header class='nav' height='100px'>
     <el-row type='flex' :gutter='10'>
       <el-col class='logo-wrapper' :lg='5'>
-        <el-image fit='scale-down' class='logo-image'
-                  :src='logoSrc'></el-image>
+        <a href='/'>
+          <el-image fit='scale-down' class='logo-image'
+                    :src='logoSrc'></el-image>
+        </a>
       </el-col>
       <el-col>
         <el-menu
@@ -17,17 +19,14 @@
               {{ item.title }}
             </el-menu-item>
           </template>
-          <!--          <el-menu-item v-if='isLogin' index='/my/reservation'>-->
-          <!--            My Reservation-->
-          <!--          </el-menu-item>-->
           <el-submenu v-if='user' index='/my'>
             <template slot='title'>
               <span>{{ user.firstName + ' ' + user.lastName }}</span>
             </template>
-            <el-menu-item index='/my/reservation'>
+            <el-menu-item index='/my'>
               Profile
             </el-menu-item>
-            <el-menu-item @click='logout' index='/my/signin'>
+            <el-menu-item index='/my/signin' @click='logout'>
               Logout
             </el-menu-item>
           </el-submenu>
