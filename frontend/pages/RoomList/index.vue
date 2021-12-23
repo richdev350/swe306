@@ -1,6 +1,7 @@
 <template>
   <div>
     <CustomPageTitle>Room List</CustomPageTitle>
+
     <Room v-for='item in rooms'
           :key='item.id' :room='item' />
   </div>
@@ -14,9 +15,16 @@ export default {
     Room
   },
   middleware: ['auth'],
+  async asyncData({ store, route, app }) {
+    // await store.dispatch('room/getRoomList');
+    const list = await app.$api.$post('/getRoomAll');
+    return {
+      rooms: list.content
+    };
+  },
   data() {
     return {
-      rooms: [
+      testRooms: [
         {
           roomNo: 1,
           location: 'hahadvjdiddddddijidjvidjvdjiovjdos',
@@ -57,12 +65,13 @@ export default {
           capacityMax: '9',
           status: 'dvd'
         }
-      ]
+      ],
+      rooms: []
     };
   },
   head() {
     return {
-      title: 'XMUM room Reservation',
+      title: 'XMUM Room Reservation',
       meta: [
         {
           hid: 'description',
@@ -71,7 +80,10 @@ export default {
         }
       ]
     };
-  }
+  },
+
+  methods: {}
+
 };
 </script>
 
