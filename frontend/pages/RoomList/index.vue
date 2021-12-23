@@ -1,22 +1,20 @@
 <template>
   <div>
     <CustomPageTitle>Room List</CustomPageTitle>
-
-    <Room v-for='item in rooms'
-          :key='item.id' :room='item' />
+    <template v-for='item in rooms' class='abc'>
+      <RoomCard
+        :key='item.id' :room='item' />
+    </template>
   </div>
 </template>
 
 <script>
-import Room from '~/components/room/Room';
+
 
 export default {
-  components: {
-    Room
-  },
   middleware: ['auth'],
-  async asyncData({ store, route, app }) {
-    // await store.dispatch('room/getRoomList');
+  async asyncData({ app }) {
+    // can use $store to persist data
     const list = await app.$api.$post('/getRoomAll');
     return {
       rooms: list.content
@@ -24,6 +22,7 @@ export default {
   },
   data() {
     return {
+      rooms: [],
       testRooms: [
         {
           roomNo: 1,
@@ -32,41 +31,8 @@ export default {
           capacityMin: '3',
           capacityMax: '9',
           status: 'dvd'
-        },
-        {
-          roomNo: 2,
-          location: 'haha',
-          roomName: 'dcdcd',
-          capacityMin: '3',
-          capacityMax: '9',
-          status: 'dvd'
-        },
-        {
-          roomNo: 3,
-          location: 'haha',
-          roomName: 'dcdcd',
-          capacityMin: '3',
-          capacityMax: '9',
-          status: 'dvd'
-        },
-        {
-          roomNo: 4,
-          location: 'haha',
-          roomName: 'dcdcd',
-          capacityMin: '3',
-          capacityMax: '9',
-          status: 'dvd'
-        },
-        {
-          roomNo: 5,
-          location: 'haha',
-          roomName: 'dcdcd',
-          capacityMin: '3',
-          capacityMax: '9',
-          status: 'dvd'
         }
-      ],
-      rooms: []
+      ]
     };
   },
   head() {
@@ -87,6 +53,8 @@ export default {
 };
 </script>
 
-<style scoped lang='sass'>
-
+<style scoped lang='scss'>
+.abc {
+  margin-bottom: 105px;
+}
 </style>

@@ -12,7 +12,6 @@
 
 export default {
   async asyncData({ store, route }) {
-    // await store.dispatch('FETCH_HOME_PAGE_DATA');
   }
 };
 
@@ -20,8 +19,11 @@ export default {
 
 <style scoped lang='scss'>
 // TODO mixin with media queries
+// TODO use tailwindcss
 .main-container {
-  @apply px-52
+  @apply md:px-52;
+  //@apply sm:bg-black;
+  //@apply md:bg-red-400;
 }
 
 .main-body {

@@ -1,9 +1,11 @@
 <template>
   <div>
     <CustomPageTitle>Home</CustomPageTitle>
+    <div class='test'>SomeText</div>
     <el-button>
-      <NuxtLink to='test'>Test</NuxtLink>
+      <NuxtLink to='/test'>Test</NuxtLink>
     </el-button>
+    <DragWeekTime />
 
     <p>is authed: {{ isAuthenticated }}</p>
     <p>user: {{ loggedInUser }}</p>
@@ -14,6 +16,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
+
 export default {
   name: 'Home',
   data() {
@@ -21,6 +24,7 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     };
   },
+
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser'])
   },
@@ -35,6 +39,8 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style scoped lang='scss'>
+.test {
+  @apply md:bg-red-700;
+}
 </style>

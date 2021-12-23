@@ -39,6 +39,7 @@ export const actions = {
     }
     return resp;
   },
+  async getUserInfo() {},
 };
 
 export const getters = {
