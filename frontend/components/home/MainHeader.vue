@@ -11,16 +11,27 @@
           class='el-menu-demo'
           mode='horizontal'
           router
-          @select='handleSelect'>
+        >
           <template v-for='item in menuItems'>
             <el-menu-item v-if='item.status' :key='item.index' :index='item.index'>
               {{ item.title }}
             </el-menu-item>
           </template>
-          <el-menu-item v-if='isLogin' index='/my/reservation'>
-            My Reservation
-          </el-menu-item>
-          <el-menu-item v-if='!isLogin' index='/my/signin'>
+          <!--          <el-menu-item v-if='isLogin' index='/my/reservation'>-->
+          <!--            My Reservation-->
+          <!--          </el-menu-item>-->
+          <el-submenu v-if='user' index='/my'>
+            <template slot='title'>
+              <span>{{ user.firstName + ' ' + user.lastName }}</span>
+            </template>
+            <el-menu-item index='/my/reservation'>
+              Profile
+            </el-menu-item>
+            <el-menu-item @click='logout' index='/my/signin'>
+              Logout
+            </el-menu-item>
+          </el-submenu>
+          <el-menu-item v-if='!user' index='/my/signin'>
             Login
           </el-menu-item>
         </el-menu>
@@ -59,14 +70,19 @@ export default {
     };
   },
   computed: {
-    isLogin() {
+    user() {
       return this.$store.state.user;
     },
     routePath() {
       return this.$nuxt.$route.path;
     }
   },
-  methods: {}
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.push('/');
+    }
+  }
 };
 </script>
 

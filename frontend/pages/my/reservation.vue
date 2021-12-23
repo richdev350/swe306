@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'reservations',
+  middleware: ['auth'],
   data() {
     return {};
   },

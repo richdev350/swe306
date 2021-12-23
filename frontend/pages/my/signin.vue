@@ -28,6 +28,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'signin',
+  middleware:['auth'],
   data() {
     return {
       user: {

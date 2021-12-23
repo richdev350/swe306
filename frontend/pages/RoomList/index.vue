@@ -13,6 +13,7 @@ export default {
   components: {
     Room
   },
+  middleware: ['auth'],
   data() {
     return {
       rooms: [

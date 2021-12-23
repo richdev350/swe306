@@ -38,6 +38,7 @@ export const actions = {
       return resp;
     } else {
       console.log("failed ", resp);
+      this.$message.error(resp.message);
     }
     // return this.$api.$post('/login', { username, password })
     //   .then((resp) => {
