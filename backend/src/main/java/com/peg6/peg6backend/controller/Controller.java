@@ -11,10 +11,7 @@ import com.peg6.peg6backend.req.UserReq;
 import com.peg6.peg6backend.resp.CommonResp;
 import com.peg6.peg6backend.resp.LoginUserResp;
 import com.peg6.peg6backend.service.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -64,7 +61,7 @@ public class Controller {
         return resp;
     }
 
-    @PostMapping("/api/getReservationAll")
+    @GetMapping("/api/getReservationAll")
     public CommonResp getReservationAll(@RequestHeader("Cookie")String Token) {
         CommonResp<List<Reservation>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -164,7 +161,7 @@ public class Controller {
         return resp;
     }
 
-    @PostMapping("/api/getRoomAll")
+    @GetMapping("/api/getRoomAll")
     public CommonResp getRoomAll(@RequestHeader("Cookie")String Token) {
         CommonResp<List<Room>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -277,7 +274,7 @@ public class Controller {
     }
 
 
-    @PostMapping("/api/getUserAll")
+    @GetMapping("/api/getUserAll")
     public CommonResp getUserAll(@RequestHeader("Cookie")String Token) {
         CommonResp<List<User>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
