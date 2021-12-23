@@ -10,6 +10,8 @@ public interface RoomMapper {
 
     public Room getRoom(@Param("roomId") Integer roomId);
 
+    public Room getRoomByRoomNo(@Param("roomNo") String roomNo);
+
     public void addRoom(@Param("roomNo") String roomNo, @Param("location") String location, @Param("status") int status,
                         @Param("roomName") String roomName, @Param("capacityMin") int capacityMin,
                         @Param("capacityMax") int capacityMax);

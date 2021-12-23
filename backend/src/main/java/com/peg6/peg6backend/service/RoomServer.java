@@ -21,6 +21,10 @@ public class RoomServer {
         return roomMapper.getRoom(roomId);
     }
 
+    public Room getRoomByRoomNo(String roomNo){
+        return roomMapper.getRoomByRoomNo(roomNo);
+    }
+
     public boolean addRoom(RoomReq req){
         try{
             roomMapper.addRoom(req.getRoomNo(), req.getLocation(), req.getStatus(), req.getRoomName(), req.getCapacityMin(), req.getCapacityMax());

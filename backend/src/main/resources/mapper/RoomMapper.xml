@@ -9,6 +9,9 @@
     <select id="getRoom" resultType="com.peg6.peg6backend.entity.Room">
         select * from room where roomId = #{roomId}
     </select>
+    <select id="getRoomByRoomNo" resultType="com.peg6.peg6backend.entity.Room">
+        select * from room where roomNo = #{roomNo}
+    </select>
 
     <insert id="addRoom">
         insert into room (roomNo, location, status, roomName, capacityMin, capacityMax) values (#{roomNo}, #{location}, #{status}, #{roomName}, #{capacityMin}, #{capacityMax})

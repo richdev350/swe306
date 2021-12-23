@@ -22,6 +22,10 @@ public class ReservationServer {
         return reservationMapper.getReservationByUserId(userId, userIdString);
     }
 
+    public Reservation getReservationByReservationId(Integer reserveId){
+        return reservationMapper.getReservationByReserveId(reserveId);
+    }
+
     public List<Reservation> getAllReservation(){
         return reservationMapper.getAllReservation();
     }
@@ -52,19 +56,28 @@ public class ReservationServer {
         }
     }
 
-    public boolean updateReservationByUserId(ReservationReq req, String reserveId) {
+    public int updateReservationByUserId(ReservationReq req, String reserveId) {
         try{
+            if(!isAvailable(req.getUserId().toString(), req.getStartTime(), req.getEndTime())){
+                return req.getUserId();
+            }
             int memberNum = 0;
             String[] memberList= req.getMemberList().split(",");
+
             for(String s:memberList){
+                if(!s.equals("")){
+                    if(!isAvailable(s, req.getStartTime(), req.getEndTime())){
+                        return Integer.parseInt(s);
+                    };
+                }
                 memberNum++;
             }
             reservationMapper.updateReservationByUserId(req.getUserId(), req.getRoomId(), memberNum, req.getMemberList(), req.getStartTime(), req.getEndTime(), reserveId);
-            return true;
+            return 0;
         }catch (Exception e)
         {
             System.out.println(e);
-            return false;
+            return -1;
         }
 
     }
