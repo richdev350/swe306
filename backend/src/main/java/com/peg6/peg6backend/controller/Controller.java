@@ -82,6 +82,7 @@ public class Controller {
         return resp;
     }
 
+    //TODO:memberlist的转换问题
     /*
     @param result:
         = 0 --> Make Reservation Success
@@ -374,7 +375,7 @@ public class Controller {
         }
         return resp;
     }
-    
+
     @PostMapping("/api/deleteUser")
     public CommonResp deleteUser(@RequestHeader("Cookie")String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
