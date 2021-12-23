@@ -49,6 +49,11 @@ export default {
           index: '/RoomList',
           title: 'Room List',
           status: true
+        },
+        {
+          index: '/about',
+          title: 'Regulations',
+          status: true
         }
       ]
     };
