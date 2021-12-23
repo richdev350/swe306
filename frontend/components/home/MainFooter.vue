@@ -1,7 +1,7 @@
 <template>
-  <div>
-    Footer // TODO: Add footer
-  </div>
+  <el-footer>
+    Footer
+  </el-footer>
 </template>
 
 <script>

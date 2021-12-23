@@ -1,9 +1,7 @@
 <template>
   <div>
     <el-card class='box-card'>
-      <div slot='header' class='clearfix'>
-        <b>XMUM Room Reservation Rules</b>
-      </div>
+      <CustomPageTitle>XMUM Room Reservation Rules</CustomPageTitle>
       <el-divider content-position='center'><span class='title1'><li
         class='el-icon-s-tools'> Reservation Regulations</li></span></el-divider>
       <div class='text item'>

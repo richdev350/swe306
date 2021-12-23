@@ -1,12 +1,21 @@
 <template>
   <div>
-    <h2>My Reservation</h2>
+    <CustomPageTitle>My Reservation</CustomPageTitle>
+    <MyInfo :user='currentUser' />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'reservations'
+  name: 'reservations',
+  data() {
+    return {};
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.user;
+    }
+  }
 };
 </script>
 
