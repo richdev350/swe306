@@ -2,8 +2,9 @@
   <div class='lg:h-full'>
     <CustomPageTitle>Room List</CustomPageTitle>
     <el-row>
-      <el-col :span='8' v-for='item in rooms' :key='item.id' class='card_bottom'>
-          <RoomCard  :room='item' />
+      // FIXME dont use el-col
+      <el-col v-for='item in rooms' :span='8' :key='item.id' class='card_bottom'>
+        <RoomCard :room='item' />
       </el-col>
     </el-row>
 
