@@ -1,16 +1,21 @@
 <template>
   <div>
-    <CustomPageTitle>My Reservation</CustomPageTitle>
-    <MyInfo :user='currentUser' />
+    <CustomPageTitle>Profile</CustomPageTitle>
+    <MyInfoCard :user='currentUser' />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'reservation',
+  name: 'Profile',
   middleware: ['auth'],
   data() {
     return {};
+  },
+  head() {
+    return {
+      title: 'Profile'
+    }
   },
   computed: {
     currentUser() {

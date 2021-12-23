@@ -23,6 +23,9 @@
             <template slot='title'>
               <span>{{ user.firstName + ' ' + user.lastName }}</span>
             </template>
+            <el-menu-item index='/my/reservation'>
+              My Reservation
+            </el-menu-item>
             <el-menu-item index='/my'>
               Profile
             </el-menu-item>
