@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class='lg:h-full'>
     <CustomPageTitle>Room List</CustomPageTitle>
-    <template v-for='item in rooms' class='abc'>
-      <RoomCard
-        :key='item.id' :room='item' />
-    </template>
+    <el-row>
+      <el-col :span='8' v-for='item in rooms' :key='item.id' class='card_bottom'>
+          <RoomCard  :room='item' />
+      </el-col>
+    </el-row>
+
   </div>
 </template>
 
@@ -54,7 +56,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.abc {
-  margin-bottom: 105px;
+.card_bottom {
+  margin-bottom: 50px;
 }
 </style>
