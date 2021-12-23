@@ -1,5 +1,6 @@
 <template>
   <div>
+    Footer // TODO: Add footer
   </div>
 </template>
 

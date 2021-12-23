@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>My Reservations</h2>
+    <h2>My Reservation</h2>
   </div>
 </template>
 
@@ -11,6 +11,5 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-//@import "assets/styles/global.scss";
 
 </style>
