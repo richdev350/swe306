@@ -15,12 +15,9 @@
 
 export default {
   middleware: ['auth'],
-  async asyncData({ app }) {
-    // can use $store to persist data
-    const list = await app.$api.$post('/getRoomAll');
-    return {
-      rooms: list.content
-    };
+  async asyncData({ store }) {
+    await store.dispatch('room/fetchRoomList');
+    return { rooms: store.getters['room/roomList'] };
   },
   data() {
     return {
