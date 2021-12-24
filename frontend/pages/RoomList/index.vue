@@ -1,12 +1,13 @@
 <template>
-  <div class='lg:h-full'>
+  <div class=''>
     <CustomPageTitle>Room List</CustomPageTitle>
-    <el-row>
-      // FIXME dont use el-col
-      <el-col v-for='item in rooms' :key='item.id' :span='8' class='card_bottom'>
+
+    <div class='my-10 ml-20 mr-0 grid sm: grid-cols-1 md:grid-cols-2 xl:grid-cols-3 '>
+      <div class= 'md: flex mb-20 md: flex-col md: mx-10 xl: mt-15 mx-15'
+        v-for='item in rooms' :key='item.id'  >
         <RoomCard :room='item' />
-      </el-col>
-    </el-row>
+      </div>
+    </div>
 
   </div>
 </template>
