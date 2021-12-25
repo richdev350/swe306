@@ -2,7 +2,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title:
-      'Xiamen University Malaysia StudyRoom Reservation System | SWE306 Final Project',
+      'StudyRoom Reservation System | Xiamen University Malaysia | SWE306 Final Project',
     htmlAttrs: {
       lang: 'en',
     },
@@ -37,6 +37,7 @@ export default {
     '@/plugins/element-ui',
     '@/plugins/axios',
     '@/plugins/mock',
+    '@/plugins/i18n',
     {
       src: '@/plugins/localStorage',
       ssr: false,

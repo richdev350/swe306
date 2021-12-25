@@ -1,6 +1,10 @@
-// TODO use i18n
+// eslint-disable-next-line require-await
 export default async (context, locale) => {
-  return await Promise.resolve({
-    welcome: 'Welcome',
-  });
+  return {
+    nav: {
+      home: 'Home',
+      roomList: 'Room List',
+      regulations: 'Regulations',
+    },
+  };
 };
