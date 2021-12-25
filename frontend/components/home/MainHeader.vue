@@ -21,10 +21,16 @@
           </template>
           <el-submenu v-if='currentUser.role === "Admin"' index='/admin'>
             <template slot='title'>
-              <span>Admin</span>
+              <span>System Dashboard</span>
             </template>
-            <el-menu-item index='/my/reservation'>
-              My Reservation
+            <el-menu-item index='/admin/user'>
+              User Management
+            </el-menu-item>
+            <el-menu-item index='/admin/room'>
+              Room Management
+            </el-menu-item>
+            <el-menu-item index='/admin/reservation'>
+              Reservation Management
             </el-menu-item>
           </el-submenu>
           <el-submenu v-if='isAuthenticated' index='/my'>
