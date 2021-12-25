@@ -1,14 +1,20 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'swe301-frontend',
+    title:
+      'Xiamen University Malaysia StudyRoom Reservation System | SWE306 Final Project',
     htmlAttrs: {
       lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=what' },
-      { hid: 'description', name: 'description', content: '' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Xiamen University Malaysia StudyRoom Reservation System | SWE306 Final Project',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'images/x-icon', href: '/favicon.ico' }],

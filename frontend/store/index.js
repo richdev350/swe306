@@ -1,6 +1,12 @@
 export const state = () => ({
   authToken: false,
-  user: null,
+  user: {
+    id: Number,
+    username: String,
+    fullName: String,
+    phoneNum: String,
+    role: String,
+  },
 });
 
 export const mutations = {
@@ -8,7 +14,13 @@ export const mutations = {
     state.authToken = token;
   },
   SET_USER(state, user) {
-    state.user = user;
+    state.user = {
+      id: user.userId,
+      username: user.username,
+      fullName: user.firstName + ' ' + user.lastName,
+      phoneNum: user.phoneNum,
+      role: user.isAdmin ? 'Admin' : 'Student',
+    };
   },
 };
 
@@ -23,7 +35,7 @@ export const actions = {
   async logout({ commit }) {
     this.$cookies.remove('authToken');
     commit('SET_AUTH_TOKEN', null);
-    commit('SET_USER', null);
+    commit('SET_USER', {});
     await this.$router.push('/');
   },
   async login({ commit }, { username, password }) {
@@ -47,6 +59,9 @@ export const getters = {
     return state.authToken !== null;
   },
   loggedInUser(state) {
+    return state.user;
+  },
+  currentUser(state) {
     return state.user;
   },
 };

@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Profile',
   middleware: ['auth'],
@@ -18,9 +20,7 @@ export default {
     }
   },
   computed: {
-    currentUser() {
-      return this.$store.state.user;
-    }
+    ...mapGetters(['currentUser'])
   }
 };
 </script>

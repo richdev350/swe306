@@ -18,7 +18,7 @@
         Name
       </el-col>
       <el-divider direction='vertical'></el-divider>
-      <el-col class='val-name'>{{ currentUser.name }}</el-col>
+      <el-col class='val-name'>{{ currentUser.fullName }}</el-col>
     </el-row>
 
     <el-row type='flex'>
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'info',
   props: ['user'],
@@ -52,17 +54,18 @@ export default {
     };
   },
   computed: {
-    currentUser() {
-      const user = this.user;
-      return {
-        // todo: can i define everything in one file (to avoid repetition and modification)?
-        id: user.userId,
-        username: user.username,
-        name: user.firstName + ' ' + user.lastName,
-        phoneNum: user.phoneNum,
-        role: user.isAdmin ? 'Admin' : 'Student'
-      };
-    }
+    ...mapGetters(['currentUser'])
+    // currentUser() {
+    //   const user = this.user;
+    //   return {
+    //     // todo: can i define everything in one file (to avoid repetition and modification)?
+    //     id: user.userId,
+    //     username: user.username,
+    //     name: user.firstName + ' ' + user.lastName,
+    //     phoneNum: user.phoneNum,
+    //     role: user.isAdmin ? 'Admin' : 'Student'
+    //   };
+    // }
   }
 
 };
