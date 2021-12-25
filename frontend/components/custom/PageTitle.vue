@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class='alignHandler'>
     <h2 v-if="size === 'h2'" class='title'>
       <slot></slot>
     </h2>
@@ -17,6 +17,19 @@ export default {
     size: {
       type: String,
       default: 'h2'
+    },
+    align: {
+      type: String,
+      default: null
+    }
+  },
+  computed: {
+    alignHandler() {
+      let customClass = null;
+      if (this.align === 'center') {
+        customClass = `align--${ this.align }`;
+      }
+      return customClass;
     }
   }
 };
@@ -25,6 +38,14 @@ export default {
 <style scoped lang='scss'>
 .title {
   @apply pb-3
+}
+
+.align--center {
+  text-align: center;
+}
+
+.align--right {
+  //
 }
 
 </style>
