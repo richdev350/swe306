@@ -56,11 +56,31 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    // deprecated auth module
+    // FIXME deprecated auth module
     // '@nuxtjs/auth-next',
     'cookie-universal-nuxt',
     '@nuxtjs/proxy',
+    '@nuxtjs/i18n',
   ],
+  i18n: {
+    langDir: '@/locales/',
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        file: 'en-US.js',
+      },
+      {
+        code: 'zh',
+        iso: 'zh-CN',
+        file: 'zh-CN.js',
+      },
+    ],
+    defaultLocale: 'en',
+    vueI18n: {
+      fallbackLocale: 'en',
+    },
+  },
   // globally auth routing
   router: {
     middleware: ['connectionTest'],
