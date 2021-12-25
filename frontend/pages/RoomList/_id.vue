@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RoomCard :room='room' />
+    <RoomCard :room='room' :is-operable='false' />
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      room: null
+      room: Object
     };
   }
 };

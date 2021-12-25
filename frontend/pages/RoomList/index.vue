@@ -1,10 +1,9 @@
 <template>
   <div class=''>
     <CustomPageTitle>Room List</CustomPageTitle>
-
-    <div class='my-10 ml-20 mr-0 grid sm: grid-cols-1 md:grid-cols-2 xl:grid-cols-3 '>
-      <div class= 'md: flex mb-20 md: flex-col md: mx-10 xl: mt-15 mx-15'
-        v-for='item in rooms' :key='item.id'  >
+    <div v-for='item in rooms'
+         :key='item.id' class='room-card-item'>
+      <div>
         <RoomCard :room='item' />
       </div>
     </div>
@@ -47,5 +46,9 @@ export default {
 <style scoped lang='scss'>
 .card_bottom {
   margin-bottom: 50px;
+}
+
+.room-card-item {
+  @apply m-3.5;
 }
 </style>
