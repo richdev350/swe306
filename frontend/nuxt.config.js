@@ -30,8 +30,7 @@ export default {
   },
   // vuex-persistedstate is not available on server side
   // TODO use local storage to persist login state
-  mode: 'spa',
-
+  ssr: false,
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/element-ui',

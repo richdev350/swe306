@@ -37,13 +37,14 @@
 
 <script>
 export default {
-  name: 'Room Editor',
+  name: 'RoomEditor',
   props: {
     method: {
       type: String,
       default: 'update',
       required: true
     },
+    // eslint-disable-next-line vue/require-default-prop
     roomId: {
       type: Number,
       required: false

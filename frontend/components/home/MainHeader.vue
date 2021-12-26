@@ -1,11 +1,13 @@
 <template>
   <el-header class='nav' height='100px'>
     <el-row type='flex' :gutter='10'>
-      <el-col class='logo-wrapper' :xs='0' :sm='0' :md='3' :lg='5'>
-        <a href='/'>
+      <el-col class='logo-wrapper' :xs='0' :sm='0' :md='6' :lg='10'>
+        <nuxt-link to='/home'>
+          <!--          <img :src='logoSrc' alt=''>-->
           <el-image fit='scale-down' class='logo-image'
-                    :src='logoSrc'></el-image>
-        </a>
+                    :src='require(`~/assets/images/${logoSrc}`)'
+          ></el-image>
+        </nuxt-link>
       </el-col>
       <el-col>
         <el-menu
@@ -66,7 +68,9 @@ export default {
   name: 'MainHeader',
   data() {
     return {
-      logoSrc: 'https://s3.bmp.ovh/imgs/2021/12/74fbc09da57978e6.png',
+      // logoSrc: 'https://s3.bmp.ovh/imgs/2021/12/74fbc09da57978e6.png',
+      // logoSrc: 'https://s3.bmp.ovh/imgs/2021/12/25e8c52d9ec1d905.png',
+      logoSrc: 'xmum-logo.png',
       menuItems: [
         {
           index: '/home',

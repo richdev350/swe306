@@ -32,13 +32,14 @@
 
 <script>
 export default {
-  name: 'User Editor',
+  name: 'UserEditor',
   props: {
     method: {
       type: String,
       default: 'update',
       required: true
     },
+    // eslint-disable-next-line vue/require-default-prop
     userId: {
       type: Number,
       required: false

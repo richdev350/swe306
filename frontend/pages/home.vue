@@ -21,7 +21,7 @@
     </el-card>
     <el-divider content-position='center'>Campus Landscape</el-divider>
     <el-carousel :interval='4000' type='card' height='300px'>
-      <el-carousel-item v-for='item in images' :key='item'>
+      <el-carousel-item v-for='item in images' :key='item.id'>
         <h3 class='medium'><img :src='require(`~/assets/images/${item.url}`)' class='image' alt='item.desc' /></h3>
       </el-carousel-item>
     </el-carousel>
@@ -39,18 +39,22 @@ export default {
     return {
       images: [
         {
+          id: 1,
           url: '1.jpeg',
           desc: ''
         },
         {
+          id:2,
           url: '2.jpeg',
           desc: ''
         },
         {
+          id  :3,
           url: '3.jpeg',
           desc: ''
         },
         {
+          id:4,
           url: '4.png',
           desc: ''
         }
