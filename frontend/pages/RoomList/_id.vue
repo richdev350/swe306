@@ -1,14 +1,17 @@
 <template>
   <div>
     <RoomCard :room='room' :is-operable='false' />
+    <el-alert
+      title='Attention'
+      :description='warningInfo'
+      class='warning-info'
+      type='warning'
+      show-icon
+      :closable='false'>
+    </el-alert>
     <el-form ref='form' :model='form' class='reservation-form' label-width='100px'>
       <el-form-item label='Reserved by'>
         {{ loggedInUser.username }}
-        <el-alert
-          :title='warningInfo'
-          type='warning'
-          show-icon>
-        </el-alert>
       </el-form-item>
       <el-form-item label='Date'>
         <el-col :span='5'>
@@ -23,6 +26,7 @@
           <el-col :span='11'>
             <el-time-select
               v-model='form.expectedStartTime'
+              :editable='false'
               :picker-options='timeSelectOptions'
               class='time-select'
               placeholder='Start Time'>
@@ -32,6 +36,7 @@
           <el-col :span='11'>
             <el-time-select
               v-model='form.expectedEndTime'
+              :editable='false'
               :picker-options='timeSelectOptions'
               class='time-select'
               placeholder='End Time'>
@@ -87,7 +92,7 @@ export default {
       room: Object,
       memberIdList: [],
       date: '',
-      warningInfo: 'As main user of this room, you .',
+      warningInfo: 'As main user of this room, you will be blacklisted if the number of sign-in members doesn\'t reach the minimum required number of members.',
       timeSelectOptions: {
         start: '08:30',
         step: '00:15',
@@ -118,6 +123,38 @@ export default {
   },
   methods: {
     async addReservation() {
+      if (this.form.expectedDate === '') {
+        this.$message.error('Please choose a date.');
+        return;
+      }
+      const expectedDate = new Date(Date.parse(this.form.expectedDate));
+      console.log(expectedDate);
+      const todayDate = new Date();
+      todayDate.setHours(0, 0, 0, 0);
+      if (expectedDate < todayDate) {
+        this.$message.error('Please choose a date after today.');
+        return;
+      }
+      if (this.form.expectedStartTime === '') {
+        this.$message.error('Please choose a start time.');
+        return;
+      }
+      if (this.form.expectedEndTime === '') {
+        this.$message.error('Please choose a end time.');
+        return;
+      }
+      if (this.form.expectedStartTime >= this.form.expectedEndTime) {
+        this.$message.error('Start time should be earlier than end time.');
+        return;
+      }
+      if (this.form.expectedStartTime === this.form.expectedEndTime) {
+        this.$message.error('Start time and end time should not be the same.');
+        return;
+      }
+      if (this.form.memberUsernameList.length === 0) {
+        this.$message.error('Please add at least one member.');
+        return;
+      }
       const resp = await this.$api.$post('/addReservation', {
         userId: this.$store.state.user.id,
         roomId: this.room.roomId,
@@ -168,7 +205,7 @@ export default {
       this.$nextTick(_ => {
         this.$refs.saveMemberTagInput.$refs.input.focus();
       });
-    },
+    }
   }
 };
 </script>
@@ -183,7 +220,7 @@ export default {
 }
 
 .reservation-form {
-  @apply mt-5;
+  @apply mt-3;
 }
 
 .time-select {
@@ -195,5 +232,10 @@ export default {
 .line {
   /*@apply w-2;*/
   text-align: center;
+}
+
+.warning-info {
+  @apply mt-5;
+
 }
 </style>
