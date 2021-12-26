@@ -100,7 +100,8 @@ export default {
       });
       if (resp.success) {
         this.$message.success(resp.message);
-        window.location.reload();
+        // window.location.reload();
+        window.history.back();
       } else {
         this.$message.error(resp.message);
       }
@@ -116,7 +117,9 @@ export default {
       });
       if (resp.success) {
         this.$message.success(resp.message);
-        window.location.reload();
+       // window.location.reload();
+        window.history.back();
+
       } else {
         this.$message.error(resp.message);
       }

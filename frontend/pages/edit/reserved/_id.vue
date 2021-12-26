@@ -64,6 +64,8 @@
       </el-form-item>
       <el-form-item>
         <el-button type='primary' @click='updateReservation'>Submit</el-button>
+        <el-button type='danger' @click='deleteReservation'>Delete</el-button>
+
       </el-form-item>
     </el-form>
   </div>
@@ -71,6 +73,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import Element from 'element-ui';
 
 export default {
   name: 'edit reserved',
@@ -158,6 +161,30 @@ export default {
       } else {
         this.$message.error(resp.message);
       }
+    },
+    async deleteReservation() {
+      await Element.MessageBox.confirm(
+        'Are you sure to delete this reservation?',
+        'Attention',
+        {
+          type: 'warning',
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }
+      )
+        .then(async () => {
+          const resp = await this.$api.$post('/deleteReservation', {
+            reserveId: this.id
+          });
+          if (resp.success) {
+            Element.Message.success(resp.message);
+            await this.$router.push('/my/reservation');
+          } else {
+            Element.Message.error(resp.message);
+          }
+        })
+        .catch(() => {
+        });
     },
     async updateReservation() {
       if (this.form.expectedDate === null) {

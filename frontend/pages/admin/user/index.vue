@@ -49,11 +49,16 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label='Action' fixed='right' width='100'>
+      <el-table-column label='Action' fixed='right' width='200'>
         <template slot-scope='scope'>
           <el-button
             size='mini'
             @click='handleEdit(scope.$index, scope.row)'>Edit
+          </el-button>
+          <el-button
+            size='mini'
+            type='danger'
+            @click='handleDelete(scope.$index, scope.row)'>Delete
           </el-button>
         </template>
       </el-table-column>
@@ -62,6 +67,8 @@
 </template>
 
 <script>
+import Element from 'element-ui';
+
 export default {
   name: 'user management',
   middleware: ['adminAuth'],
@@ -89,7 +96,33 @@ export default {
     },
     handleAddUser() {
       this.$router.push('/admin/user/add');
+    },
+    async handleDelete(index, row) {
+      await Element.MessageBox.confirm(
+        `Are you sure to delete user ${row.username} ?`,
+        'Attention',
+        {
+          type: 'warning',
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }
+      )
+        .then(async () => {
+          const resp = await this.$api.$post('/deleteUser', {
+            userId: row.userId
+          });
+          if (resp.success) {
+            Element.Message.success(resp.message);
+            // await this.$router.push('/admin/user');
+            window.location.reload();
+          } else {
+            Element.Message.error(resp.message);
+          }
+        })
+        .catch(() => {
+        });
     }
+
   }
 };
 </script>

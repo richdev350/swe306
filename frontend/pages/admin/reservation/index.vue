@@ -42,12 +42,18 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label='Action' width='100'>
+      <el-table-column label='Action' width='200'>
         <template slot-scope='scope'>
           <el-button
             size='mini'
             @click='handleView(scope.$index, scope.row)'>
             View
+          </el-button>
+          <el-button
+            size='mini'
+            type='danger'
+            @click='handleDelete(scope.$index, scope.row)'>
+            Delete
           </el-button>
         </template>
       </el-table-column>
@@ -58,6 +64,8 @@
 </template>
 
 <script>
+import Element from 'element-ui';
+
 export default {
   name: 'Reservation Management',
   middleware: ['adminAuth'],
@@ -110,6 +118,31 @@ export default {
     });
   },
   methods: {
+    async handleDelete(index, row) {
+      await Element.MessageBox.confirm(
+        `Are you sure to delete the reservation by ${ row.mainUser } on ${ row.date } ?`,
+        'Attention',
+        {
+          type: 'warning',
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }
+      )
+        .then(async () => {
+          const resp = await this.$api.$post('/deleteReservation', {
+            reserveId: row.reserveId
+          });
+          if (resp.success) {
+            Element.Message.success(resp.message);
+            // await this.$router.push('/admin/reservation');
+            window.location.reload();
+          } else {
+            Element.Message.error(resp.message);
+          }
+        })
+        .catch(() => {
+        });
+    },
     handleView(index, row) {
       // console.log(row.userId);
       this.$router.push('/admin/reservation/' + row.reserveId);
