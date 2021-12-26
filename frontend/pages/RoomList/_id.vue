@@ -94,7 +94,7 @@ export default {
       date: '',
       warningInfo: 'As main user of this room, you will be blacklisted if the number of sign-in members doesn\'t reach the minimum required number of members.',
       timeSelectOptions: {
-        start: '08:30',
+        start: '08:00',
         step: '00:30',
         end: '22:30'
       },

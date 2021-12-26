@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'edit user',
-  middleware: ['auth'],
+  middleware: ['adminAuth'],
 
   data() {
     return {
