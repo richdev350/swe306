@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <CustomPageTitle>System Dashboard</CustomPageTitle>
-  </div>
+<div></div>
 </template>
 
 <script>

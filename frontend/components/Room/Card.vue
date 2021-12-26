@@ -1,7 +1,10 @@
 <template>
   <div class='room-card-wrapper'>
     <el-card class='room-card' :shadow='shadow' :style='cardStyle'>
-      <el-descriptions class='margin-top' :title='room.roomNo' :column='handleColumnNum' :size='descSize' border>
+      <el-descriptions class='margin-top' :title='room.roomNo'
+                       :column='handleColumnNum' :size='descSize' border
+                       :label-style='{"align-items": "center"}'
+      >
         <template v-if='isOperable' slot='extra'>
           <nuxt-link v-if='room.status' :to='"/RoomList/"+room.roomId'>
             <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>Make Reservation

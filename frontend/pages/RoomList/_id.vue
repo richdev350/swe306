@@ -94,17 +94,14 @@ export default {
       date: '',
       warningInfo: 'As main user of this room, you will be blacklisted if the number of sign-in members doesn\'t reach the minimum required number of members.',
       timeSelectOptions: {
-        start: '08:30',
-        step: '00:15',
+        start: '08:00',
+        step: '00:30',
         end: '22:30'
       },
       form: {
-        region: '',
-        resource: '',
         expectedDate: '',
         expectedStartTime: '',
         expectedEndTime: '',
-        desc: '',
         memberUsernameList: [],
         addMemberInputVisible: false,
         addMemberInputValue: ''
@@ -123,7 +120,7 @@ export default {
   },
   methods: {
     async addReservation() {
-      if (this.form.expectedDate === '') {
+      if (this.form.expectedDate === null) {
         this.$message.error('Please choose a date.');
         return;
       }
@@ -135,11 +132,11 @@ export default {
         this.$message.error('Please choose a date after today.');
         return;
       }
-      if (this.form.expectedStartTime === '') {
+      if (this.form.expectedStartTime === null) {
         this.$message.error('Please choose a start time.');
         return;
       }
-      if (this.form.expectedEndTime === '') {
+      if (this.form.expectedEndTime === null) {
         this.$message.error('Please choose a end time.');
         return;
       }
@@ -155,7 +152,7 @@ export default {
         this.$message.error('Please add at least one member.');
         return;
       }
-      if (this.memberIdList.length < this.room.capacityMin) {
+      if (this.memberIdList.length + 1 < this.room.capacityMin) {
         this.$message.error('The number of members is less than the minimum required number of members');
         return;
       }
@@ -169,7 +166,7 @@ export default {
       console.log(resp);
       if (resp.success) {
         this.$message.success(resp.message);
-        this.$router.push('/my/reservation');
+        await this.$router.push('/my/reservation');
       } else {
         this.$message.error(resp.message);
       }
@@ -226,7 +223,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .add-member-input-new-tag {
   width: 150px;
 }

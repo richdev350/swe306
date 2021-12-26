@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  name: 'reservation management'
+  name: 'Reservation Management',
+  middleware: ['adminAuth']
 };
 </script>
 
