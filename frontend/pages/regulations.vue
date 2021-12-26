@@ -1,5 +1,5 @@
 <template>
-  <div class='my-20'>
+  <div class=''>
     <div class=''></div>
     <el-card class='box-card'>
       <CustomPageTitle align='center'>
