@@ -226,7 +226,7 @@ public class Controller {
     @PostMapping("/api/addRoom")
     public CommonResp addRoom(@CookieValue(name = "authToken") String Token, @RequestBody RoomReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (roomServer.getRoomByRoomNo(req.getRoomNo()) != null) {
                 resp.setSuccess(false);
                 resp.setMessage("Room Already Exist!");
@@ -248,7 +248,7 @@ public class Controller {
     @PostMapping("/api/updateRoom")
     public CommonResp updateRoom(@CookieValue(name = "authToken") String Token, @RequestBody RoomReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (roomServer.getRoomByRoomNo(req.getRoomNo()) == null) {
                 resp.setSuccess(false);
                 resp.setMessage("Room Already Exist!");
