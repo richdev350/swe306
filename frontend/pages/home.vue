@@ -5,7 +5,7 @@
       <div slot="header" class="clearfix">
         <span style='font-size: 25px'>Welcom to XMUM Discussion Room Reservation System. </span>
       </div>
-    <img src='assets/images/xmum' class='card_image'>
+    <img src='../assets/images/xmum.jpeg' class='card_image'>
 <!--    <div class='test'>SomeText</div>
     <el-button>
       <NuxtLink to='/test'>Test</NuxtLink>
@@ -38,16 +38,16 @@ export default {
   data() {
     return {
       images:[{
-       src: "assets/images/1.jpeg",
+       url: "../assets/images/1.jpeg",
       },
         {
-        src:"",
+        url:"../assets/images/2.jpeg",
       },
         {
-          src:"",
+          url:"../assets/images/3.jpeg",
         },
         {
-          src:"",
+          url:"../assets/images/4.jpeg",
         },
       ]
     };
