@@ -1,5 +1,5 @@
 <template>
-  <div class='list-card-wrapper'>
+  <div class='room-card-wrapper'>
     <el-card class='room-card' :shadow='shadow' :style='cardStyle'>
       <el-descriptions class='margin-top' :title='room.roomNo' :column='handleColumnNum' :size='descSize' border>
         <template v-if='isOperable' slot='extra'>
@@ -104,4 +104,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.room-card {
+  @apply flex-grow;
+}
 </style>

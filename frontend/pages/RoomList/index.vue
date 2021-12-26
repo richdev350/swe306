@@ -1,7 +1,7 @@
 <template>
   <div>
     <CustomPageTitle>Room List</CustomPageTitle>
-    <div class='list-card-wrapper'>
+    <div class='room-card-wrapper'>
       <div v-for='item in rooms' :key='item.id' class='room-card-item'>
         <RoomCard :room='item' />
       </div>
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.list-card-wrapper {
+.room-card-wrapper {
   @apply flex flex-wrap flex-row justify-center;
 }
 
