@@ -32,13 +32,13 @@ CREATE TABLE `reservation` (
   `memberList` varchar(200) NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
-  `status` tinyint NOT NULL DEFAULT '1',
+  `status` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`reserveId`),
   KEY `userId_idx` (`userId`),
   KEY `roomId_idx` (`roomId`),
   CONSTRAINT `roomId` FOREIGN KEY (`roomId`) REFERENCES `room` (`roomId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,3,2,3,',4,5,','2021-12-25 09:00:00','2021-12-25 10:00:00',1),(2,2,3,3,',5,6,','2021-12-01 16:00:00','2021-12-01 17:00:00',1),(3,3,4,3,',5,6,','2021-12-31 14:00:00','2021-12-31 16:30:00',0),(8,4,5,1,',5,6,','2021-12-27 09:00:00','2021-12-27 11:00:00',1),(9,1,5,3,',5,6,','2021-12-27 09:00:00','2021-12-27 11:00:00',1),(18,1,2,3,',4,5,','2021-12-25 13:00:00','2021-12-25 16:00:00',1),(20,3,3,4,',5,6,7,','2021-12-28 09:00:00','2021-12-28 11:00:00',1);
+INSERT INTO `reservation` VALUES (1,3,2,3,',4,5,','2021-12-25 09:00:00','2021-12-25 10:00:00',1),(2,2,3,3,',5,6,','2021-12-01 16:00:00','2021-12-01 17:00:00',1),(3,3,4,3,',5,6,','2021-12-31 14:00:00','2021-12-31 16:30:00',0),(8,4,5,1,',5,6,','2021-12-27 09:00:00','2021-12-27 11:00:00',1),(18,1,2,3,',4,5,','2021-12-25 13:00:00','2021-12-25 16:00:00',1),(20,3,3,4,',5,6,7,','2021-12-28 09:00:00','2021-12-28 11:00:00',1),(21,1,1,1,',,','2021-12-21 09:00:00','2021-12-21 10:00:00',1),(22,1,1,1,',,','2021-12-21 11:00:00','2021-12-21 12:00:00',1),(23,1,1,1,',,','2021-12-21 13:00:00','2021-12-21 13:30:00',1);
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +105,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'ADMIN001','123','Admin','1','12345674',1),(2,'ADMIN002','123','Admin','2','12345675',1),(3,'SWE1909468','123','Jiaxiang','Gao','12345671',0),(4,'SWE1909480','123','Jiazheng','Liang','12345672',0),(5,'SWE1909484','123','Yicen','Liu','12345670',0),(6,'SWE1909503','123','Jinbiao','Zhang','12345673',0);
+INSERT INTO `user` VALUES (1,'admin','123','1','1','123',1),(2,'ADMIN002','123','Admin','2','12345675',1),(3,'SWE1909468','123','Jiaxiang','Gao','12345671',0),(4,'SWE1909480','123','Jiazheng','Liang','12345672',0),(5,'SWE1909484','123','Yicen','Liu','12345670',0),(6,'SWE1909503','123','Jinbiao','Zhang','12345673',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -118,4 +118,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-24  0:50:59
+-- Dump completed on 2021-12-26 23:03:06
