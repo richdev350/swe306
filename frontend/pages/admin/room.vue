@@ -6,7 +6,9 @@
 
 <script>
 export default {
-  name: 'room management'
+  name: 'room management',
+  middleware: ['adminAuth']
+
 };
 </script>
 

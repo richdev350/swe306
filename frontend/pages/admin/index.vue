@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'index'
+  middleware: ['goHome']
 };
 </script>
 
