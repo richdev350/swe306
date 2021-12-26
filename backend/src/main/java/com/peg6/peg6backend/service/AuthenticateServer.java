@@ -5,6 +5,8 @@ import com.peg6.peg6backend.entity.TokenEntity;
 import com.peg6.peg6backend.resp.CommonResp;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuthenticateServer {
     TokenEntity tokenEntity = new TokenEntity();
@@ -16,6 +18,13 @@ public class AuthenticateServer {
     public CommonResp ConnectionTest(){
         CommonResp resp = new CommonResp();
         resp.setMessage("Connection Success!");
+        return resp;
+    }
+
+    public CommonResp wrongToken(){
+        CommonResp resp = new CommonResp();
+        resp.setSuccess(false);
+        resp.setMessage("Token Wrong Or No Token");
         return resp;
     }
 }

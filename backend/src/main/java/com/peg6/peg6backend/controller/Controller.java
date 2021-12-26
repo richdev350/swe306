@@ -52,11 +52,11 @@ public class Controller {
             } else {
                 resp.setMessage("No Reservation!");
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
+
     }
 
     @PostMapping("/api/getReservationByReserveId")
@@ -71,11 +71,10 @@ public class Controller {
                 resp.setSuccess(false);
                 resp.setMessage("Reservation Not Found!");
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @GetMapping("/api/getReservationAll")
@@ -89,11 +88,10 @@ public class Controller {
                 resp.setMessage("No Reservation!");
             }
 
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     /*
@@ -124,11 +122,10 @@ public class Controller {
                         conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     /*
@@ -159,11 +156,10 @@ public class Controller {
                         conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
 
@@ -184,11 +180,10 @@ public class Controller {
                 resp.setSuccess(false);
                 resp.setMessage("Reservation Does Not Exist!");
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @GetMapping("/api/getRoomAll")
@@ -202,11 +197,10 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/getRoom")
@@ -223,11 +217,10 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/addRoom")
@@ -246,11 +239,10 @@ public class Controller {
                     resp.setMessage("Add Room Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/updateRoom")
@@ -269,11 +261,10 @@ public class Controller {
                     resp.setMessage("Update Room Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/deleteRoom")
@@ -294,11 +285,10 @@ public class Controller {
                     resp.setMessage("Delete Room Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
 
@@ -327,11 +317,10 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/getUserByUsername")
@@ -346,11 +335,10 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/addUser")
@@ -369,11 +357,10 @@ public class Controller {
                     resp.setMessage("Add User Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/updateUser")
@@ -392,11 +379,10 @@ public class Controller {
                     resp.setMessage("Update User Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/deleteUser")
@@ -416,11 +402,10 @@ public class Controller {
                     resp.setMessage("Delete User Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
 
