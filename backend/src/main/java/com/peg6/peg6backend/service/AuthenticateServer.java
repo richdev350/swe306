@@ -5,8 +5,6 @@ import com.peg6.peg6backend.entity.TokenEntity;
 import com.peg6.peg6backend.resp.CommonResp;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class AuthenticateServer {
     TokenEntity tokenEntity = new TokenEntity();
