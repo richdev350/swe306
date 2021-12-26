@@ -39,7 +39,10 @@ public class ReservationServer {
     }
 
     public ReservationResp getReservationByReservationId(Integer reserveId){
-        return memberListTransToList(reservationMapper.getReservationByReserveId(reserveId));
+        if(reservationMapper.getReservationByReserveId(reserveId)!=null){
+            return memberListTransToList(reservationMapper.getReservationByReserveId(reserveId));
+        }
+        return null;
     }
 
     public List<ReservationResp> getAllReservation(){

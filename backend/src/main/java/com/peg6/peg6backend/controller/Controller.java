@@ -70,6 +70,25 @@ public class Controller {
         return resp;
     }
 
+    @PostMapping("/api/getReservationByReserveId")
+    public CommonResp getReservationByReserveId(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
+        Integer reserveId = Integer.parseInt(jsonParam.getString("reserveId"));
+        CommonResp<ReservationResp> resp = new CommonResp();
+        if (authenticateServer.authenticateToken(Token)) {
+            ReservationResp content = reservationServer.getReservationByReservationId(reserveId);
+            if (content != null) {
+                resp.setContent(content);
+            } else {
+                resp.setSuccess(false);
+                resp.setMessage("Reservation Not Found!");
+            }
+        } else {
+            resp.setSuccess(false);
+            resp.setMessage("Token Wrong Or No Token");
+        }
+        return resp;
+    }
+
     @GetMapping("/api/getReservationAll")
     public CommonResp getReservationAll(@CookieValue(name = "authToken") String Token) {
         CommonResp<List<ReservationResp>> resp = new CommonResp();
