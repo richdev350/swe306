@@ -155,6 +155,10 @@ export default {
         this.$message.error('Please add at least one member.');
         return;
       }
+      if (this.memberIdList.length < this.room.capacityMin) {
+        this.$message.error('The number of members is less than the minimum required number of members');
+        return;
+      }
       const resp = await this.$api.$post('/addReservation', {
         userId: this.$store.state.user.id,
         roomId: this.room.roomId,
@@ -181,6 +185,18 @@ export default {
           const userId = resp.content.userId;
           if (userId === await this.$store.state.user.id) {
             this.$message.error('You cannot add yourself as a member');
+            this.form.addMemberInputVisible = false;
+            this.form.addMemberInputValue = '';
+            return;
+          }
+          if (this.memberIdList.includes(userId)) {
+            this.$message.error('This member has already been added');
+            this.form.addMemberInputVisible = false;
+            this.form.addMemberInputValue = '';
+            return;
+          }
+          if (this.memberIdList.length + 1 > this.room.capacityMax) {
+            this.$message.error('The number of members has reached the maximum number of members');
             this.form.addMemberInputVisible = false;
             this.form.addMemberInputValue = '';
             return;
