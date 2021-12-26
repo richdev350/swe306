@@ -53,7 +53,7 @@ public class Controller {
     }
 
     @PostMapping("/api/getReservation")
-    public CommonResp getReservation(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getReservation(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
         CommonResp<List<ReservationResp>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -71,11 +71,11 @@ public class Controller {
     }
 
     @GetMapping("/api/getReservationAll")
-    public CommonResp getReservationAll(@RequestHeader("Cookie")String Token) {
+    public CommonResp getReservationAll(@CookieValue(name = "authToken") String Token) {
         CommonResp<List<ReservationResp>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             List<ReservationResp> content = reservationServer.getAllReservation();
-            if(content != null){
+            if (content != null) {
                 resp.setContent(content);
             } else {
                 resp.setMessage("No Reservation!");
@@ -96,7 +96,7 @@ public class Controller {
         = -1 --> Make Reservation Failed
      */
     @PostMapping("/api/addReservation")
-    public CommonResp addReservation(@RequestHeader("Cookie") String Token, @RequestBody ReservationReq req) {
+    public CommonResp addReservation(@CookieValue(name = "authToken") String Token, @RequestBody ReservationReq req) {
         CommonResp<Integer> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             int result = reservationServer.makeReservationByUserId(req);
@@ -124,7 +124,7 @@ public class Controller {
         = -1 --> Make Reservation Failed
      */
     @PostMapping("/api/updateReservation")
-    public CommonResp updateReservation(@RequestHeader("Cookie") String Token, @RequestBody ReservationReq req) {
+    public CommonResp updateReservation(@CookieValue(name = "authToken") String Token, @RequestBody ReservationReq req) {
         CommonResp<Integer> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             int result = reservationServer.updateReservationByUserId(req, req.getReserveId().toString());
@@ -147,7 +147,7 @@ public class Controller {
 
 
     @PostMapping("/api/deleteReservation")
-    public CommonResp deleteReservation(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp deleteReservation(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer reserveId = Integer.parseInt(jsonParam.getString("reserveId"));
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -171,7 +171,7 @@ public class Controller {
     }
 
     @GetMapping("/api/getRoomAll")
-    public CommonResp getRoomAll(@RequestHeader("Cookie") String Token) {
+    public CommonResp getRoomAll(@CookieValue(name = "authToken") String Token) {
         CommonResp<List<Room>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             List<Room> content = roomServer.getRoomList();
@@ -189,7 +189,7 @@ public class Controller {
     }
 
     @PostMapping("/api/getRoom")
-    public CommonResp getRoom(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getRoom(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         String roomId = jsonParam.getString("roomId");
         CommonResp<Room> resp = new CommonResp();
 
@@ -210,7 +210,7 @@ public class Controller {
     }
 
     @PostMapping("/api/addRoom")
-    public CommonResp addRoom(@RequestHeader("Cookie") String Token, @RequestBody RoomReq req) {
+    public CommonResp addRoom(@CookieValue(name = "authToken") String Token, @RequestBody RoomReq req) {
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(req.getToken())) {
             if (roomServer.getRoomByRoomNo(req.getRoomNo()) != null) {
@@ -233,7 +233,7 @@ public class Controller {
     }
 
     @PostMapping("/api/updateRoom")
-    public CommonResp updateRoom(@RequestHeader("Cookie") String Token, @RequestBody RoomReq req) {
+    public CommonResp updateRoom(@CookieValue(name = "authToken") String Token, @RequestBody RoomReq req) {
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(req.getToken())) {
             if (roomServer.getRoomByRoomNo(req.getRoomNo()) == null) {
@@ -256,7 +256,7 @@ public class Controller {
     }
 
     @PostMapping("/api/deleteRoom")
-    public CommonResp deleteRoom(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp deleteRoom(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         String roomId = jsonParam.getString("roomId");
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -282,7 +282,7 @@ public class Controller {
 
 
     @GetMapping("/api/getUserAll")
-    public CommonResp getUserAll(@RequestHeader("Cookie") String Token) {
+    public CommonResp getUserAll(@CookieValue(name = "authToken") String Token) {
         CommonResp<List<User>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             List<User> content = userServer.getUserList();
@@ -295,7 +295,7 @@ public class Controller {
     }
 
     @PostMapping("/api/getUser")
-    public CommonResp getUser(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getUser(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
         CommonResp<User> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -314,7 +314,7 @@ public class Controller {
     }
 
     @PostMapping("/api/getUserByUsername")
-    public CommonResp getUserByUsername(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getUserByUsername(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         String username = jsonParam.getString("username");
         CommonResp<User> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -333,7 +333,7 @@ public class Controller {
     }
 
     @PostMapping("/api/addUser")
-    public CommonResp addUser(@RequestHeader("Cookie") String Token, @RequestBody UserReq req) {
+    public CommonResp addUser(@CookieValue(name = "authToken") String Token, @RequestBody UserReq req) {
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(req.getToken())) {
             if (userServer.getUserByUsername(req.getUsername()) != null) {
@@ -356,7 +356,7 @@ public class Controller {
     }
 
     @PostMapping("/api/updateUser")
-    public CommonResp updateUser(@RequestHeader("Cookie") String Token, @RequestBody UserReq req) {
+    public CommonResp updateUser(@CookieValue(name = "authToken") String Token, @RequestBody UserReq req) {
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(req.getToken())) {
             if (userServer.getUserByUserId(req.getUserId()) == null) {
@@ -379,7 +379,7 @@ public class Controller {
     }
 
     @PostMapping("/api/deleteUser")
-    public CommonResp deleteUser(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp deleteUser(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {

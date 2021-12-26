@@ -1,7 +1,7 @@
 <template>
   <el-header class='nav' height='100px'>
     <el-row type='flex' :gutter='10'>
-      <el-col class='logo-wrapper' :xs='0' :sm='1' :md='5'>
+      <el-col class='logo-wrapper' :xs='0' :sm='0' :md='3' :lg='5'>
         <a href='/'>
           <el-image fit='scale-down' class='logo-image'
                     :src='logoSrc'></el-image>
@@ -19,9 +19,23 @@
               {{ item.title }}
             </el-menu-item>
           </template>
-          <el-submenu v-if='user' index='/my'>
+          <el-submenu v-if='currentUser.role === "Admin"' index='/admin'>
             <template slot='title'>
-              <span>{{ user.firstName + ' ' + user.lastName }}</span>
+              <span>System Dashboard</span>
+            </template>
+            <el-menu-item index='/admin/user'>
+              User Management
+            </el-menu-item>
+            <el-menu-item index='/admin/room'>
+              Room Management
+            </el-menu-item>
+            <el-menu-item index='/admin/reservation'>
+              Reservation Management
+            </el-menu-item>
+          </el-submenu>
+          <el-submenu v-if='isAuthenticated' index='/my'>
+            <template slot='title'>
+              <span>{{ currentUser.fullName }}</span>
             </template>
             <el-menu-item index='/my/reservation'>
               My Reservation
@@ -33,7 +47,7 @@
               Logout
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-if='!user' index='/my/signin'>
+          <el-menu-item v-if='!isAuthenticated' index='/my/signin'>
             Login
           </el-menu-item>
         </el-menu>
@@ -45,6 +59,8 @@
 
 
 <script>
+
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'MainHeader',
@@ -71,12 +87,11 @@ export default {
     };
   },
   computed: {
-    user() {
-      return this.$store.state.user;
-    },
     routePath() {
       return this.$nuxt.$route.path;
-    }
+    },
+    ...mapGetters(['currentUser', 'isAuthenticated'])
+
   },
   methods: {
     logout() {
@@ -91,6 +106,7 @@ export default {
 //$logo: url('assets/images/logo.png')
 
 .logo-wrapper {
+  //@apply sm:hidden;
   @apply flex;
   @apply justify-center;
   padding-top: 15px;

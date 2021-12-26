@@ -2,11 +2,9 @@
   <div class='my-20'>
     <div class=''></div>
     <el-card class='box-card'>
-      <div style='text-align: center;'>
-        <CustomPageTitle>
-          XMUM Room Reservation Rules
-        </CustomPageTitle>
-      </div>
+      <CustomPageTitle align='center'>
+        XMUM Room Reservation Rules
+      </CustomPageTitle>
       <el-divider content-position='center'><span class='title1'><span
         class='el-icon-s-tools'> Reservation Regulations</span></span></el-divider>
       <div class='text item'>
