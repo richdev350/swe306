@@ -70,12 +70,12 @@ public class Controller {
         return resp;
     }
 
-    @PostMapping("/api/getReservationByReservationId")
-    public CommonResp getReservationByReservationId(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
-        Integer reservationId = Integer.parseInt(jsonParam.getString("reservationId"));
+    @PostMapping("/api/getReservationByReserveId")
+    public CommonResp getReservationByReserveId(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
+        Integer reserveId = Integer.parseInt(jsonParam.getString("reserveId"));
         CommonResp<ReservationResp> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
-            ReservationResp content = reservationServer.getReservationByReservationId(reservationId);
+            ReservationResp content = reservationServer.getReservationByReservationId(reserveId);
             if (content != null) {
                 resp.setContent(content);
             } else {
