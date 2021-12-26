@@ -70,7 +70,12 @@ export default {
   },
   methods: {
     handleSubmit(room) {
-      this.updateRoom(room);
+      if (this.method === 'update') {
+        this.updateRoom(room);
+      }
+      if (this.method === 'add') {
+        this.addRoom(room);
+      }
     },
     handleBack() {
       this.$router.push('/admin/user');
@@ -99,7 +104,22 @@ export default {
       } else {
         this.$message.error(resp.message);
       }
-
+    },
+    async addRoom(room){
+      const resp = await this.$api.$post('/addRoom', {
+        roomNo: room.roomNo,
+        location: room.location,
+        roomName: room.roomName,
+        status: room.status,
+        capacityMin: parseInt(room.capacityMin),
+        capacityMax: parseInt(room.capacityMax)
+      });
+      if (resp.success) {
+        this.$message.success(resp.message);
+        window.location.reload();
+      } else {
+        this.$message.error(resp.message);
+      }
     }
   }
 

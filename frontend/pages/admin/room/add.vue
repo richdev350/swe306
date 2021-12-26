@@ -1,8 +1,7 @@
 <template>
   <div>
-    <CustomPageTitle>Add New User</CustomPageTitle>
+    <CustomPageTitle>Add New Room</CustomPageTitle>
     <RoomEditor method='add'/>
-
   </div>
 </template>
 

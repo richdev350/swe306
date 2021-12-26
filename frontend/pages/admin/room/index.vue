@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     handleAddRoom() {
-
+      this.$router.push('/admin/room/add');
     },
     handleEdit(index, row) {
       this.$router.push('/admin/room/' + row.roomId);
