@@ -107,7 +107,10 @@ public class Controller {
                 resp.setMessage("Make Reservation Failed");
             } else {
                 resp.setSuccess(false);
-                resp.setMessage("Student " + result + " have time conflict!");
+                User conflictUser = userServer.getUserByUserId(result);
+
+                resp.setMessage("Student " + conflictUser.getUsername() + " (" +conflictUser.getFirstName()+ " " +
+                        conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
         } else {
