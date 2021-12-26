@@ -1,14 +1,14 @@
 <template>
   <div>
     <CustomPageTitle>Add New User</CustomPageTitle>
-    <UserEditor method='add'/>
+    <RoomEditor method='add'/>
 
   </div>
 </template>
 
 <script>
 export default {
-  name: 'add user',
+  name: 'add room',
   middleware: ['adminAuth'],
 
 };
