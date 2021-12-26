@@ -8,6 +8,8 @@ import java.util.List;
 public interface ReservationMapper {
     public List<Reservation> getReservationByUserId(@Param("userId") Integer userId, @Param("userIdString")String userIdString);
 
+    public List<Reservation> getReservationByRoomId(@Param("roomId") Integer roomId);
+
     public List<Reservation> getAllReservation();
 
     public Reservation getReservationByReserveId(@Param("reserveId") Integer reserveId);

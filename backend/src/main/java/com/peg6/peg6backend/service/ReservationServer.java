@@ -1,7 +1,5 @@
 package com.peg6.peg6backend.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.peg6.peg6backend.req.ReservationReq;
 import com.peg6.peg6backend.entity.Reservation;
 import com.peg6.peg6backend.mapper.ReservationMapper;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -22,6 +19,16 @@ public class ReservationServer {
     public List<ReservationResp> getReservationByUserId(Integer userId){
         String userIdString = "%,"+userId+",%";
         List<Reservation> reservationList =  reservationMapper.getReservationByUserId(userId, userIdString);
+        List<ReservationResp> reservationRespList = new ArrayList<>();
+        ReservationResp reservationResp = null;
+        for(Reservation r:reservationList){
+            reservationResp = memberListTransToList(r);
+            reservationRespList.add(reservationResp);
+        }
+        return reservationRespList;
+    }
+    public List<ReservationResp> getReservationByRoomId(Integer roomId){
+        List<Reservation> reservationList = reservationMapper.getReservationByRoomId(roomId);
         List<ReservationResp> reservationRespList = new ArrayList<>();
         ReservationResp reservationResp = null;
         for(Reservation r:reservationList){
@@ -48,14 +55,17 @@ public class ReservationServer {
 
     public int makeReservationByUserId(ReservationReq req){
         try{
-            if(!isAvailable(req.getUserId().toString(), req.getStartTime(), req.getEndTime())){
+            if(!isUserAvailable(req.getUserId().toString(), req.getStartTime(), req.getEndTime())){
                 return req.getUserId();
+            }
+            if(!isRoomAvailable(req.getRoomId().toString(), req.getStartTime(), req.getEndTime())){
+                return (req.getRoomId()*-1)-1;
             }
             int memberNum = 1;
             StringBuilder memberList = new StringBuilder(",");
             for(String s:req.getMemberList()){
                 if(!s.equals("")){
-                    if(!isAvailable(s, req.getStartTime(), req.getEndTime())){
+                    if(!isUserAvailable(s, req.getStartTime(), req.getEndTime())){
                         return Integer.parseInt(s);
                     };
                 }
@@ -73,16 +83,18 @@ public class ReservationServer {
 
     public int updateReservationByUserId(ReservationReq req, String reserveId) {
         try{
-            if(!isAvailable(req.getUserId().toString(), req.getStartTime(), req.getEndTime())){
+            if(!isUserAvailable(req.getUserId().toString(), req.getStartTime(), req.getEndTime())){
                 return req.getUserId();
             }
-
+            if(!isRoomAvailable(req.getRoomId().toString(), req.getStartTime(), req.getEndTime())){
+                return (req.getRoomId()*-1)-1;
+            }
             int memberNum = 1;
             StringBuilder memberList = new StringBuilder(",");
 
             for(String s:req.getMemberList()){
                 if(!s.equals("")){
-                    if(!isAvailable(s, req.getStartTime(), req.getEndTime())){
+                    if(!isUserAvailable(s, req.getStartTime(), req.getEndTime())){
                         return Integer.parseInt(s);
                     };
                 }
@@ -110,8 +122,20 @@ public class ReservationServer {
         }
     }
 
-    public boolean isAvailable(String userId, String startTime, String endTime){
+    public boolean isUserAvailable(String userId, String startTime, String endTime){
         List<ReservationResp> reservations = getReservationByUserId(Integer.parseInt(userId));
+
+        if(reservations == null) return true;
+        for(ReservationResp reservation:reservations){
+            if(!(startTime.compareToIgnoreCase(reservation.getEndTime())>=0 || endTime.compareToIgnoreCase(reservation.getStartTime())<=0)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isRoomAvailable(String roomId, String startTime, String endTime){
+        List<ReservationResp> reservations = getReservationByRoomId(Integer.parseInt(roomId));
 
         if(reservations == null) return true;
         for(ReservationResp reservation:reservations){
