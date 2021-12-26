@@ -1,6 +1,8 @@
 <template>
   <el-footer class='footer'>
-    Footer
+    <el-divider>
+      <b style='align-self: center'>Copyright©2021 Xiamen University Malaysia. All rights reserved.</b>
+    </el-divider>
   </el-footer>
 </template>
 
@@ -11,5 +13,9 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
+.footer{
+  margin-bottom: 20px;
+}
 
 </style>

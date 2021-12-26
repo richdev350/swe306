@@ -298,11 +298,10 @@ public class Controller {
         if (authenticateServer.authenticateToken(Token)) {
             List<User> content = userServer.getUserList();
             resp.setContent(content);
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/getUser")
