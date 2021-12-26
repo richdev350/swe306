@@ -1,47 +1,48 @@
 <template>
   <div>
-    <CustomPageTitle>User Management</CustomPageTitle>
+    <CustomPageTitle>Room Management</CustomPageTitle>
     <div class='options'>
-      <el-button @click='handleAddUser' type='primary'>Add User</el-button>
+      <el-button type='primary' @click='handleAddRoom'>Add Room</el-button>
     </div>
-    <el-table :data='userList' stripe height='800'>
+    <el-table :data='roomList' stripe height='800'>
       <el-table-column
         type='index'
         fixed
         width='50'>
       </el-table-column>
       <el-table-column
-        prop='username'
-        label='Username'
-        fixed
-        fit
-      >
-      </el-table-column>
-      <el-table-column
-        prop='firstName'
-        fit
-        label='First Name'
-      >
-      </el-table-column>
-      <el-table-column
-        prop='lastName'
-        fit
-        label='Last Name'
-      >
-      </el-table-column>
-      <el-table-column
-        prop='phoneNum'
-        label='Tel.'
+        prop='roomNo'
+        label='Room No'
         width='200'>
       </el-table-column>
 
       <el-table-column
-        label='Role'
+        prop='roomName'
+        label='Room Name'
+        fit>
+      </el-table-column>
+
+      <el-table-column
+        prop='location'
+        label='Location'
+        width='200'>
+      </el-table-column>
+      <el-table-column
+        label='Capacity'
         width='100'>
         <template slot-scope='scope'>
           <div slot='reference' class='name-wrapper'>
-            <el-tag v-if='scope.row.isAdmin' type='info' size='small'>Admin</el-tag>
-            <el-tag v-else type='primary' size='small'>Student</el-tag>
+            {{ scope.row.capacityMin + ' - ' + scope.row.capacityMax }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label='Status'
+        width='100'>
+        <template slot-scope='scope'>
+          <div slot='reference' class='name-wrapper'>
+            <el-tag v-if='scope.row.status' type='success' size='small'>Available</el-tag>
+            <el-tag v-else type='danger' size='small'>Unavailable</el-tag>
           </div>
         </template>
       </el-table-column>
@@ -54,37 +55,37 @@
         </template>
       </el-table-column>
     </el-table>
+    {{ roomList }}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'user management',
+  name: 'room management',
   middleware: ['adminAuth'],
   async asyncData({ app }) {
-    const resp = await app.$api.$get('/getUserAll');
-    let userList = [];
+    const resp = await app.$api.$get('/getRoomAll');
+    let roomList = [];
     if (resp.success) {
-      userList = resp.content;
+      roomList = resp.content;
     } else {
       app.$message.error(resp.message);
     }
     return {
-      userList
+      roomList
     };
   },
   data() {
     return {
-      userList: []
+      roomList: []
     };
   },
   methods: {
-    handleEdit(index, row) {
-      // console.log(row.userId);
-      this.$router.push('/admin/user/' + row.userId);
+    handleAddRoom() {
+
     },
-    handleAddUser() {
-      this.$router.push('/admin/user/add');
+    handleEdit(index, row) {
+      this.$router.push('/admin/room/' + row.roomId);
     }
   }
 };
@@ -92,6 +93,7 @@ export default {
 
 <style scoped lang='scss'>
 .options {
-  @apply flex justify-end;
+  @apply float-right;
 }
+
 </style>
