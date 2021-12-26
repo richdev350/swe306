@@ -407,5 +407,19 @@ public class Controller {
         return authenticateServer.wrongToken();
     }
 
+    @PostMapping("/api/roomSchedule")
+    public CommonResp roomSchedule(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam){
+        Integer roomId = Integer.parseInt(jsonParam.getString("roomId"));
+        String day = jsonParam.getString("day");
+        CommonResp<List<Integer>> resp = new CommonResp();
+        if (authenticateServer.authenticateToken(Token)) {
+            List<Integer> content = reservationServer.roomSchedule(roomId, day);
+            resp.setContent(content);
+            return resp;
+        }
+
+        return authenticateServer.wrongToken();
+    }
+
 
 }
