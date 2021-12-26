@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class='my-20'>
+    <div class=''></div>
     <el-card class='box-card'>
       <CustomPageTitle align='center'>
         XMUM Room Reservation Rules
