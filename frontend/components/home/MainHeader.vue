@@ -1,11 +1,13 @@
 <template>
   <el-header class='nav' height='100px'>
     <el-row type='flex' :gutter='10'>
-      <el-col class='logo-wrapper' :xs='0' :sm='1' :md='5'>
-        <a href='/'>
+      <el-col class='logo-wrapper' :xs='0' :sm='0' :md='6' :lg='10'>
+        <nuxt-link to='/home'>
+          <!--          <img :src='logoSrc' alt=''>-->
           <el-image fit='scale-down' class='logo-image'
-                    :src='logoSrc'></el-image>
-        </a>
+                    :src='require(`~/assets/images/${logoSrc}`)'
+          ></el-image>
+        </nuxt-link>
       </el-col>
       <el-col>
         <el-menu
@@ -19,9 +21,23 @@
               {{ item.title }}
             </el-menu-item>
           </template>
-          <el-submenu v-if='user' index='/my'>
+          <el-submenu v-if='isAdmin' index='/admin'>
             <template slot='title'>
-              <span>{{ user.firstName + ' ' + user.lastName }}</span>
+              <span>System Dashboard</span>
+            </template>
+            <el-menu-item index='/admin/user'>
+              User Management
+            </el-menu-item>
+            <el-menu-item index='/admin/room'>
+              Room Management
+            </el-menu-item>
+            <el-menu-item index='/admin/reservation'>
+              Reservation Management
+            </el-menu-item>
+          </el-submenu>
+          <el-submenu v-if='isAuthenticated' index='/my'>
+            <template slot='title'>
+              <span>{{ loggedInUser.fullName }}</span>
             </template>
             <el-menu-item index='/my/reservation'>
               My Reservation
@@ -33,7 +49,7 @@
               Logout
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-if='!user' index='/my/signin'>
+          <el-menu-item v-if='!isAuthenticated' index='/my/signin'>
             Login
           </el-menu-item>
         </el-menu>
@@ -46,37 +62,43 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'MainHeader',
   data() {
     return {
-      logoSrc: 'https://s3.bmp.ovh/imgs/2021/12/74fbc09da57978e6.png',
+      // logoSrc: 'https://s3.bmp.ovh/imgs/2021/12/74fbc09da57978e6.png',
+      // logoSrc: 'https://s3.bmp.ovh/imgs/2021/12/25e8c52d9ec1d905.png',
+      logoSrc: 'xmum-logo.png',
       menuItems: [
         {
           index: '/home',
-          title: 'Home',
+          title: this.$t('nav.home'),
           status: true
         },
         {
           index: '/RoomList',
-          title: 'Room List',
+          title: this.$t('nav.roomList'),
           status: true
         },
         {
           index: '/regulations',
-          title: 'Regulations',
+          title: this.$t('nav.regulations'),
           status: true
         }
       ]
     };
   },
   computed: {
-    user() {
-      return this.$store.state.user;
-    },
     routePath() {
       return this.$nuxt.$route.path;
-    }
+    },
+    isAdmin() {
+      return this.isAuthenticated && this.loggedInUser.role === 'Admin';
+    },
+    ...mapGetters(['loggedInUser', 'isAuthenticated'])
+
   },
   methods: {
     logout() {
@@ -91,6 +113,7 @@ export default {
 //$logo: url('assets/images/logo.png')
 
 .logo-wrapper {
+  //@apply sm:hidden;
   @apply flex;
   @apply justify-center;
   padding-top: 15px;

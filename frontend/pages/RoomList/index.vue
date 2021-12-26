@@ -1,19 +1,15 @@
 <template>
-  <div class='lg:h-full'>
+  <div>
     <CustomPageTitle>Room List</CustomPageTitle>
-    <el-row>
-      // FIXME dont use el-col
-      <el-col v-for='item in rooms' :key='item.id' :span='8' class='card_bottom'>
+    <div class='room-card-wrapper'>
+      <div v-for='item in rooms' :key='item.id' class='room-card-item'>
         <RoomCard :room='item' />
-      </el-col>
-    </el-row>
-
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-
-
 export default {
   middleware: ['auth'],
   async asyncData({ store }) {
@@ -39,12 +35,18 @@ export default {
   },
 
   methods: {}
-
 };
 </script>
 
 <style scoped lang='scss'>
-.card_bottom {
-  margin-bottom: 50px;
+.room-card-wrapper {
+  @apply flex flex-wrap flex-row justify-center;
+}
+
+.room-card-item {
+  @apply mb-1.5;
+  @apply md:mb-3.5;
+  @apply md:mr-3.5;
+  @apply w-96;
 }
 </style>

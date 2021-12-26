@@ -1,11 +1,15 @@
 <template>
   <div>
     <CustomPageTitle>Profile</CustomPageTitle>
-    <MyInfoCard :user='currentUser' />
+    <UserInfoCard :user='loggedInUser' />
+    <el-button class='options' type='primary' @click='goEdit'>Edit Profile
+    </el-button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Profile',
   middleware: ['auth'],
@@ -15,16 +19,25 @@ export default {
   head() {
     return {
       title: 'Profile'
-    }
+    };
   },
   computed: {
-    currentUser() {
-      return this.$store.state.user;
+    ...mapGetters(['loggedInUser'])
+  },
+  methods: {
+    goEdit() {
+      this.$router.push('/my/edit');
     }
   }
 };
 </script>
 
 <style scoped lang='scss'>
+.room-card-wrapper {
+  @apply flex flex-wrap flex-row justify-center;
+}
 
+.options {
+  @apply mt-5;
+}
 </style>

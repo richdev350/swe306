@@ -1,14 +1,9 @@
 <template>
   <div>
     <h2>Login</h2>
-    <el-input v-model='user.username' prefix-icon='el-icon-user-solid' placeholder='Username'></el-input>
-    <el-input v-model='user.password' prefix-icon='el-icon-lock' placeholder='Password'></el-input>
-    <el-button
-      type='primary'
-      :loading='loading'
-      @click='signin'>
-      Sign in
-    </el-button>
+    <div class='login-wrapper'>
+      <AuthLogin style='flex-grow: 1'></AuthLogin>
+    </div>
   </div>
 </template>
 
@@ -28,30 +23,15 @@ export default {
   },
   head() {
     return {
-      title: 'Login'
+      title: 'Signin'
     };
   },
-  methods: {
-    async signin() {
-      this.loading = true;
-      const { username, password } = this.user;
-      try {
-        const resp = await this.$store.dispatch('login', { username, password });
-        if (resp.success) {
-          await this.$router.push('/');
-        } else {
-          this.$message.error(resp.message);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        this.loading = false;
-      }
-    }
-  }
+  methods: {}
 };
 </script>
 
-<style scoped>
-
+<style scoped lang='scss'>
+.login-wrapper {
+  @apply flex justify-center flex-row;
+}
 </style>

@@ -1,64 +1,113 @@
 <template>
-  <nuxt-link to='/reservations'>
-    <div class='room'>
-      <el-card class='box-card' shadow='hover'>
-        <div slot='header' class='clearfix'>
-          <span class='roomID'><b>{{ room.roomNo }}</b></span>
-        </div>
-        <div class="bottom clearfix">
-        <div class='text item'>
-          <p><b>Room Name: </b>{{ room.roomName }}</p>
-          <el-divider></el-divider>
-          <p><b>Room Location: </b>{{ room.location }}</p>
-          <el-divider></el-divider>
-          <p><b>Minimum Capacity: </b>{{ room.capacityMin }}</p>
-          <el-divider></el-divider>
-          <p><b>Maximum Capacity: </b>{{ room.capacityMax }}</p>
-          <el-divider></el-divider>
-          <p><b>Availability: </b>{{ room.status }}</p>
-        </div>
-        </div>
-      </el-card>
-    </div>
-  </nuxt-link>
+  <div class='room-card-wrapper'>
+    <el-card class='room-card' :shadow='shadow' :style='cardStyle'>
+      <el-descriptions class='margin-top' :title='room.roomNo'
+                       :column='handleColumnNum' :size='descSize' border
+                       :label-style='{"align-items": "center"}'
+      >
+        <template v-if='isOperable' slot='extra'>
+          <nuxt-link v-if='room.status' :to='"/RoomList/"+room.roomId'>
+            <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>Make Reservation
+            </el-button>
+          </nuxt-link>
+          <div v-if='!room.status'>
+            <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>Make Reservation
+            </el-button>
+          </div>
+
+        </template>
+        <el-descriptions-item>
+          <template slot='label'>
+            <i class='el-icon-s-home'></i>
+            Room Name
+          </template>
+          {{ room.roomName }}
+
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template slot='label'>
+            <i class='el-icon-s-help'></i>
+            Capacity
+            <el-tooltip effect='dark' content='minimum required number of members - max number of members'
+                        placement='top'>
+              <i class='el-icon-question'></i>
+            </el-tooltip>
+
+          </template>
+          {{ room.capacityMin }} - {{ room.capacityMax }}
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template slot='label'>
+            <i class='el-icon-tickets'></i>
+            Status
+          </template>
+          <el-tag size='small' :type='roomStatusTag'>{{ roomStatus }}</el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template slot='label'>
+            <i class='el-icon-location-outline'></i>
+            Location
+          </template>
+          {{ room.location }}
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-card>
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'Card',
-  props: ['room']
+  props: {
+    room: {
+      type: Object,
+      required: true
+    },
+    isOperable: {
+      type: Boolean,
+      default: true
+    },
+    shadow: {
+      type: String,
+      default: 'hover'
+    },
+    border: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
+    return {
+      descSize: ''
+    };
+  },
+  computed: {
+    cardStyle() {
+      if (this.border) {
+        return '';
+      } else {
+        return 'border: none;';
+      }
+    },
+    roomStatus() {
+      return this.room.status ? 'Available' : 'Unavailable';
+    },
+    roomStatusTag() {
+      return this.room.status ? 'success' : 'danger';
+    },
+    handleColumnNum() {
+      // TODO: screen size helper to adjust column number
+      return 1;
+    }
+  },
+  mounted() {
+  }
 };
 </script>
 
 <style scoped lang='scss'>
-.roomID{
-  font-size: 30px;
+.room-card {
+  @apply flex-grow;
 }
-.text {
-  font-size: 20px;
-}
-.bottom {
-  margin-top: 15px;
-  line-height: 12px;
-}
-
-  .item {
-    margin-bottom: 18px;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
-  }
-
-  .box-card {
-    width: 480px;
-  }
-
 </style>

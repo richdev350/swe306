@@ -33,27 +33,16 @@ public class Controller {
 
     @GetMapping("/api/connection")
     public CommonResp connection() {
-        CommonResp resp = new CommonResp();
-        resp.setMessage("Connection Success!");
-        return resp;
+        return authenticateServer.ConnectionTest();
     }
-
 
     @PostMapping("/api/login")
     public CommonResp login(@RequestBody LoginReq req) {
-        CommonResp<LoginUserResp> resp = new CommonResp<>();
-        LoginUserResp loginUserResp = loginServer.getUserByUsernameAndPassword(req.getUsername(), req.getPassword());
-        if (loginUserResp == null) {
-            resp.setSuccess(false);
-            resp.setMessage("Username or Password is Wrong!");
-        } else {
-            resp.setContent(loginUserResp);
-        }
-        return resp;
+        return loginServer.getUserByUsernameAndPassword(req.getUsername(), req.getPassword());
     }
 
     @PostMapping("/api/getReservation")
-    public CommonResp getReservation(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getReservation(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
         CommonResp<List<ReservationResp>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -63,32 +52,48 @@ public class Controller {
             } else {
                 resp.setMessage("No Reservation!");
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
+
+    }
+
+    @PostMapping("/api/getReservationByReserveId")
+    public CommonResp getReservationByReserveId(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
+        Integer reserveId = Integer.parseInt(jsonParam.getString("reserveId"));
+        CommonResp<ReservationResp> resp = new CommonResp();
+        if (authenticateServer.authenticateToken(Token)) {
+            ReservationResp content = reservationServer.getReservationByReservationId(reserveId);
+            if (content != null) {
+                resp.setContent(content);
+            } else {
+                resp.setSuccess(false);
+                resp.setMessage("Reservation Not Found!");
+            }
+            return resp;
+        }
+
+        return authenticateServer.wrongToken();
     }
 
     @GetMapping("/api/getReservationAll")
-    public CommonResp getReservationAll(@RequestHeader("Cookie")String Token) {
+    public CommonResp getReservationAll(@CookieValue(name = "authToken") String Token) {
         CommonResp<List<ReservationResp>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             List<ReservationResp> content = reservationServer.getAllReservation();
-            if(content != null){
+            if (content != null) {
                 resp.setContent(content);
             } else {
                 resp.setMessage("No Reservation!");
             }
 
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
-    //TODO:memberlist的转换问题
     /*
     @param result:
         = 0 --> Make Reservation Success
@@ -96,25 +101,31 @@ public class Controller {
         = -1 --> Make Reservation Failed
      */
     @PostMapping("/api/addReservation")
-    public CommonResp addReservation(@RequestHeader("Cookie") String Token, @RequestBody ReservationReq req) {
+    public CommonResp addReservation(@CookieValue(name = "authToken") String Token, @RequestBody ReservationReq req) {
         CommonResp<Integer> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             int result = reservationServer.makeReservationByUserId(req);
             if (result == 0) {
                 resp.setMessage("Make Reservation Success");
-            } else if (result < 0) {
+            } else if (result == -1) {
                 resp.setSuccess(false);
                 resp.setMessage("Make Reservation Failed");
+            } else if (result < -1) {
+                resp.setSuccess(false);
+                Integer conflictRoomId = (result + 1) * -1;//Not Used for now
+                resp.setMessage("Room is unavailable during the selected time range.");
+                resp.setContent(conflictRoomId);
             } else {
                 resp.setSuccess(false);
-                resp.setMessage("Student " + result + " have time conflict!");
+                User conflictUser = userServer.getUserByUserId(result);
+                resp.setMessage("Student " + conflictUser.getUsername() + " (" + conflictUser.getFirstName() + " " +
+                        conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     /*
@@ -124,30 +135,37 @@ public class Controller {
         = -1 --> Make Reservation Failed
      */
     @PostMapping("/api/updateReservation")
-    public CommonResp updateReservation(@RequestHeader("Cookie") String Token, @RequestBody ReservationReq req) {
+    public CommonResp updateReservation(@CookieValue(name = "authToken") String Token, @RequestBody ReservationReq req) {
+        System.out.println("11111 " + req.toString());
         CommonResp<Integer> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             int result = reservationServer.updateReservationByUserId(req, req.getReserveId().toString());
             if (result == 0) {
                 resp.setMessage("Update Reservation Success");
-            } else if (result < 0) {
+            } else if (result == -1) {
                 resp.setSuccess(false);
                 resp.setMessage("Update Reservation Failed");
+            } else if (result < -1) {
+                resp.setSuccess(false);
+                Integer conflictRoomId = (result + 1) * -1;
+                resp.setMessage("Room is unavailable during the selected time range.");
+                resp.setContent(conflictRoomId);
             } else {
                 resp.setSuccess(false);
-                resp.setMessage("Student " + result + " have time conflict!");
+                User conflictUser = userServer.getUserByUserId(result);
+                resp.setMessage("Student " + conflictUser.getUsername() + " (" + conflictUser.getFirstName() + " " +
+                        conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
 
     @PostMapping("/api/deleteReservation")
-    public CommonResp deleteReservation(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp deleteReservation(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer reserveId = Integer.parseInt(jsonParam.getString("reserveId"));
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -163,15 +181,14 @@ public class Controller {
                 resp.setSuccess(false);
                 resp.setMessage("Reservation Does Not Exist!");
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @GetMapping("/api/getRoomAll")
-    public CommonResp getRoomAll(@RequestHeader("Cookie") String Token) {
+    public CommonResp getRoomAll(@CookieValue(name = "authToken") String Token) {
         CommonResp<List<Room>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             List<Room> content = roomServer.getRoomList();
@@ -181,15 +198,14 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/getRoom")
-    public CommonResp getRoom(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getRoom(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         String roomId = jsonParam.getString("roomId");
         CommonResp<Room> resp = new CommonResp();
 
@@ -202,17 +218,16 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/addRoom")
-    public CommonResp addRoom(@RequestHeader("Cookie") String Token, @RequestBody RoomReq req) {
+    public CommonResp addRoom(@CookieValue(name = "authToken") String Token, @RequestBody RoomReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (roomServer.getRoomByRoomNo(req.getRoomNo()) != null) {
                 resp.setSuccess(false);
                 resp.setMessage("Room Already Exist!");
@@ -225,17 +240,16 @@ public class Controller {
                     resp.setMessage("Add Room Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/updateRoom")
-    public CommonResp updateRoom(@RequestHeader("Cookie") String Token, @RequestBody RoomReq req) {
+    public CommonResp updateRoom(@CookieValue(name = "authToken") String Token, @RequestBody RoomReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (roomServer.getRoomByRoomNo(req.getRoomNo()) == null) {
                 resp.setSuccess(false);
                 resp.setMessage("Room Already Exist!");
@@ -248,15 +262,14 @@ public class Controller {
                     resp.setMessage("Update Room Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/deleteRoom")
-    public CommonResp deleteRoom(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp deleteRoom(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         String roomId = jsonParam.getString("roomId");
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -273,29 +286,27 @@ public class Controller {
                     resp.setMessage("Delete Room Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
 
     @GetMapping("/api/getUserAll")
-    public CommonResp getUserAll(@RequestHeader("Cookie") String Token) {
+    public CommonResp getUserAll(@CookieValue(name = "authToken") String Token) {
         CommonResp<List<User>> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             List<User> content = userServer.getUserList();
             resp.setContent(content);
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/getUser")
-    public CommonResp getUser(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getUser(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
         CommonResp<User> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -306,15 +317,14 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/getUserByUsername")
-    public CommonResp getUserByUsername(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp getUserByUsername(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         String username = jsonParam.getString("username");
         CommonResp<User> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -325,17 +335,16 @@ public class Controller {
             } else {
                 resp.setContent(content);
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/addUser")
-    public CommonResp addUser(@RequestHeader("Cookie") String Token, @RequestBody UserReq req) {
+    public CommonResp addUser(@CookieValue(name = "authToken") String Token, @RequestBody UserReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (userServer.getUserByUsername(req.getUsername()) != null) {
                 resp.setSuccess(false);
                 resp.setMessage("User Already Exist!");
@@ -348,17 +357,16 @@ public class Controller {
                     resp.setMessage("Add User Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/updateUser")
-    public CommonResp updateUser(@RequestHeader("Cookie") String Token, @RequestBody UserReq req) {
+    public CommonResp updateUser(@CookieValue(name = "authToken") String Token, @RequestBody UserReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (userServer.getUserByUserId(req.getUserId()) == null) {
                 resp.setSuccess(false);
                 resp.setMessage("User Not Found!");
@@ -371,15 +379,14 @@ public class Controller {
                     resp.setMessage("Update User Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
     }
 
     @PostMapping("/api/deleteUser")
-    public CommonResp deleteUser(@RequestHeader("Cookie") String Token, @RequestBody JSONObject jsonParam) {
+    public CommonResp deleteUser(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer userId = Integer.parseInt(jsonParam.getString("userId"));
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
@@ -395,11 +402,24 @@ public class Controller {
                     resp.setMessage("Delete User Failed");
                 }
             }
-        } else {
-            resp.setSuccess(false);
-            resp.setMessage("Token Wrong Or No Token");
+            return resp;
         }
-        return resp;
+
+        return authenticateServer.wrongToken();
+    }
+
+    @PostMapping("/api/roomSchedule")
+    public CommonResp roomSchedule(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
+        Integer roomId = Integer.parseInt(jsonParam.getString("roomId"));
+        String day = jsonParam.getString("day");
+        CommonResp<List<Integer>> resp = new CommonResp();
+        if (authenticateServer.authenticateToken(Token)) {
+            List<Integer> content = reservationServer.roomSchedule(roomId, day);
+            resp.setContent(content);
+            return resp;
+        }
+
+        return authenticateServer.wrongToken();
     }
 
 

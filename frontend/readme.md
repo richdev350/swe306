@@ -1,4 +1,4 @@
-# swe301-frontend
+# swe306-frontend
 
 ## Build Setup
 

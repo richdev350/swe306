@@ -1,14 +1,20 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'swe301-frontend',
+    title:
+      'Discussion Room Reservation System | Xiamen University Malaysia | SWE306 Final Project',
     htmlAttrs: {
       lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=what' },
-      { hid: 'description', name: 'description', content: '' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Xiamen University Malaysia Discussion Room Reservation System | SWE306 Final Project',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'images/x-icon', href: '/favicon.ico' }],
@@ -24,13 +30,13 @@ export default {
   },
   // vuex-persistedstate is not available on server side
   // TODO use local storage to persist login state
-  mode: 'spa',
-
+  ssr: false,
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/axios',
     '@/plugins/mock',
+    '@/plugins/i18n',
     {
       src: '@/plugins/localStorage',
       ssr: false,
@@ -50,11 +56,31 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    // deprecated auth module
+    // FIXME deprecated auth module
     // '@nuxtjs/auth-next',
     'cookie-universal-nuxt',
     '@nuxtjs/proxy',
+    '@nuxtjs/i18n',
   ],
+  i18n: {
+    langDir: '@/locales/',
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        file: 'en-US.js',
+      },
+      {
+        code: 'zh',
+        iso: 'zh-CN',
+        file: 'zh-CN.js',
+      },
+    ],
+    defaultLocale: 'en',
+    vueI18n: {
+      fallbackLocale: 'en',
+    },
+  },
   // globally auth routing
   router: {
     middleware: ['connectionTest'],
