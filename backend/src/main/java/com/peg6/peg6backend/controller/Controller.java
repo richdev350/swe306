@@ -38,18 +38,9 @@ public class Controller {
         return resp;
     }
 
-
     @PostMapping("/api/login")
     public CommonResp login(@RequestBody LoginReq req) {
-        CommonResp<LoginUserResp> resp = new CommonResp<>();
-        LoginUserResp loginUserResp = loginServer.getUserByUsernameAndPassword(req.getUsername(), req.getPassword());
-        if (loginUserResp == null) {
-            resp.setSuccess(false);
-            resp.setMessage("Username or Password is Wrong!");
-        } else {
-            resp.setContent(loginUserResp);
-        }
-        return resp;
+        return loginServer.getUserByUsernameAndPassword(req.getUsername(), req.getPassword());
     }
 
     @PostMapping("/api/getReservation")

@@ -13,6 +13,8 @@ import java.util.List;
 public class UserServer {
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private AuthenticateServer authenticateServer;
 
     public List<User> getUserList(){
         return userMapper.getUserList();
