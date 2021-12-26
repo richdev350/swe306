@@ -15,8 +15,7 @@ import java.util.List;
 public class ReservationServer {
     @Resource
     private ReservationMapper reservationMapper;
-    @Resource
-    private AuthenticateServer authenticateServer;
+
 
     public List<ReservationResp> getReservationByUserId(Integer userId){
         String userIdString = "%,"+userId+",%";

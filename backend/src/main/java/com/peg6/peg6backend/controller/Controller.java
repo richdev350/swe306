@@ -33,9 +33,7 @@ public class Controller {
 
     @GetMapping("/api/connection")
     public CommonResp connection() {
-        CommonResp resp = new CommonResp();
-        resp.setMessage("Connection Success!");
-        return resp;
+        return authenticateServer.ConnectionTest();
     }
 
     @PostMapping("/api/login")
@@ -98,7 +96,6 @@ public class Controller {
         return resp;
     }
 
-    //TODO:memberlist的转换问题
     /*
     @param result:
         = 0 --> Make Reservation Success
