@@ -3,7 +3,7 @@
     <CustomPageTitle>
       Edit Reservation
     </CustomPageTitle>
-    <MyReservationCard :key='id' :reservation='reservationInstance' :is-operable='false' />
+    <UserReservationCard :key='id' :reservation='reservationInstance' :is-operable='false' />
     <el-form ref='form' :model='form' class='reservation-form' label-width='100px'>
       <el-form-item label='Reserved by'>
         {{ loggedInUser.username }}
@@ -86,7 +86,7 @@ export default {
     if (resp.success) {
       reservationInstance = resp.content;
       if (reservationInstance.status === 0) {
-        await app.router.push('/my/reservation');
+        await app.router.push('/user/reservation');
       }
     } else {
       app.$message.error(resp.message);
@@ -198,7 +198,7 @@ export default {
       console.log(resp);
       if (resp.success) {
         this.$message.success(resp.message);
-        await this.$router.push('/my/reservation');
+        await this.$router.push('/user/reservation');
       } else {
         this.$message.error(resp.message);
       }

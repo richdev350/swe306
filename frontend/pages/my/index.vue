@@ -1,7 +1,7 @@
 <template>
   <div>
     <CustomPageTitle>Profile</CustomPageTitle>
-    <MyInfoCard :user='loggedInUser' />
+    <UserInfoCard :user='loggedInUser' />
   </div>
 </template>
 

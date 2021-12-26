@@ -67,4 +67,7 @@ export const getters = {
   loggedInUser(state) {
     return state.user;
   },
+  isAdmin(state) {
+    return state.user.role === 'Admin';
+  },
 };

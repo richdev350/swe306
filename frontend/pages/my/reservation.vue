@@ -4,7 +4,7 @@
       My Reservation
     </CustomPageTitle>
     <template v-for='item in reservations'>
-      <MyReservationCard :key='item.reserveId' :reservation='item' />
+      <UserReservationCard :key='item.reserveId' :reservation='item' />
     </template>
   </div>
 </template>

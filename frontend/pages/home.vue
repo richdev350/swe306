@@ -1,11 +1,9 @@
 <template>
   <div>
     <CustomPageTitle>Home</CustomPageTitle>
-    <div class='test'>SomeText</div>
     <el-button>
       <NuxtLink to='/test'>Test</NuxtLink>
     </el-button>
-
     <p>is authed: {{ isAuthenticated }}</p>
     <p>user: {{ loggedInUser }}</p>
     <p>cookie: {{ $cookies.getAll() }}</p>
@@ -29,22 +27,24 @@ export default {
   },
 
   computed: {
+    langs() {
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
+    },
     ...mapGetters('room', ['roomList']),
-    ...mapGetters(['isAuthenticated', 'loggedInUser'])
+    ...mapGetters(['isAuthenticated', 'loggedInUser']),
+    ...mapGetters('locale', ['availableLocales'])
   },
   methods: {
     getRoomList() {
       this.$store.dispatch('room/fetchRoomList');
       console.log(this.roomList);
     },
-    ...mapActions('room', ['cleanRoomList'])
+    ...mapActions('room', ['cleanRoomList']),
+    ...mapActions('locale', ['setLocale'])
   }
 
 };
 </script>
 
 <style scoped lang='scss'>
-.test {
-  @apply md:bg-red-700;
-}
 </style>
