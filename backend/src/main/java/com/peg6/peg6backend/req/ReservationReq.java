@@ -61,10 +61,11 @@ public class ReservationReq {
         return "ReservationReq{" +
                 "startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
-                ", memberList='" + memberList + '\'' +
+                ", memberList=" + memberList +
                 ", userId=" + userId +
                 ", roomId=" + roomId +
                 ", reserveId=" + reserveId +
                 '}';
     }
+//    }
 }

@@ -136,6 +136,7 @@ public class Controller {
      */
     @PostMapping("/api/updateReservation")
     public CommonResp updateReservation(@CookieValue(name = "authToken") String Token, @RequestBody ReservationReq req) {
+        System.out.println("11111 " + req.toString());
         CommonResp<Integer> resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
             int result = reservationServer.updateReservationByUserId(req, req.getReserveId().toString());
@@ -408,7 +409,7 @@ public class Controller {
     }
 
     @PostMapping("/api/roomSchedule")
-    public CommonResp roomSchedule(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam){
+    public CommonResp roomSchedule(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer roomId = Integer.parseInt(jsonParam.getString("roomId"));
         String day = jsonParam.getString("day");
         CommonResp<List<Integer>> resp = new CommonResp();
