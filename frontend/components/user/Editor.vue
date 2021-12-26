@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <el-form ref='form' :model='user' class='reservation-form' label-width='100px'>
+    <el-form ref='form' :model='user' class='editor-form' label-width='100px'>
       <el-form-item label='Username'>
         <el-input v-model='user.username'></el-input>
       </el-form-item>
@@ -17,16 +17,15 @@
       <el-form-item label='Tel.'>
         <el-input v-model='user.phoneNum'></el-input>
       </el-form-item>
-      <el-form-item label='Role'>
+      <el-form-item v-if='method === "update" || method === "add"' label='Role'>
         <el-radio-group v-model='user.isAdmin'>
           <el-radio :label='1'>Admin</el-radio>
           <el-radio :label='0'>Student</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item>
-        <el-button type='primary' @click='updateUser'>Submit</el-button>
+        <el-button type='primary' @click='handleSubmit(user)'>Submit</el-button>
       </el-form-item>
-      {{ user }}
     </el-form>
   </div>
 </template>
@@ -35,20 +34,20 @@
 export default {
   name: 'User Editor',
   props: {
-    userId: {
-      type: String,
-      required: true
-    },
     method: {
       type: String,
       default: 'update',
       required: true
+    },
+    userId: {
+      type: Number,
+      required: false
     }
   },
   data() {
     return {
       user: {
-        userId: this.userId,
+        userId: null,
         username: null,
         password: null,
         firstName: null,
@@ -59,7 +58,8 @@ export default {
     };
   },
   mounted() {
-    if (this.method === 'update') {
+    if (this.method === 'update' || this.method === 'profile') {
+      this.user.userId = this.userId;
       this.getUser();
     }
   },
@@ -81,15 +81,48 @@ export default {
       }
     },
     async updateUser(user) {
-      const resp = await this.$api.$post('/updateUser', { user });
+      const resp = await this.$api.$post('/updateUser', {
+        userId: user.userId,
+        username: user.username,
+        password: user.password,
+        phoneNum: user.phoneNum,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        isAdmin: user.isAdmin
+      });
       if (resp.success) {
         this.$message.success(resp.message);
         window.location.reload();
       } else {
         this.$message.error(resp.message);
       }
-    }
+    },
 
+    async addUser(user) {
+      const resp = await this.$api.$post('/addUser', {
+        username: user.username,
+        password: user.password,
+        phoneNum: user.phoneNum,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        isAdmin: user.isAdmin
+      });
+      if (resp.success) {
+        this.$message.success(resp.message);
+        window.location.reload();
+      } else {
+        this.$message.error(resp.message);
+      }
+    },
+
+    handleSubmit(user) {
+      if (this.method === 'update' || this.method === 'profile') {
+        this.updateUser(user);
+      }
+      if (this.method === 'add') {
+        this.addUser(user);
+      }
+    }
   }
 };
 </script>
