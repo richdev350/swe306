@@ -79,6 +79,7 @@ public class Controller {
             if (content != null) {
                 resp.setContent(content);
             } else {
+                resp.setSuccess(false);
                 resp.setMessage("Reservation Not Found!");
             }
         } else {
