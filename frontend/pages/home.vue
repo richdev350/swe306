@@ -17,13 +17,17 @@
     <el-button @click='cleanRoomList'>Clean Room List</el-button>
     {{ roomList }}-->
     </el-card>
-    <el-carousel height="150px">
-      <el-carousel-item v-for="item in images" :key="item">
-        <h3 class="small">
-          <img :src='item.url'/>
-        </h3>
-      </el-carousel-item>
-    </el-carousel>
+    <div class='block'>
+      <span class="demonstration">XMUM Campus</span>
+      <el-carousel height="500px">
+        <el-carousel-item v-for="item in images" :key="item">
+          <h3 class="small">
+            <img :src='item.url'/>
+          </h3>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
+
   </div>
 </template>
 
