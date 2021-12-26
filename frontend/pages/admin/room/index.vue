@@ -13,18 +13,21 @@
       <el-table-column
         prop='roomNo'
         label='Room No'
+        sortable
         width='200'>
       </el-table-column>
 
       <el-table-column
         prop='roomName'
         label='Room Name'
+        sortable
         fit>
       </el-table-column>
 
       <el-table-column
         prop='location'
         label='Location'
+        sortable
         width='200'>
       </el-table-column>
       <el-table-column
@@ -38,6 +41,7 @@
       </el-table-column>
       <el-table-column
         label='Status'
+        sortable
         width='100'>
         <template slot-scope='scope'>
           <div slot='reference' class='name-wrapper'>

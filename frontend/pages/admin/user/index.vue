@@ -13,6 +13,7 @@
       <el-table-column
         prop='username'
         label='Username'
+        sortable
         fixed
         fit
       >
@@ -20,18 +21,21 @@
       <el-table-column
         prop='firstName'
         fit
+        sortable
         label='First Name'
       >
       </el-table-column>
       <el-table-column
         prop='lastName'
         fit
+        sortable
         label='Last Name'
       >
       </el-table-column>
       <el-table-column
         prop='phoneNum'
         label='Tel.'
+        sortable
         width='200'>
       </el-table-column>
 
