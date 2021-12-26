@@ -1,5 +1,5 @@
 <template>
-  <div :class='alignHandler'>
+  <div :class='handleAlign'>
     <h2 v-if="size === 'h2'" class='title'>
       <slot></slot>
     </h2>
@@ -24,7 +24,7 @@ export default {
     }
   },
   computed: {
-    alignHandler() {
+    handleAlign() {
       let customClass = null;
       if (this.align === 'center') {
         customClass = `align--${ this.align }`;

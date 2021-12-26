@@ -1,12 +1,18 @@
 <template>
   <div class='room'>
     <el-card class='room-card' shadow='hover'>
-      <el-descriptions class='margin-top' :title='room.roomNo' :column='columnHandler' :size='cardSize' border>
+      <el-descriptions class='margin-top' :title='room.roomNo' :column='handleColumnNum' :size='cardSize' border>
         <template v-if='isOperable' slot='extra'>
-          <nuxt-link :to='"/RoomList/"+room.roomId'>
+          <nuxt-link v-if='room.status' :to='"/RoomList/"+room.roomId'>
             <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>Make Reservation
             </el-button>
           </nuxt-link>
+
+          <div v-if='!room.status'>
+            <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>Make Reservation
+            </el-button>
+          </div>
+
         </template>
         <el-descriptions-item>
           <template slot='label'>
@@ -72,7 +78,7 @@ export default {
     roomStatusTag() {
       return this.room.status ? 'success' : 'danger';
     },
-    columnHandler() {
+    handleColumnNum() {
       // TODO: screen size helper to adjust column number
       return 1;
     }
