@@ -8,7 +8,8 @@ export const mutations = {
     state.roomList = roomList;
   },
   setMyReservationList(state, reservationList) {
-    state.myReservationList = reservationList;
+    // the latest reservation is the first one
+    state.myReservationList = reservationList.reverse();
   },
 };
 

@@ -99,12 +99,9 @@ export default {
         end: '22:30'
       },
       form: {
-        region: '',
-        resource: '',
         expectedDate: '',
         expectedStartTime: '',
         expectedEndTime: '',
-        desc: '',
         memberUsernameList: [],
         addMemberInputVisible: false,
         addMemberInputValue: ''
@@ -155,7 +152,7 @@ export default {
         this.$message.error('Please add at least one member.');
         return;
       }
-      if (this.memberIdList.length < this.room.capacityMin) {
+      if (this.memberIdList.length + 1 < this.room.capacityMin) {
         this.$message.error('The number of members is less than the minimum required number of members');
         return;
       }
@@ -169,7 +166,7 @@ export default {
       console.log(resp);
       if (resp.success) {
         this.$message.success(resp.message);
-        this.$router.push('/my/reservation');
+        await this.$router.push('/my/reservation');
       } else {
         this.$message.error(resp.message);
       }
@@ -226,7 +223,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .add-member-input-new-tag {
   width: 150px;
 }
