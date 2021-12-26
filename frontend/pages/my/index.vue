@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-
+.room-card-wrapper {
+  @apply flex flex-wrap flex-row justify-center;
+}
 </style>
