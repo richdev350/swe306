@@ -1,10 +1,13 @@
 <template>
   <div>
 
+    <CustomPageTitle align='center'>
+      Welcom to XMUM Discussion Room Reservation System
+    </CustomPageTitle>
     <el-card class='box-card'>
-      <div slot='header' class='clearfix'>
-        <span style='font-size: 25px'>Welcom to XMUM Discussion Room Reservation System. </span>
-      </div>
+<!--      <div slot='header' class='clearfix'>-->
+      <!--        <span style='font-size: 25px'> </span>-->
+      <!--      </div>-->
       <img src='~/assets/images/xmum.jpeg' class='card_image'>
       <!--    <div class='test'>SomeText</div>
           <el-button>
