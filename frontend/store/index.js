@@ -1,5 +1,5 @@
 export const state = () => ({
-  authToken: false,
+  authToken: null,
   user: {
     id: Number,
     username: String,

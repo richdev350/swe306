@@ -95,7 +95,7 @@ export default {
       warningInfo: 'As main user of this room, you will be blacklisted if the number of sign-in members doesn\'t reach the minimum required number of members.',
       timeSelectOptions: {
         start: '08:30',
-        step: '00:15',
+        step: '00:30',
         end: '22:30'
       },
       form: {
@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     async addReservation() {
-      if (this.form.expectedDate === '') {
+      if (this.form.expectedDate === null) {
         this.$message.error('Please choose a date.');
         return;
       }
@@ -132,11 +132,11 @@ export default {
         this.$message.error('Please choose a date after today.');
         return;
       }
-      if (this.form.expectedStartTime === '') {
+      if (this.form.expectedStartTime === null) {
         this.$message.error('Please choose a start time.');
         return;
       }
-      if (this.form.expectedEndTime === '') {
+      if (this.form.expectedEndTime === null) {
         this.$message.error('Please choose a end time.');
         return;
       }

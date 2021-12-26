@@ -1,20 +1,22 @@
 <template>
   <div>
     <CustomPageTitle>Edit User</CustomPageTitle>
-        <UserEditor :user-id='id' method='update'></UserEditor>
+    <UserEditor :user-id='id' method='update'></UserEditor>
   </div>
 </template>
 
 <script>
 export default {
   name: 'edit user',
+  middleware: ['auth'],
+
   data() {
     return {
-      id: this.$route.params.id
+      id: parseInt(this.$route.params.id)
     };
   },
-  methods:{
-    handleBack(){
+  methods: {
+    handleBack() {
       this.$router.push('/admin/user');
     }
   }
