@@ -66,8 +66,6 @@
         <el-button type='primary' @click='updateReservation'>Submit</el-button>
       </el-form-item>
     </el-form>
-    {{ reservationInstance }}
-
   </div>
 </template>
 
@@ -131,8 +129,11 @@ export default {
     ...mapGetters(['loggedInUser'])
   },
   mounted() {
-    console.log('ml   ', this.reservationInstance.memberList);
     this.fetchOldMemberList();
+    this.getRoom(this.reservationInstance.roomId);
+    this.form.expectedDate = this.reservationInstance.startTime.split(' ')[0];
+    this.form.expectedStartTime = this.reservationInstance.startTime.split(' ')[1];
+    this.form.expectedEndTime = this.reservationInstance.endTime.split(' ')[1];
   },
   methods: {
     fetchOldMemberList() {
@@ -150,13 +151,20 @@ export default {
         }
       });
     },
+    async getRoom(roomId) {
+      const resp = await this.$api.$post('/getRoom', { roomId });
+      if (resp.success) {
+        this.room = resp.content;
+      } else {
+        this.$message.error(resp.message);
+      }
+    },
     async updateReservation() {
       if (this.form.expectedDate === null) {
         this.$message.error('Please choose a date.');
         return;
       }
       const expectedDate = new Date(Date.parse(this.form.expectedDate));
-      console.log(expectedDate);
       const todayDate = new Date();
       todayDate.setHours(0, 0, 0, 0);
       if (expectedDate < todayDate) {
@@ -188,14 +196,13 @@ export default {
         return;
       }
       const resp = await this.$api.$post('/updateReservation', {
-        reserveId: this.id,
+        reserveId: parseInt(this.id),
         userId: this.$store.state.user.id,
         roomId: this.room.roomId,
         memberList: this.memberIdList,
         startTime: this.startDateTime,
         endTime: this.endDateTime
       });
-      console.log(resp);
       if (resp.success) {
         this.$message.success(resp.message);
         await this.$router.push('/my/reservation');

@@ -42,7 +42,7 @@
 <script>
 
 export default {
-  name: 'MyReservationCard',
+  name: 'UserReservationCard',
   props: {
     reservation: {
       type: Object,
