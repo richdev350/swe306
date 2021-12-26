@@ -12,6 +12,9 @@
     <select id="getReservationByRoomId" resultType="com.peg6.peg6backend.entity.Reservation">
         select * from reservation where roomId=#{roomId}
     </select>
+    <select id="getReservationByRoomIdAndDay" resultType="com.peg6.peg6backend.entity.Reservation">
+        select * from reservation where roomId=#{roomId} AND startTime like #{Day}
+    </select>
     <select id="getAllReservation" resultType="com.peg6.peg6backend.entity.Reservation">
         select * from reservation
     </select>

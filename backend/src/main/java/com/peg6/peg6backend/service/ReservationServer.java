@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class ReservationServer {
     @Resource
     private ReservationMapper reservationMapper;
+
 
 
     public List<ReservationResp> getReservationByUserId(Integer userId){
@@ -169,5 +171,46 @@ public class ReservationServer {
         reservationResp.setEndTime(reservation.getEndTime());
         reservationResp.setStatus(reservation.getStatus());
         return reservationResp;
+    }
+
+    public List<Integer> roomSchedule(Integer roomId, String day){
+        boolean flag = true;
+        List<Integer> schedule = new ArrayList<>();
+        List<String> timeStringList = new ArrayList<>();
+        for(int i=8;i<23;i++){
+            String Temps;
+            if (i >= 10) {
+                Temps = i + ":01";
+                timeStringList.add(Temps);
+                Temps = i + ":31";
+            } else {
+                Temps = "0" + i + ":01";
+                timeStringList.add(Temps);
+                Temps = "0" + i + ":31";
+            }
+            timeStringList.add(Temps);
+
+        }
+        String DayString = "%" + day + "%";
+        List<Reservation> reservations = reservationMapper.getReservationByRoomIdAndDay(roomId, DayString);
+        for(String s:timeStringList){
+            String Temp = day + " " + s;
+            System.out.println(Temp);
+            flag = true;
+            for(Reservation r:reservations){
+                if(Temp.compareToIgnoreCase(r.getStartTime())>0 && Temp.compareToIgnoreCase(r.getEndTime())<0){
+                    schedule.add(1);
+                    System.out.println(1);
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                schedule.add(0);
+                System.out.println(0);
+            }
+        }
+        System.out.println(schedule);
+        return schedule;
     }
 }

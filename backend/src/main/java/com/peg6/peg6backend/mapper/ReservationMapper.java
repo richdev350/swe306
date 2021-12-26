@@ -10,6 +10,8 @@ public interface ReservationMapper {
 
     public List<Reservation> getReservationByRoomId(@Param("roomId") Integer roomId);
 
+    public List<Reservation> getReservationByRoomIdAndDay(@Param("roomId") Integer roomId, @Param("Day")String Day);
+
     public List<Reservation> getAllReservation();
 
     public Reservation getReservationByReserveId(@Param("reserveId") Integer reserveId);
