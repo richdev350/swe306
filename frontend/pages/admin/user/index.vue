@@ -11,19 +11,20 @@
         prop='username'
         label='Username'
         fixed
-        width='220'>
+        fit
+      >
       </el-table-column>
       <el-table-column
         prop='firstName'
         fit
         label='First Name'
-        width='220'>
+      >
       </el-table-column>
       <el-table-column
         prop='lastName'
         fit
         label='Last Name'
-        width='220'>
+      >
       </el-table-column>
       <el-table-column
         prop='phoneNum'
@@ -76,8 +77,9 @@ export default {
     };
   },
   methods: {
-    handleEdit() {
-      console.log('edit');
+    handleEdit(index, row) {
+      // console.log(row.userId);
+      this.$router.push('/admin/user/' + row.userId);
     }
   }
 };

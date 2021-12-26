@@ -1,21 +1,26 @@
 <template>
-<div>
-  <CustomPageTitle>Edit User</CustomPageTitle>
-
-</div>
+  <div>
+    <CustomPageTitle>Edit User</CustomPageTitle>
+        <UserEditor :user-id='id' method='update'></UserEditor>
+  </div>
 </template>
 
 <script>
 export default {
-  name: '_id',
-  data(){
-    return{
+  name: 'edit user',
+  data() {
+    return {
       id: this.$route.params.id
+    };
+  },
+  methods:{
+    handleBack(){
+      this.$router.push('/admin/user');
     }
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 
 </style>
