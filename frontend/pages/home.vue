@@ -1,8 +1,11 @@
 <template>
   <div>
-    <CustomPageTitle>Welcome, </CustomPageTitle>
+
     <el-card class="box-card">
-    <img src='https://media-exp1.licdn.com/dms/image/C511BAQHPr7ah6EdDyA/company-background_10000/0/1547529153156?e=2159024400&v=beta&t=yyj6OBh7ormPeMsEEtbPRq2QY_JTy1aQPQeT5z9fhUg' class='image'>
+      <div slot="header" class="clearfix">
+        <span style='font-size: 25px'>Welcom to XMUM Discussion Room Reservation System. </span>
+      </div>
+    <img src='https://pbs.twimg.com/media/E1_3TZxVEAYO-J6.jpg' class='card_image'>
 <!--    <div class='test'>SomeText</div>
     <el-button>
       <NuxtLink to='/test'>Test</NuxtLink>
@@ -17,16 +20,13 @@
     <el-button @click='cleanRoomList'>Clean Room List</el-button>
     {{ roomList }}-->
     </el-card>
-    <div class='block'>
-      <span class="demonstration">XMUM Campus</span>
-      <el-carousel height="500px">
-        <el-carousel-item v-for="item in images" :key="item">
-          <h3 class="small">
-            <img :src='item.url'/>
-          </h3>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
+    <el-divider content-position='center'>Campus Landscape</el-divider>
+    <el-carousel :interval="4000" type="card" height="300px">
+      <el-carousel-item v-for="item in images" :key="item">
+        <h3 class="medium"> <img :src='item.url' class='image'/></h3>
+      </el-carousel-item>
+    </el-carousel>
+
 
   </div>
 </template>
@@ -39,10 +39,10 @@ export default {
   data() {
     return {
       images:[{
-        url: "https://www.easyuni.com/media/institution/photo/2017/09/05/xiamen_uni.jpg.600x400_q85.jpg",
+        url: "https://media.istockphoto.com/photos/campus-of-xiamen-university-in-china-picture-id649983402?k=20&m=649983402&s=612x612&w=0&h=Lr-4XLanLIB64iSLYDH9nRIP-nqS9LZg-KjmjcHWmJM=",
       },
         {
-        url: "http://www.xmu.edu.my/_upload/article/images/b2/50/83cf2af443298c30d4e6282b1247/e42a70fc-e2cb-41d7-87ff-1f5af26b8cd0.jpg",
+        url: "http://p1.itc.cn/q_70/images03/20200926/ef3eacbc275f45aea9b08f9fa9f1c71b.jpeg",
       },
         {
           url: "https://easyuni.com/media/articles/2015/12/10/eca86bda385d172d5b6718.jpg",
@@ -70,12 +70,21 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.box-card{
+  margin-bottom: 5%;
+  height:100%;
+  width:100%;
+}
+.card_image{
+  width:100%;
+  height:100%;
+}
 .test {
   @apply md:bg-red-700;
 }
 .image {
   width: 100%;
-  hight:30%;
+  height: 100%;
 }
 
 .el-carousel__item h3 {
