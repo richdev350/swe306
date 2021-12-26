@@ -159,7 +159,7 @@ public class ReservationServer {
         memberList.remove(0);
         ReservationResp reservationResp = new ReservationResp();
 
-        reservationResp.setReserveId(reservation.getreserveId());
+        reservationResp.setReserveId(reservation.getReserveId());
         reservationResp.setUserId(Integer.parseInt(reservation.getUserId()));
         reservationResp.setRoomId(Integer.parseInt(reservation.getRoomId()));
         reservationResp.setMemberNum(reservation.getMemberNum());
