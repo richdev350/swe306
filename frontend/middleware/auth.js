@@ -4,11 +4,11 @@ export default function ({ store, redirect, route }) {
   const path = route.path;
   const isLoggedIn = store.getters.isAuthenticated;
 
-  if (!isLoggedIn && path !== '/user/signin') {
+  if (!isLoggedIn && path !== '/my/signin') {
     Element.Message.info('You need to Login first.');
-    return redirect('/user/signin');
+    return redirect('/my/signin');
   }
-  if (isLoggedIn && path === '/user/signin') {
+  if (isLoggedIn && path === '/my/signin') {
     Element.Message.info('You are already logged in.');
     return redirect('/');
   }

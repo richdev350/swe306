@@ -86,7 +86,7 @@ export default {
     if (resp.success) {
       reservationInstance = resp.content;
       if (reservationInstance.status === 0) {
-        await app.router.push('/user/reservation');
+        await app.router.push('/my/reservation');
       }
     } else {
       app.$message.error(resp.message);
@@ -198,7 +198,7 @@ export default {
       console.log(resp);
       if (resp.success) {
         this.$message.success(resp.message);
-        await this.$router.push('/user/reservation');
+        await this.$router.push('/my/reservation');
       } else {
         this.$message.error(resp.message);
       }

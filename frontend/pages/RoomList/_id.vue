@@ -166,7 +166,7 @@ export default {
       console.log(resp);
       if (resp.success) {
         this.$message.success(resp.message);
-        await this.$router.push('/user/reservation');
+        await this.$router.push('/my/reservation');
       } else {
         this.$message.error(resp.message);
       }
