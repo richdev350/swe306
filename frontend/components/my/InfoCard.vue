@@ -1,50 +1,42 @@
 <template>
   <div class='room-card-wrapper'>
-    <el-card class='room-card' :shadow='shadow' :style='cardStyle' :body-style='bodyStyle'>
-      <el-descriptions class='margin-top' :size='descSize' border>
+    <el-card class='room-card'>
+      <el-descriptions class='margin-top' :column='handleColumnNum' :size='descSize' border>
+          <div class='header'>
+            <h3>My Profile</h3>
+          </div>
+          <el-descriptions-item>
+            <template slot='label'>
+              <i class='el-icon-user-solid'></i>
+              Student ID
+            </template>
+            {{ loggedInUser.username }}
+          </el-descriptions-item>
 
+          <el-descriptions-item>
+            <template slot='label'>
+              <i class='el-icon-s-opportunity'></i>
+              Name
+            </template>
+            {{ loggedInUser.fullName }}
+          </el-descriptions-item>
+
+          <el-descriptions-item>
+            <template slot='label'>
+              <i class='el-icon-phone'></i>
+              Phone
+            </template>
+            {{ loggedInUser.phoneNum }}
+          </el-descriptions-item>
+
+          <el-descriptions-item>
+            <template slot='label'>
+              <i class='el-icon-s-tools'></i>
+              Role
+            </template>
+            {{ loggedInUser.role }}
+          </el-descriptions-item>
       </el-descriptions>
-    </el-card>
-    <el-card shadow='hover'>
-      <div class='header'>
-        <h3>My Profile</h3>
-      </div>
-      <el-descriptions-item>
-        <template slot='label'>
-          <i class='el-icon-user-solid'></i>
-          Student ID
-        </template>
-        {{ loggedInUser.username }}
-      </el-descriptions-item>
-      <el-descriptions-item>
-        <template slot='label'>
-          <i class='el-icon-s-opportunity'></i>
-          Name
-        </template>
-        {{ loggedInUser.fullName }}
-      </el-descriptions-item>
-
-      <el-descriptions-item>
-        <template slot='label'>
-        <i class='el-icon-phone'>
-          Phone
-        </i>
-          {{ loggedInUser.phoneNum }}
-        </template>
-      </el-descriptions-item>
-
-      <el-descriptions-item>
-        <template slot='label'>
-          <i> class='el-icon-s-tools'</i>
-        </template>
-        {{ loggedInUser.role }}
-      </el-descriptions-item>
-      <el-descriptions-item>
-        <template slot='label'>
-        <i class='el-icon-s-tools'></i>
-        </template>
-        {{ loggedInUser.role }}
-      </el-descriptions-item>
     </el-card>
   </div>
 </template>
@@ -93,11 +85,13 @@ export default {
   data() {
     return {
       spanleft: 3,
-      spanright: 6
+      spanright: 6,
+      descSize: ''
+
     };
   },
   computed: {
-    ...mapGetters(['loggedInUser'])
+    ...mapGetters(['loggedInUser']),
     // loggedInUser() {
     //   const user = this.user;
     //   return {
@@ -109,14 +103,31 @@ export default {
     //     role: user.isAdmin ? 'Admin' : 'Student'
     //   };
     // }
+    cardStyle() {
+      if (this.border) {
+        return '';
+      } else {
+        return 'border: none;';
+      }
+    },
+    handleColumnNum() {
+      // TODO: screen size helper to adjust column number
+      return 1;
+    }
   }
 
 };
 </script>
 
 <style scoped lang='scss'>
+.room-card-wrapper {
+  @apply flex flex-wrap flex-row justify-center;
+}
 .header {
   @apply pb-3
+}
+.room-card {
+  @apply flex-grow;
 }
 
 .key-name {
