@@ -13,18 +13,21 @@
       <el-table-column
         prop='roomNo'
         label='Room No'
+        sortable
         width='200'>
       </el-table-column>
 
       <el-table-column
         prop='roomName'
         label='Room Name'
+        sortable
         fit>
       </el-table-column>
 
       <el-table-column
         prop='location'
         label='Location'
+        sortable
         width='200'>
       </el-table-column>
       <el-table-column
@@ -38,6 +41,7 @@
       </el-table-column>
       <el-table-column
         label='Status'
+        sortable
         width='100'>
         <template slot-scope='scope'>
           <div slot='reference' class='name-wrapper'>
@@ -46,12 +50,18 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label='Action' fixed='right' width='100'>
+      <el-table-column label='Action' fixed='right' width='200'>
         <template slot-scope='scope'>
           <el-button
             size='mini'
             @click='handleEdit(scope.$index, scope.row)'>Edit
           </el-button>
+          <el-button
+            size='mini'
+            type='danger'
+            @click='handleDelete(scope.$index, scope.row)'>Delete
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -59,6 +69,8 @@
 </template>
 
 <script>
+import Element from 'element-ui';
+
 export default {
   name: 'room management',
   middleware: ['adminAuth'],
@@ -85,7 +97,33 @@ export default {
     },
     handleEdit(index, row) {
       this.$router.push('/admin/room/' + row.roomId);
+    },
+    async handleDelete(index, row) {
+      await Element.MessageBox.confirm(
+        `Are you sure to delete room ${row.roomNo} ?`,
+        'Attention',
+        {
+          type: 'warning',
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }
+      )
+        .then(async () => {
+          const resp = await this.$api.$post('/deleteRoom', {
+            roomId: row.roomId
+          });
+          if (resp.success) {
+            Element.Message.success(resp.message);
+            // await this.$router.push('/admin/room');
+            window.location.reload();
+          } else {
+            Element.Message.error(resp.message);
+          }
+        })
+        .catch(() => {
+        });
     }
+
   }
 };
 </script>

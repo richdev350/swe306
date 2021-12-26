@@ -10,13 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
 
     @Bean
-    public WebMvcConfigurer corsConfigurer()
-    {
+    public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").
-                        allowedOrigins("http://localhost","https://swe-306-final-project.vercel.app"). //allow all
+                        allowedOrigins("http://localhost:3000", "https://swe-306-final-project.vercel.app"). //allow all
                         allowedMethods("*"). //post, get, .etc
                         allowedHeaders("*"). //allow any header
                         allowCredentials(true). //with cookie

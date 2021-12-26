@@ -6,6 +6,7 @@
                        :column='1'
                        :label-style='{"align-items": "center"}'
                        :colon='false'
+                       border
       >
         <template v-if='isOperable' slot='extra'>
           <nuxt-link v-if='reservation.status' :to='"/edit/reserved/"+reservation.reserveId'>
@@ -32,7 +33,15 @@
                   class='member-tag'>
             {{ member.firstName + ' ' + member.lastName + ' (' + member.username + ')' }}
           </el-tag>
-
+        </el-descriptions-item>
+        <el-descriptions-item label='Status'>
+          <el-tag v-if='reservation.status' :key='reservation.status'
+                  size='small'
+                  type='success'
+                  class='status-tag'>
+            Used
+          </el-tag>
+          <el-tag v-else type='warning' size='small'>Unused</el-tag>
         </el-descriptions-item>
       </el-descriptions>
     </el-card>
@@ -42,7 +51,7 @@
 <script>
 
 export default {
-  name: 'MyReservationCard',
+  name: 'UserReservationCard',
   props: {
     reservation: {
       type: Object,
