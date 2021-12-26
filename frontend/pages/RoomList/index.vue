@@ -1,9 +1,9 @@
 <template>
   <div>
     <CustomPageTitle>Room List</CustomPageTitle>
-    <div class="room-card-wrapper">
-      <div v-for="item in rooms" :key="item.id" class="room-card">
-        <RoomCard :room="item" />
+    <div class='list-card-wrapper'>
+      <div v-for='item in rooms' :key='item.id' class='room-card-item'>
+        <RoomCard :room='item' />
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      rooms: [],
+      rooms: []
     };
   },
   head() {
@@ -28,22 +28,22 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Available rooms for reservation',
-        },
-      ],
+          content: 'Available rooms for reservation'
+        }
+      ]
     };
   },
 
-  methods: {},
+  methods: {}
 };
 </script>
 
-<style scoped lang="scss">
-.room-card-wrapper {
+<style scoped lang='scss'>
+.list-card-wrapper {
   @apply flex flex-wrap flex-row justify-center;
 }
 
-.room-card {
+.room-card-item {
   @apply mb-1.5;
   @apply md:mb-3.5;
   @apply md:mr-3.5;

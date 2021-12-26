@@ -2,7 +2,30 @@
   <div>
     <el-card shadow='never' class='resv-card'>
       <RoomCard :is-operable='false' :room='room' :border='false' shadow='never' />
-      <el-descriptions class='resv-details'>
+      <el-descriptions class='resv-details' title='Reservation Details'
+                       :column='1'
+                       :label-style='{"align-items": "center"}'
+                       :colon='false'
+      >
+        <template slot='extra'>
+          <nuxt-link v-if='room.status' :to='"/RoomList/"+room.roomId'>
+            <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>
+              Edit
+            </el-button>
+          </nuxt-link>
+
+        </template>
+        <el-descriptions-item label='Time'>
+          <el-date-picker
+            v-model='timeRange'
+            type='datetimerange'
+            range-separator='-'
+            start-placeholder='Start'
+            end-placeholder='End'
+            readonly
+          >
+          </el-date-picker>
+        </el-descriptions-item>
         <el-descriptions-item label='Members'>
           <el-tag v-for='member in members' :key='member.userId'
                   size='small'
@@ -10,15 +33,6 @@
             {{ member.firstName + ' ' + member.lastName + ' (' + member.username + ')' }}
           </el-tag>
 
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <el-date-picker
-            v-model='timeRange'
-            type='datetimerange'
-            range-separator='至'
-            start-placeholder='开始日期'
-            end-placeholder='结束日期'>
-          </el-date-picker>
         </el-descriptions-item>
       </el-descriptions>
     </el-card>
@@ -87,6 +101,11 @@ export default {
 }
 
 .resv-details {
-  @apply m-3;
+  @apply mt-3;
+  @apply mx-5
+}
+
+.resv-card {
+  @apply mb-3;
 }
 </style>

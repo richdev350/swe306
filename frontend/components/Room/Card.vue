@@ -1,6 +1,6 @@
 <template>
-  <div class='room-card-wrapper'>
-    <el-card class='room-card' :shadow='shadow' :style='cardStyle' :body-style='bodyStyle'>
+  <div class='list-card-wrapper'>
+    <el-card class='room-card' :shadow='shadow' :style='cardStyle'>
       <el-descriptions class='margin-top' :title='room.roomNo' :column='handleColumnNum' :size='descSize' border>
         <template v-if='isOperable' slot='extra'>
           <nuxt-link v-if='room.status' :to='"/RoomList/"+room.roomId'>
@@ -19,7 +19,6 @@
             Room Name
           </template>
           {{ room.roomName }}
-          {{ bodyStyle }}
 
         </el-descriptions-item>
         <el-descriptions-item>
@@ -69,10 +68,6 @@ export default {
     shadow: {
       type: String,
       default: 'hover'
-    },
-    bodyStyle: {
-      type: Object,
-      default: () => ({})
     },
     border: {
       type: Boolean,
