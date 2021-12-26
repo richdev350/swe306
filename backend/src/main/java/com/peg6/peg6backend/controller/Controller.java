@@ -110,15 +110,15 @@ public class Controller {
             } else if (result == -1) {
                 resp.setSuccess(false);
                 resp.setMessage("Make Reservation Failed");
-            } else if(result < -1){
+            } else if (result < -1) {
                 resp.setSuccess(false);
                 Integer conflictRoomId = (result + 1) * -1;//Not Used for now
                 resp.setMessage("Room is unavailable during the selected time range.");
                 resp.setContent(conflictRoomId);
-            } else{
+            } else {
                 resp.setSuccess(false);
                 User conflictUser = userServer.getUserByUserId(result);
-                resp.setMessage("Student " + conflictUser.getUsername() + " (" +conflictUser.getFirstName()+ " " +
+                resp.setMessage("Student " + conflictUser.getUsername() + " (" + conflictUser.getFirstName() + " " +
                         conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
@@ -144,15 +144,15 @@ public class Controller {
             } else if (result == -1) {
                 resp.setSuccess(false);
                 resp.setMessage("Update Reservation Failed");
-            }else if(result < -1){
+            } else if (result < -1) {
                 resp.setSuccess(false);
                 Integer conflictRoomId = (result + 1) * -1;
                 resp.setMessage("Room is unavailable during the selected time range.");
                 resp.setContent(conflictRoomId);
-            }else {
+            } else {
                 resp.setSuccess(false);
                 User conflictUser = userServer.getUserByUserId(result);
-                resp.setMessage("Student " + conflictUser.getUsername() + " (" +conflictUser.getFirstName()+ " " +
+                resp.setMessage("Student " + conflictUser.getUsername() + " (" + conflictUser.getFirstName() + " " +
                         conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
@@ -343,7 +343,7 @@ public class Controller {
     @PostMapping("/api/addUser")
     public CommonResp addUser(@CookieValue(name = "authToken") String Token, @RequestBody UserReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (userServer.getUserByUsername(req.getUsername()) != null) {
                 resp.setSuccess(false);
                 resp.setMessage("User Already Exist!");
@@ -365,7 +365,7 @@ public class Controller {
     @PostMapping("/api/updateUser")
     public CommonResp updateUser(@CookieValue(name = "authToken") String Token, @RequestBody UserReq req) {
         CommonResp resp = new CommonResp();
-        if (authenticateServer.authenticateToken(req.getToken())) {
+        if (authenticateServer.authenticateToken(Token)) {
             if (userServer.getUserByUserId(req.getUserId()) == null) {
                 resp.setSuccess(false);
                 resp.setMessage("User Not Found!");
