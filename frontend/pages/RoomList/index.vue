@@ -1,18 +1,15 @@
 <template>
   <div>
     <CustomPageTitle>Room List</CustomPageTitle>
-    <div class='room-card-wrapper'>
-      <div v-for='item in rooms'
-           :key='item.id' class='room-card'>
-        <RoomCard :room='item' />
+    <div class="room-card-wrapper">
+      <div v-for="item in rooms" :key="item.id" class="room-card">
+        <RoomCard :room="item" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
-
 export default {
   middleware: ['auth'],
   async asyncData({ store }) {
@@ -21,7 +18,7 @@ export default {
   },
   data() {
     return {
-      rooms: []
+      rooms: [],
     };
   },
   head() {
@@ -31,20 +28,17 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Available rooms for reservation'
-        }
-      ]
+          content: 'Available rooms for reservation',
+        },
+      ],
     };
   },
 
-  methods: {
-
-  }
-
+  methods: {},
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .room-card-wrapper {
   @apply flex flex-wrap flex-row justify-center;
 }
