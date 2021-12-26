@@ -1,20 +1,15 @@
 <template>
-  <div class=''>
+  <div>
     <CustomPageTitle>Room List</CustomPageTitle>
-
-    <div class='my-10 ml-20 mr-0 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
-      <div class= 'flex mb-20 md:flex-col md:mx-10 xl:mt-15 mx-15'
-        v-for='item in rooms' :key='item.id'  >
+    <div class='room-card-wrapper'>
+      <div v-for='item in rooms' :key='item.id' class='room-card-item'>
         <RoomCard :room='item' />
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-
-
 export default {
   middleware: ['auth'],
   async asyncData({ store }) {
@@ -40,12 +35,18 @@ export default {
   },
 
   methods: {}
-
 };
 </script>
 
 <style scoped lang='scss'>
-.container{
+.room-card-wrapper {
+  @apply flex flex-wrap flex-row justify-center;
+}
 
+.room-card-item {
+  @apply mb-1.5;
+  @apply md:mb-3.5;
+  @apply md:mr-3.5;
+  @apply w-96;
 }
 </style>

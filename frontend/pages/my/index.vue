@@ -1,7 +1,7 @@
 <template>
   <div>
     <CustomPageTitle>Profile</CustomPageTitle>
-    <MyInfoCard :user='currentUser' />
+    <MyInfoCard :user='loggedInUser' />
   </div>
 </template>
 
@@ -20,11 +20,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentUser'])
+    ...mapGetters(['loggedInUser'])
   }
 };
 </script>
 
 <style scoped lang='scss'>
-
+.room-card-wrapper {
+  @apply flex flex-wrap flex-row justify-center;
+}
 </style>

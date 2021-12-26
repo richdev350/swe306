@@ -35,7 +35,13 @@ export const actions = {
   async logout({ commit }) {
     this.$cookies.remove('authToken');
     commit('SET_AUTH_TOKEN', null);
-    commit('SET_USER', {});
+    commit('SET_USER', {
+      id: null,
+      username: null,
+      fullName: null,
+      phoneNum: null,
+      role: null,
+    });
     await this.$router.push('/');
   },
   async login({ commit }, { username, password }) {
@@ -59,9 +65,6 @@ export const getters = {
     return state.authToken !== null;
   },
   loggedInUser(state) {
-    return state.user;
-  },
-  currentUser(state) {
     return state.user;
   },
 };

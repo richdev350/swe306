@@ -1,5 +1,5 @@
 <template>
-  <div class='my-20'>
+  <div class=''>
     <div class=''></div>
     <el-card class='box-card'>
       <CustomPageTitle align='center'>
@@ -12,7 +12,7 @@
         <span class='emphasis'>Any activities that are not academic related are strictly forbidden.</span>
       </div>
       <div class='text item'>
-        2. Room reservation is limited within the classroom/library operation time <b>from 08:00 to 23:00</b> (Public
+        2. Room reservation is limited within the classroom/library operation time <b>from 08:30 to 22:30</b> (Public
         holidays are not included).
         <span class='emphasis'> Any reservation beyond the operation time will not be allowed.</span>
       </div>
