@@ -102,13 +102,17 @@ public class Controller {
             int result = reservationServer.makeReservationByUserId(req);
             if (result == 0) {
                 resp.setMessage("Make Reservation Success");
-            } else if (result < 0) {
+            } else if (result == -1) {
                 resp.setSuccess(false);
                 resp.setMessage("Make Reservation Failed");
-            } else {
+            } else if(result < -1){
+                resp.setSuccess(false);
+                Integer conflictRoomId = (result + 1) * -1;//Not Used for now
+                resp.setMessage("Room is unavailable during the selected time range.");
+                resp.setContent(conflictRoomId);
+            } else{
                 resp.setSuccess(false);
                 User conflictUser = userServer.getUserByUserId(result);
-
                 resp.setMessage("Student " + conflictUser.getUsername() + " (" +conflictUser.getFirstName()+ " " +
                         conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
@@ -133,12 +137,19 @@ public class Controller {
             int result = reservationServer.updateReservationByUserId(req, req.getReserveId().toString());
             if (result == 0) {
                 resp.setMessage("Update Reservation Success");
-            } else if (result < 0) {
+            } else if (result == -1) {
                 resp.setSuccess(false);
                 resp.setMessage("Update Reservation Failed");
-            } else {
+            }else if(result < -1){
                 resp.setSuccess(false);
-                resp.setMessage("Student " + result + " have time conflict!");
+                Integer conflictRoomId = (result + 1) * -1;
+                resp.setMessage("Room is unavailable during the selected time range.");
+                resp.setContent(conflictRoomId);
+            }else {
+                resp.setSuccess(false);
+                User conflictUser = userServer.getUserByUserId(result);
+                resp.setMessage("Student " + conflictUser.getUsername() + " (" +conflictUser.getFirstName()+ " " +
+                        conflictUser.getLastName() + ")" + " have time conflict!");
                 resp.setContent(result);
             }
         } else {
