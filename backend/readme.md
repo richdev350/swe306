@@ -1,16 +1,18 @@
-# swe301-backend
+# swe306-backend
 
-### Set Up
+Backend is a Maven project, tech stack used in the backend:
 
-1. Execute the file in the following path in MySQL:
+SpringBoot Framework + MyBatis
+
+## Setup
+
+1. Import `Mysql` Database with mock data
 
    ```bash
    database/db.sql
    ```
 
-   
-
-2. Modify the configuration file in the following path:
+2. Modify the configuration file in the following path
 
    ```bash
    backend/src/main/resources/application.properties
@@ -26,6 +28,4 @@
    spring.datasource.password = {Password}
    ```
 
-
-
-3. Run
+3. Run the Maven Project to start the backend at `:8080`
