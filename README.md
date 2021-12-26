@@ -9,7 +9,7 @@ Backend-Frontend Separation
 ```
 backend/   # SpringBoot + MyBatis
 frontend/  #(vue2 + element-ui + nuxtjs + axios)
-databas/   # sql file (mysql)
+database/   # sql file (mysql)
 ```
 
 The setups for backend-frontend servers, please looking for the `README.md` under corresponding directory.
