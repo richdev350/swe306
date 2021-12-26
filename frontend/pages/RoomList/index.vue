@@ -1,13 +1,12 @@
 <template>
-  <div class=''>
+  <div>
     <CustomPageTitle>Room List</CustomPageTitle>
-    <div v-for='item in rooms'
-         :key='item.id' class='room-card-item'>
-      <div>
+    <div class='room-card-wrapper'>
+      <div v-for='item in rooms'
+           :key='item.id' class='room-card'>
         <RoomCard :room='item' />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -38,17 +37,22 @@ export default {
     };
   },
 
-  methods: {}
+  methods: {
+
+  }
 
 };
 </script>
 
 <style scoped lang='scss'>
-.card_bottom {
-  margin-bottom: 50px;
+.room-card-wrapper {
+  @apply flex flex-wrap flex-row justify-center;
 }
 
-.room-card-item {
-  @apply m-3.5;
+.room-card {
+  @apply mb-1.5;
+  @apply md:mb-3.5;
+  @apply md:mr-3.5;
+  @apply w-96;
 }
 </style>

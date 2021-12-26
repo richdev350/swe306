@@ -1,5 +1,5 @@
 <template>
-  <el-footer>
+  <el-footer class='footer'>
     Footer
   </el-footer>
 </template>
@@ -10,6 +10,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 
 </style>

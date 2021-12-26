@@ -9,7 +9,7 @@
         Student ID
       </el-col>
       <el-divider direction='vertical'></el-divider>
-      <el-col class='val-name'>{{ currentUser.username }}</el-col>
+      <el-col class='val-name'>{{ loggedInUser.username }}</el-col>
     </el-row>
 
     <el-row type='flex'>
@@ -18,7 +18,7 @@
         Name
       </el-col>
       <el-divider direction='vertical'></el-divider>
-      <el-col class='val-name'>{{ currentUser.fullName }}</el-col>
+      <el-col class='val-name'>{{ loggedInUser.fullName }}</el-col>
     </el-row>
 
     <el-row type='flex'>
@@ -27,7 +27,7 @@
         Phone
       </el-col>
       <el-divider direction='vertical'></el-divider>
-      <el-col class='val-name'>{{ currentUser.phoneNum }}</el-col>
+      <el-col class='val-name'>{{ loggedInUser.phoneNum }}</el-col>
     </el-row>
     <el-row type='flex'>
       <el-col class='key-name' :span='spanleft'>
@@ -35,7 +35,7 @@
         Role
       </el-col>
       <el-divider direction='vertical'></el-divider>
-      <el-col class='val-name'>{{ currentUser.role }}</el-col>
+      <el-col class='val-name'>{{ loggedInUser.role }}</el-col>
     </el-row>
 
   </el-card>
@@ -54,8 +54,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['currentUser'])
-    // currentUser() {
+    ...mapGetters(['loggedInUser'])
+    // loggedInUser() {
     //   const user = this.user;
     //   return {
     //     // todo: can i define everything in one file (to avoid repetition and modification)?

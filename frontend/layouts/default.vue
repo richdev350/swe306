@@ -1,10 +1,14 @@
 <template>
   <div class='main-container'>
-    <HomeMainHeader />
-    <div class='main-body'>
-      <Nuxt />
-    </div>
-    <HomeMainFooter />
+    <el-container direction='vertical'>
+      <HomeMainHeader />
+      <el-main>
+        <div class='main-body'>
+          <Nuxt />
+        </div>
+      </el-main>
+      <HomeMainFooter />
+    </el-container>
   </div>
 </template>
 
@@ -18,19 +22,15 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-// TODO mixin with media queries
-// TODO use tailwindcss
 .main-container {
-  @apply md:px-20;
-  @apply lg:px-32;
-  @apply xl:px-48;
-  //@apply sm:px-2;
-  //@apply md:px-52;
-  //@apply sm:bg-black;
-  //@apply md:bg-red-400;
+  @apply sm:px-0;
+  @apply md:px-14;
+  @apply xl:px-32;
+  @apply 2xl:px-48;
 }
 
 .main-body {
-  @apply px-6
+  @apply px-6;
+  @apply h-full;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <CustomPageTitle>Profile</CustomPageTitle>
-    <MyInfoCard :user='currentUser' />
+    <MyInfoCard :user='loggedInUser' />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentUser'])
+    ...mapGetters(['loggedInUser'])
   }
 };
 </script>

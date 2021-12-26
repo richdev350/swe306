@@ -19,7 +19,7 @@
               {{ item.title }}
             </el-menu-item>
           </template>
-          <el-submenu v-if='currentUser.role === "Admin"' index='/admin'>
+          <el-submenu v-if='isAdmin' index='/admin'>
             <template slot='title'>
               <span>System Dashboard</span>
             </template>
@@ -35,7 +35,7 @@
           </el-submenu>
           <el-submenu v-if='isAuthenticated' index='/my'>
             <template slot='title'>
-              <span>{{ currentUser.fullName }}</span>
+              <span>{{ loggedInUser.fullName }}</span>
             </template>
             <el-menu-item index='/my/reservation'>
               My Reservation
@@ -70,17 +70,17 @@ export default {
       menuItems: [
         {
           index: '/home',
-          title: 'Home',
+          title: this.$t('nav.home'),
           status: true
         },
         {
           index: '/RoomList',
-          title: 'Room List',
+          title: this.$t('nav.roomList'),
           status: true
         },
         {
           index: '/regulations',
-          title: 'Regulations',
+          title: this.$t('nav.regulations'),
           status: true
         }
       ]
@@ -90,7 +90,10 @@ export default {
     routePath() {
       return this.$nuxt.$route.path;
     },
-    ...mapGetters(['currentUser', 'isAuthenticated'])
+    isAdmin() {
+      return this.isAuthenticated && this.loggedInUser.role === 'Admin';
+    },
+    ...mapGetters(['loggedInUser', 'isAuthenticated'])
 
   },
   methods: {

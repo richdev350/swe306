@@ -4,7 +4,8 @@
       <el-descriptions class='margin-top' :title='room.roomNo' :column='columnHandler' :size='cardSize' border>
         <template v-if='isOperable' slot='extra'>
           <nuxt-link :to='"/RoomList/"+room.roomId'>
-            <el-button type='primary' size='small' icon='el-icon-edit'>Make Reservation</el-button>
+            <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>Make Reservation
+            </el-button>
           </nuxt-link>
         </template>
         <el-descriptions-item>
