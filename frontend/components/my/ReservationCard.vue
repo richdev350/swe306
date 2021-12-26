@@ -7,8 +7,9 @@
                        :label-style='{"align-items": "center"}'
                        :colon='false'
       >
-        <template slot='extra'>
-          <nuxt-link v-if='room.status' :to='"/RoomList/"+room.roomId'>
+        <template v-if='isOperable' slot='extra'>
+          {{ reservation }}
+          <nuxt-link v-if='room.status' :to='"/edit/reserved/"+reservation.reserveId'>
             <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>
               Edit
             </el-button>
@@ -47,7 +48,12 @@ export default {
     reservation: {
       type: Object,
       required: true
-    }
+    },
+    isOperable: {
+      type: Boolean,
+      default: true
+    },
+
   },
   data() {
     return {
