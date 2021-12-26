@@ -16,6 +16,7 @@ public class ReservationServer {
     @Resource
     private ReservationMapper reservationMapper;
 
+
     public List<ReservationResp> getReservationByUserId(Integer userId){
         String userIdString = "%,"+userId+",%";
         List<Reservation> reservationList =  reservationMapper.getReservationByUserId(userId, userIdString);
@@ -159,7 +160,7 @@ public class ReservationServer {
         memberList.remove(0);
         ReservationResp reservationResp = new ReservationResp();
 
-        reservationResp.setReserveId(reservation.getreserveId());
+        reservationResp.setReserveId(reservation.getReserveId());
         reservationResp.setUserId(Integer.parseInt(reservation.getUserId()));
         reservationResp.setRoomId(Integer.parseInt(reservation.getRoomId()));
         reservationResp.setMemberNum(reservation.getMemberNum());

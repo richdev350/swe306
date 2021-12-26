@@ -12,6 +12,8 @@ import java.util.List;
 public class RoomServer {
     @Resource
     private RoomMapper roomMapper;
+    @Resource
+    private AuthenticateServer authenticateServer;
 
     public List<Room> getRoomList(){
         return roomMapper.getRoomList();
