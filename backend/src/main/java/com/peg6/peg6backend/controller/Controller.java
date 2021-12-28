@@ -163,7 +163,6 @@ public class Controller {
         return authenticateServer.wrongToken();
     }
 
-
     @PostMapping("/api/deleteReservation")
     public CommonResp deleteReservation(@CookieValue(name = "authToken") String Token, @RequestBody JSONObject jsonParam) {
         Integer reserveId = Integer.parseInt(jsonParam.getString("reserveId"));
@@ -250,21 +249,15 @@ public class Controller {
     public CommonResp updateRoom(@CookieValue(name = "authToken") String Token, @RequestBody RoomReq req) {
         CommonResp resp = new CommonResp();
         if (authenticateServer.authenticateToken(Token)) {
-            if (roomServer.getRoomByRoomNo(req.getRoomNo()) == null) {
-                resp.setSuccess(false);
-                resp.setMessage("Room Already Exist!");
+            boolean result = roomServer.updateRoom(req);
+            if (result) {
+                resp.setMessage("Update Room Success");
             } else {
-                boolean result = roomServer.updateRoom(req);
-                if (result) {
-                    resp.setMessage("Update Room Success");
-                } else {
-                    resp.setSuccess(false);
-                    resp.setMessage("Update Room Failed");
-                }
+                resp.setSuccess(false);
+                resp.setMessage("Update Room Failed");
             }
             return resp;
         }
-
         return authenticateServer.wrongToken();
     }
 
@@ -291,7 +284,6 @@ public class Controller {
 
         return authenticateServer.wrongToken();
     }
-
 
     @GetMapping("/api/getUserAll")
     public CommonResp getUserAll(@CookieValue(name = "authToken") String Token) {
