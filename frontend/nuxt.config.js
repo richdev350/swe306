@@ -91,7 +91,7 @@ export default {
   },
   proxy: {
     '/api': {
-      target: 'http://localhost:8080/api',
+      target: 'http://111.229.100.125:8080/api',
       pathRewrite: {
         '^/api': '/',
       },
