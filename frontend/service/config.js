@@ -1,22 +1,24 @@
 import http from 'http';
 import https from 'https';
 
-// axios custom config
-// used in axios plugin
+// axios config for $api
 export default {
-  // baseURL: 'http://localhost:8080/SWE306_FinalProejct_Backend_war_exploded',
-  proxy: true,
-  baseURL: '/api',
+  // baseURL: 'http://111.229.100.125/api',
+  baseURL: 'http://localhost:8080/api',
+  // no need to proxy since backend has allowed CORS
+  proxy: false,
+  // baseURL: '/api',
   headers: {
     common: {
       Accept: 'text/plain, */*'
     },
     'X-Requested-With': 'XMLHttpRequest',
-    'X-Agent': 'swe301/Web'
+    'X-Agent': 'swe306/Web',
   },
   timeout: 5000,
-  // cors with credentials
+  // cors proxy with credentials
   withCredentials: true,
+
   // responseType: 'json',
   // xsrf
   // this is useless

@@ -86,7 +86,7 @@ export default {
     let reservationInstance = {};
     if (resp.success) {
       reservationInstance = resp.content;
-      if (reservationInstance.status === 0) {
+      if (reservationInstance.status === 1) {
         await app.router.push('/my/reservation');
       }
     } else {
