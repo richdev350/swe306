@@ -108,7 +108,7 @@ export default {
             roomId: reservation.roomId,
             roomName: room.roomName,
             date: reservation.startTime.split(' ')[0],
-            timeRange: reservation.startTime.split(' ')[1] + ' - ' + reservation.startTime.split(' ')[1],
+            timeRange: reservation.startTime.split(' ')[1] + ' - ' + reservation.endTime.split(' ')[1],
             status: reservation.status,
             mainUser: user.username
           });
