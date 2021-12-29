@@ -9,11 +9,16 @@
                        border
       >
         <template v-if='isOperable' slot='extra'>
-          <nuxt-link v-if='reservation.status' :to='"/edit/reserved/"+reservation.reserveId'>
-            <el-button type='primary' size='small' icon='el-icon-edit' :disabled='!room.status'>
+          <nuxt-link v-if='!reservation.status' :to='"/edit/reserved/"+reservation.reserveId'>
+            <el-button type='primary' size='small' icon='el-icon-edit'>
               Edit
             </el-button>
           </nuxt-link>
+
+          <el-button v-else type='primary' size='small' icon='el-icon-edit' disabled>
+            Edit
+          </el-button>
+
 
         </template>
         <el-descriptions-item label='Time'>
