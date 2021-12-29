@@ -13,3 +13,6 @@ database/   # sql file (mysql)
 ```
 
 The setups for backend-frontend servers, please looking for the `README.md` under corresponding directory.
+
+## TODO
+- [ ] Docker deployment
