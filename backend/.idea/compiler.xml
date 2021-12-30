@@ -11,14 +11,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PE Final Backend" target="11" />
       <module name="peg6backend" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="PE Final Backend" options="-parameters" />
-      <module name="peg6backend" options="-parameters --add-modules java.base" />
+      <module name="peg6backend" options="-parameters" />
     </option>
   </component>
 </project>
