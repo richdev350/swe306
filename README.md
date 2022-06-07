@@ -1,4 +1,4 @@
-# SWE306 Final Project
+# SWE306
 
 Title: XMUM Discussion Room Reservation System
 
